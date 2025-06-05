@@ -1,8 +1,13 @@
 <!doctype html>
 <html>
 <head>
-    <title>Ad Reward System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto MoneTag Ads</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             margin: 0;
             padding: 0;
@@ -12,7 +17,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            padding: 20px;
         }
         .container {
             text-align: center;
@@ -20,56 +26,101 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            width: 300px;
+            width: 100%;
+            max-width: 400px;
         }
         .container h1 {
-            font-size: 20px;
-            color: green;
+            font-size: 22px;
+            color: #4CAF50;
             margin-bottom: 10px;
         }
         .developer {
             font-size: 12px;
-            background-color: green;
+            background-color: #4CAF50;
             padding: 5px 10px;
             border-radius: 5px;
             margin-bottom: 15px;
             display: inline-block;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .developer:hover {
+            background-color: #45a049;
         }
         .stats {
-            margin: 10px 0;
+            margin: 15px 0;
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
         }
         .stats p {
-            margin: 5px 0;
-            font-size: 14px;
+            margin: 8px 0;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .stats span {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .progress-container {
+            margin: 20px 0;
         }
         .progress-circle {
-            width: 80px;
-            height: 80px;
-            border: 4px solid green;
+            width: 100px;
+            height: 100px;
+            border: 6px solid #333;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 10px auto;
+            margin: 0 auto;
+            position: relative;
+        }
+        .progress-circle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 6px solid #4CAF50;
+            border-radius: 50%;
+            clip: rect(0, 50px, 100px, 0);
+            transform: rotate(0deg);
         }
         .progress-circle span {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
+            z-index: 1;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
         }
         .buttons button {
-            width: 90%;
-            margin: 5px 0;
-            padding: 10px;
-            font-size: 14px;
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
             border: none;
             border-radius: 5px;
             color: white;
-            background: green;
+            background: #4CAF50;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
         .buttons button:hover {
-            background: darkorange;
+            background: #45a049;
+        }
+        .buttons button:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+        #stop-auto-btn {
+            background: #f44336;
+        }
+        #stop-auto-btn:hover {
+            background: #d32f2f;
         }
         .withdraw-section {
             margin-top: 20px;
@@ -79,7 +130,13 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
-        .withdraw-section input, .withdraw-section select {
+        .withdraw-section h3 {
+            color: #FF9800;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .withdraw-section input, 
+        .withdraw-section select {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
@@ -87,34 +144,71 @@
             border: 2px solid #555;
             background-color: #333;
             color: #fff;
+            font-size: 14px;
         }
-        .withdraw-section input:focus, .withdraw-section select:focus {
-            border-color: green;
+        .withdraw-section input:focus, 
+        .withdraw-section select:focus {
+            border-color: #4CAF50;
             outline: none;
         }
         .withdraw-section button {
-            background-color: green;
+            background-color: #4CAF50;
             width: 100%;
             padding: 12px;
             font-size: 16px;
             margin-top: 15px;
             border-radius: 5px;
             cursor: pointer;
+            border: none;
+            color: white;
+            transition: background-color 0.3s;
         }
         .withdraw-section button:hover {
-            background-color: #006400;
+            background-color: #45a049;
         }
         #withdraw-status {
-            color: red;
+            color: #FF9800;
             font-size: 14px;
             margin-top: 10px;
+            text-align: center;
         }
         .user-info {
-            margin: 10px 0;
+            margin: 15px 0;
+            background: #2a2a2a;
+            padding: 12px;
+            border-radius: 8px;
         }
         .user-info p {
-            font-size: 14px;
+            font-size: 15px;
             margin: 5px 0;
+        }
+        .info-text {
+            font-size: 13px;
+            color: #aaa;
+            margin-top: 15px;
+            line-height: 1.4;
+        }
+        .rate-info {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .ad-container {
+            margin: 15px 0;
+            padding: 10px;
+            background: #2a2a2a;
+            border-radius: 8px;
+        }
+        @media (max-width: 400px) {
+            .container {
+                padding: 15px;
+            }
+            .progress-circle {
+                width: 80px;
+                height: 80px;
+            }
         }
     </style>
 </head>
@@ -126,154 +220,304 @@
         <!-- Display User Info -->
         <div class="user-info">
             <p>Welcome, <span id="user-name">User</span></p>
+            <p>User ID: <span id="user-id">12345</span></p>
         </div>
 
         <div class="stats">
             <p>Watched Ads: <span id="watched-ads">0</span></p>
-            <p>Earned Points: <span id="earned-points">0</span></p>
+            <p>Earned Points: <span id="earned-points">0.00</span></p>
+            <p>Your Income: <span id="earned-money">0.00</span> Taka</p>
         </div>
-        <div class="progress-circle">
-            <span id="ads-progress">0%</span>
+        
+        <div class="rate-info">
+            <p>10 Ads = 1 Taka</p>
+            <p>Minimum Withdraw: 10 Taka</p>
         </div>
+
+        <div class="progress-container">
+            <div class="progress-circle">
+                <span id="ads-progress">0%</span>
+            </div>
+        </div>
+        
+        <!-- Ad Container -->
+        <div class="ad-container" id="ad-container">
+            <!-- Monetag ad will be loaded here -->
+        </div>
+        
         <div class="buttons">
-            <button id="watch-ad-btn" onclick="watchAd()">Watch Ad</button>
+            <button id="watch-ad-btn" onclick="watchAd()">Watch Ad (0.10 Taka)</button>
             <button id="auto-ad-btn" onclick="startAutoAds()">Auto Show Ads</button>
             <button id="stop-auto-btn" onclick="stopAutoAds()" disabled>Stop Auto Ads</button>
-            <button id="withdraw-btn" onclick="showWithdrawForm()">Withdraw Points</button>
+            <button onclick="showWithdrawForm()">Withdraw Money</button>
         </div>
+
+        <p class="info-text">
+            Earn money by watching ads. For every 10 ads you watch, you earn 1 Taka. 
+            Minimum withdrawal amount is 10 Taka.
+        </p>
 
         <!-- Withdraw Section -->
         <div class="withdraw-section" id="withdraw-section">
-            <h3 style="color: orange; margin-bottom: 15px;">Withdrawal Request</h3>
-            <input type="number" id="withdraw-amount" placeholder="Enter Points to Withdraw" />
+            <h3>Withdrawal Request</h3>
+            <input type="number" id="withdraw-amount" placeholder="Enter Amount (Taka)" min="10" step="1" />
             <select id="payment-method">
+                <option value="" disabled selected>Select Payment Method</option>
                 <option value="bkash">Bkash</option>
                 <option value="nagad">Nagad</option>
                 <option value="rocket">Rocket</option>
             </select>
-            <input type="text" id="withdraw-phone" placeholder="Enter Phone Number" />
-            <button onclick="withdrawPoints()">Withdraw</button>
+            <input type="text" id="withdraw-phone" placeholder="Enter Phone Number (01XXXXXXXXX)" pattern="01[3-9]{1}[0-9]{8}" />
+            <button onclick="withdrawPoints()">Submit Withdrawal</button>
             <p id="withdraw-status"></p>
         </div>
     </div>
 
+    <!-- Monetag Ad Script -->
     <script>
-        const MIN_WITHDRAW_POINTS = 5;
-        const YOUR_TELEGRAM_CHAT_ID = "7851054198"; // Your Telegram Chat ID
+        // Constants
+        const ADS_PER_TAKA = 10;
+        const MIN_WITHDRAW_TAKA = 10;
+        const POINTS_PER_AD = 0.10; // 0.10 Taka per ad
+        const ADMIN_USER_ID = 7851054198; // Your Telegram ID
         const BOT_TOKEN = "7474129750:AAHDOrtYnulZqB5V3CH2XaHR_02t_PVwi7M"; // Your bot token
+        const MONETAG_ZONE_ID = '9009473'; // Your Monetag zone ID
         
+        // Variables
         let watchedAdsCount = 0;
         let earnedPoints = 0.00;
         let autoAdInterval;
-        let username = "User";
+        let isAutoMode = false;
+        let currentAd = null;
 
-        // Check if user data is saved in localStorage
-        if (localStorage.getItem('watchedAdsCount')) {
-            watchedAdsCount = parseInt(localStorage.getItem('watchedAdsCount'));
-            earnedPoints = parseFloat(localStorage.getItem('earnedPoints'));
-            document.getElementById('watched-ads').textContent = watchedAdsCount;
-            document.getElementById('earned-points').textContent = earnedPoints.toFixed(2);
+        // Initialize the app
+        function initApp() {
+            loadUserData();
+            updateUI();
+            loadMonetagScript();
         }
 
-        // Function to watch an ad and update stats
-        function watchAd() {
-            // Simulate ad watching (replace with actual ad integration)
-            setTimeout(() => {
-                watchedAdsCount++;
-                document.getElementById('watched-ads').textContent = watchedAdsCount;
-                earnedPoints += 0.50; // Add 0.50 points per ad watched
-                document.getElementById('earned-points').textContent = earnedPoints.toFixed(2);
-                localStorage.setItem('watchedAdsCount', watchedAdsCount);
-                localStorage.setItem('earnedPoints', earnedPoints.toFixed(2));
+        // Load Monetag script dynamically
+        function loadMonetagScript() {
+            const script = document.createElement('script');
+            script.src = `//whephiwums.com/sdk.js?zone=${MONETAG_ZONE_ID}`;
+            script.async = true;
+            script.onload = () => {
+                console.log('Monetag script loaded successfully');
+            };
+            script.onerror = () => {
+                console.error('Failed to load Monetag script');
+                document.getElementById('ad-container').innerHTML = 
+                    '<p style="color:red;">Ad system not available. Please try again later.</p>';
+            };
+            document.head.appendChild(script);
+        }
 
-                // Update progress circle
-                updateProgressCircle();
-            }, 1000);
+        // Load user data from localStorage
+        function loadUserData() {
+            if (localStorage.getItem('watchedAdsCount')) {
+                watchedAdsCount = parseInt(localStorage.getItem('watchedAdsCount'));
+                earnedPoints = parseFloat(localStorage.getItem('earnedPoints'));
+            }
+        }
+
+        // Save user data to localStorage
+        function saveUserData() {
+            localStorage.setItem('watchedAdsCount', watchedAdsCount);
+            localStorage.setItem('earnedPoints', earnedPoints.toFixed(2));
+        }
+
+        // Update all UI elements
+        function updateUI() {
+            document.getElementById('watched-ads').textContent = watchedAdsCount;
+            document.getElementById('earned-points').textContent = earnedPoints.toFixed(2);
+            document.getElementById('earned-money').textContent = (earnedPoints / ADS_PER_TAKA).toFixed(2);
+            updateProgressCircle();
+        }
+
+        // Function to watch an ad and earn points
+        function watchAd() {
+            if (typeof window.show_9009473 !== 'function') {
+                alert('Ad system is loading. Please wait...');
+                return;
+            }
+
+            document.getElementById('watch-ad-btn').disabled = true;
+            
+            try {
+                // Show the ad
+                window.show_9009473().then(() => {
+                    // Ad watched successfully
+                    watchedAdsCount++;
+                    earnedPoints += POINTS_PER_AD;
+                    
+                    saveUserData();
+                    updateUI();
+                    
+                    // Check if earned enough for 1 Taka
+                    if (watchedAdsCount % ADS_PER_TAKA === 0) {
+                        alert(`Congratulations! You've earned 1 Taka by watching ${ADS_PER_TAKA} ads.`);
+                    }
+                    
+                    document.getElementById('watch-ad-btn').disabled = false;
+                    
+                    // If in auto mode, continue after delay
+                    if (isAutoMode) {
+                        setTimeout(watchAd, 10000); // 10 seconds delay between auto ads
+                    }
+                }).catch(error => {
+                    console.error('Error showing ad:', error);
+                    document.getElementById('watch-ad-btn').disabled = false;
+                    alert('Failed to show ad. Please try again.');
+                    
+                    if (isAutoMode) {
+                        setTimeout(watchAd, 10000); // Retry after 10 seconds
+                    }
+                });
+            } catch (error) {
+                console.error('Error in ad system:', error);
+                document.getElementById('watch-ad-btn').disabled = false;
+                alert('Ad system error. Please refresh the page.');
+            }
         }
 
         // Update progress circle based on watched ads
         function updateProgressCircle() {
-            const percentage = (watchedAdsCount % 10) * 10; // Shows progress for every 10 ads
-            document.getElementById('ads-progress').textContent = `${percentage}%`;
+            const progress = (watchedAdsCount % ADS_PER_TAKA) / ADS_PER_TAKA * 100;
+            const progressCircle = document.querySelector('.progress-circle');
+            
+            progressCircle.style.background = `
+                conic-gradient(#4CAF50 ${progress}%, #333 ${progress}%)
+            `;
+            
+            document.getElementById('ads-progress').textContent = `${Math.round(progress)}%`;
         }
 
-        // Function to start auto showing ads
+        // Start auto ads mode
         function startAutoAds() {
-            autoAdInterval = setInterval(watchAd, 5000); // Auto show ad every 5 seconds
+            isAutoMode = true;
             document.getElementById('auto-ad-btn').disabled = true;
             document.getElementById('stop-auto-btn').disabled = false;
+            document.getElementById('watch-ad-btn').disabled = true;
+            
+            watchAd(); // Start the first ad
         }
 
-        // Function to stop auto ads
+        // Stop auto ads mode
         function stopAutoAds() {
-            clearInterval(autoAdInterval);
+            isAutoMode = false;
             document.getElementById('auto-ad-btn').disabled = false;
             document.getElementById('stop-auto-btn').disabled = true;
+            document.getElementById('watch-ad-btn').disabled = false;
         }
 
-        // Function to show withdraw form
+        // Show withdraw form
         function showWithdrawForm() {
+            const earnedTaka = earnedPoints / ADS_PER_TAKA;
+            
+            if (earnedTaka < MIN_WITHDRAW_TAKA) {
+                document.getElementById('withdraw-status').textContent = 
+                    `Minimum withdrawal amount is ${MIN_WITHDRAW_TAKA} Taka. You have ${earnedTaka.toFixed(2)} Taka.`;
+                document.getElementById('withdraw-section').style.display = 'block';
+                return;
+            }
+            
+            document.getElementById('withdraw-amount').value = '';
+            document.getElementById('withdraw-amount').max = earnedTaka.toFixed(2);
+            document.getElementById('withdraw-amount').placeholder = `Max: ${earnedTaka.toFixed(2)} Taka`;
+            document.getElementById('withdraw-phone').value = '';
+            document.getElementById('payment-method').selectedIndex = 0;
+            document.getElementById('withdraw-status').textContent = '';
             document.getElementById('withdraw-section').style.display = 'block';
         }
 
-        // Function to handle withdrawal
+        // Handle withdrawal request
         function withdrawPoints() {
             const amount = parseFloat(document.getElementById('withdraw-amount').value);
             const paymentMethod = document.getElementById('payment-method').value;
             const phoneNumber = document.getElementById('withdraw-phone').value;
-
-            if (isNaN(amount)) {
-                document.getElementById('withdraw-status').textContent = 'Please enter a valid amount';
+            const earnedTaka = earnedPoints / ADS_PER_TAKA;
+            
+            // Validate inputs
+            if (!amount || isNaN(amount)) {
+                document.getElementById('withdraw-status').textContent = 'Please enter a valid amount.';
                 return;
             }
-
-            if (amount < MIN_WITHDRAW_POINTS) {
-                document.getElementById('withdraw-status').textContent = `Minimum withdrawal amount is ${MIN_WITHDRAW_POINTS} points.`;
+            
+            if (amount < MIN_WITHDRAW_TAKA) {
+                document.getElementById('withdraw-status').textContent = 
+                    `Minimum withdrawal amount is ${MIN_WITHDRAW_TAKA} Taka.`;
                 return;
             }
-
-            if (amount > earnedPoints) {
-                document.getElementById('withdraw-status').textContent = `Insufficient balance. You have ${earnedPoints.toFixed(2)} points.`;
+            
+            if (amount > earnedTaka) {
+                document.getElementById('withdraw-status').textContent = 
+                    `Insufficient balance. You have ${earnedTaka.toFixed(2)} Taka.`;
                 return;
             }
-
-            if (!phoneNumber) {
-                document.getElementById('withdraw-status').textContent = 'Please enter your phone number';
+            
+            if (!paymentMethod) {
+                document.getElementById('withdraw-status').textContent = 'Please select a payment method.';
                 return;
             }
-
-            // Subtract points from earnedPoints after successful withdrawal
-            earnedPoints -= amount;
-            document.getElementById('earned-points').textContent = earnedPoints.toFixed(2);
-
-            // Save the updated balance in localStorage
-            localStorage.setItem('earnedPoints', earnedPoints.toFixed(2));
-
-            // Send withdrawal request to admin via Telegram
-            const message = `💰 New Withdrawal Request 💰\n\nUser: ${username}\nAmount: ${amount} points (≈${(amount*0.5).toFixed(2)}৳)\nPayment Method: ${paymentMethod}\nPhone Number: ${phoneNumber}\n\nCurrent Balance: ${earnedPoints.toFixed(2)} points`;
+            
+            if (!phoneNumber || !/^01[3-9][0-9]{8}$/.test(phoneNumber)) {
+                document.getElementById('withdraw-status').textContent = 'Please enter a valid Bangladeshi phone number.';
+                return;
+            }
+            
+            // Calculate points to deduct (1 Taka = 10 ads = 1 point)
+            const pointsToDeduct = amount * ADS_PER_TAKA;
+            
+            // Deduct points
+            earnedPoints -= pointsToDeduct;
+            if (earnedPoints < 0) earnedPoints = 0;
+            
+            // Save and update UI
+            saveUserData();
+            updateUI();
+            
+            // Prepare withdrawal message
+            const message = `📌 New Withdrawal Request 📌\n\n` +
+                             `👤 User: ${document.getElementById('user-name').textContent}\n` +
+                             `🆔 ID: ${document.getElementById('user-id').textContent}\n` +
+                             `💰 Amount: ${amount} Taka\n` +
+                             `📱 Payment Method: ${paymentMethod.toUpperCase()}\n` +
+                             `📞 Phone: ${phoneNumber}\n\n` +
+                             `📊 Watched Ads: ${watchedAdsCount}\n` +
+                             `💵 Total Earned: ${(earnedPoints / ADS_PER_TAKA).toFixed(2)} Taka`;
+            
+            // Send to admin
             sendWithdrawRequestToAdmin(message);
-
+            
             // Show success message
-            document.getElementById('withdraw-status').textContent = 'Withdrawal request sent successfully!';
-
-            // Clear form
-            document.getElementById('withdraw-amount').value = '';
-            document.getElementById('withdraw-phone').value = '';
+            document.getElementById('withdraw-status').textContent = 
+                'Withdrawal request submitted successfully! Processing may take 24-48 hours.';
+            document.getElementById('withdraw-status').style.color = '#4CAF50';
+            
+            // Reset form after 3 seconds
+            setTimeout(() => {
+                document.getElementById('withdraw-section').style.display = 'none';
+                document.getElementById('withdraw-status').style.color = '#FF9800';
+            }, 3000);
         }
 
-        // Function to send withdrawal request to admin
+        // Send withdrawal request to admin via Telegram bot
         function sendWithdrawRequestToAdmin(message) {
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${YOUR_TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}`)
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_USER_ID}&text=${encodeURIComponent(message)}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.ok) {
-                        console.log('Withdrawal request sent to Telegram');
+                        console.log('Withdrawal request sent to admin');
                     } else {
-                        console.error('Error sending message:', data);
+                        console.error('Failed to send withdrawal request');
                     }
                 })
                 .catch(error => console.error('Error sending message:', error));
         }
+
+        // Initialize the app when page loads
+        window.onload = initApp;
     </script>
 </body>
 </html>
