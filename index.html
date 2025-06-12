@@ -1,979 +1,564 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ads Income Hridoy</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Monetag SDK -->
-    <script src='//libtl.com/sdk.js' data-zone='9030947' data-sdk='show_9030947'></script>
     <style>
         :root {
-            --primary: #4361ee;
-            --primary-light: #4895ef;
-            --secondary: #3f37c9;
-            --success: #4cc9f0;
-            --danger: #f72585;
-            --warning: #f8961e;
-            --dark: #1a1a2e;
-            --light: #f8f9fa;
-            --bg-color: #f5f7fa;
-            --card-bg: #ffffff;
-            --text-dark: #14213d;
-            --text-light: #6c757d;
+            --primary: #6C5CE7;
+            --secondary: #A29BFE;
+            --accent: #FD79A8;
+            --dark: #2D3436;
+            --light: #FFFFFF;
+            --success: #00B894;
         }
         
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
         
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        
         body {
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            line-height: 1.6;
+            background-color: #F5F6FA;
+            color: var(--dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            padding: 20px;
         }
         
-        .container {
-            max-width: 100%;
-            padding: 15px;
-            flex: 1;
+        .app-container {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
         }
         
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .app-header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .app-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .app-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .earnings-section {
+            padding: 20px;
+            text-align: center;
+            background: white;
+        }
+        
+        .earnings-section h2 {
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .balance-card {
+            background: linear-gradient(to right, #00B894, #55EFC4);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.2);
+        }
+        
+        .balance-card .amount {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .balance-card .label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
             margin-bottom: 20px;
         }
         
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        .stat-item {
+            background: white;
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            color: white;
-            font-size: 20px;
+            padding: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
         }
         
-        .logo-text h1 {
+        .stat-item .value {
             font-size: 18px;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--primary);
+            margin-bottom: 3px;
         }
         
-        .logo-text p {
+        .stat-item .label {
             font-size: 12px;
-            color: var(--primary-light);
-            margin-top: -3px;
+            color: #636E72;
         }
         
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--primary-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 16px;
-        }
-        
-        /* Split View Layout */
-        .split-view {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .earnings-card, .progress-card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
+        .progress-section {
+            background: white;
+            border-radius: 15px;
             padding: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
         
-        /* Earnings Card */
-        .earnings-card {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .earnings-card::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 150px;
-            height: 150px;
-            background-color: rgba(67, 97, 238, 0.1);
-            border-radius: 50%;
-        }
-        
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        
-        .card-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-        }
-        
-        .card-title i {
-            margin-right: 8px;
-            color: var(--primary);
-        }
-        
-        .balance-amount {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 5px;
-            text-align: center;
-            padding: 8px 0;
-        }
-        
-        .balance-subtext {
-            font-size: 13px;
-            color: var(--text-light);
-            text-align: center;
-            margin-bottom: 12px;
-        }
-        
-        .rate-info {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 12px;
-        }
-        
-        .rate-item {
-            text-align: center;
-        }
-        
-        .rate-value {
+        .progress-section h3 {
             font-size: 16px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .rate-label {
-            font-size: 11px;
-            color: var(--text-light);
-        }
-        
-        /* Progress Card */
-        .progress-card {
-            position: relative;
-        }
-        
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-        
-        .progress-stats {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .stat-value {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .stat-label {
-            font-size: 11px;
-            color: var(--text-light);
-        }
-        
-        .progress-container {
-            margin-top: 15px;
+            margin-bottom: 10px;
+            color: var(--dark);
+            font-weight: 600;
         }
         
         .progress-bar {
-            height: 6px;
-            background-color: #e9ecef;
-            border-radius: 4px;
+            height: 10px;
+            background: #DFE6E9;
+            border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
         }
         
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 10px;
             width: 0%;
             transition: width 0.5s ease;
-            border-radius: 4px;
         }
         
         .progress-text {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            color: var(--text-light);
+            font-size: 14px;
+            color: #636E72;
+            text-align: right;
         }
         
-        /* Action Buttons */
         .action-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 15px;
+            gap: 15px;
+            margin-bottom: 20px;
         }
         
         .btn {
-            padding: 14px;
+            padding: 15px;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
+            font-size: 16px;
             font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            font-size: 14px;
-        }
-        
-        .btn i {
-            margin-right: 6px;
-            font-size: 16px;
+            gap: 8px;
         }
         
         .btn-primary {
-            background-color: var(--primary);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             color: white;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
         }
         
-        .btn-primary:hover {
-            background-color: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.2);
-        }
-        
-        .btn-outline {
-            background-color: white;
+        .btn-secondary {
+            background: white;
             color: var(--primary);
             border: 1px solid var(--primary);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
         
-        .btn-outline:hover {
-            background-color: rgba(67, 97, 238, 0.1);
-            transform: translateY(-2px);
-        }
-        
-        .btn-success {
-            background-color: var(--success);
+        .btn-accent {
+            background: linear-gradient(to right, #FD79A8, #FF7675);
             color: white;
+            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
         }
         
-        .btn-success:hover {
-            background-color: #3aa8d4;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(76, 201, 240, 0.2);
-        }
-        
-        .btn-danger {
-            background-color: var(--danger);
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            background-color: #e5177b;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(247, 37, 133, 0.2);
-        }
-        
-        .btn-warning {
-            background-color: var(--warning);
-            color: white;
-        }
-        
-        .btn-warning:hover {
-            background-color: #e68a19;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(248, 150, 30, 0.2);
-        }
-        
-        .btn:disabled {
-            background-color: #e9ecef;
-            color: #adb5bd;
-            cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none;
-        }
-        
-        /* Ad Status */
-        .ad-status {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-        
-        .ad-status i {
-            margin-right: 8px;
-            font-size: 18px;
-        }
-        
-        /* Withdraw Section */
         .withdraw-section {
-            background-color: var(--card-bg);
-            border-radius: 14px;
-            padding: 15px;
+            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            margin-top: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .withdraw-section h3 {
+            font-size: 16px;
             margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            display: none;
+            color: var(--dark);
+            font-weight: 600;
         }
         
-        .withdraw-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
+        .input-group {
+            margin-bottom: 15px;
         }
         
-        .withdraw-header i {
-            margin-right: 8px;
-            color: var(--success);
-            font-size: 18px;
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #636E72;
+            font-weight: 500;
         }
         
-        .withdraw-header h3 {
-            color: var(--text-dark);
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #DFE6E9;
+            background: white;
+            color: var(--dark);
             font-size: 16px;
         }
         
-        .form-group {
-            margin-bottom: 12px;
+        .refer-section {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
         }
         
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 500;
-            font-size: 13px;
-            color: var(--text-dark);
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 13px;
-            transition: all 0.3s;
-            background-color: var(--card-bg);
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-        }
-        
-        .withdraw-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        .refer-btn {
+            background: linear-gradient(to right, #0984E3, #74B9FF);
             color: white;
-            border: none;
-            border-radius: 8px;
+            padding: 12px 25px;
+            border-radius: 50px;
             font-weight: 600;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(9, 132, 227, 0.3);
+            border: none;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 8px;
-            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.2);
+        }
+        
+        .status-message {
+            text-align: center;
+            margin-top: 15px;
             font-size: 14px;
-        }
-        
-        .withdraw-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
-        }
-        
-        .withdraw-status {
-            margin-top: 12px;
             padding: 10px;
             border-radius: 8px;
-            font-size: 13px;
-            text-align: center;
+        }
+        
+        .success {
+            background: rgba(0, 184, 148, 0.1);
+            color: #00B894;
+        }
+        
+        .error {
+            background: rgba(214, 48, 49, 0.1);
+            color: #D63031;
+        }
+        
+        .coming-soon {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
             display: none;
         }
         
-        .withdraw-success {
-            background-color: rgba(76, 201, 240, 0.1);
-            color: var(--success);
-            border: 1px solid rgba(76, 201, 240, 0.3);
-        }
-        
-        .withdraw-error {
-            background-color: rgba(247, 37, 133, 0.1);
-            color: var(--danger);
-            border: 1px solid rgba(247, 37, 133, 0.3);
-        }
-        
-        /* Footer */
-        .footer {
+        .coming-soon-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
             text-align: center;
-            padding: 15px;
-            font-size: 12px;
-            color: var(--text-light);
+            max-width: 80%;
         }
         
-        .footer a {
+        .coming-soon-content h2 {
             color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
+            margin-bottom: 10px;
         }
         
-        /* Animation */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        /* Responsive */
-        @media (min-width: 768px) {
-            .container {
-                padding: 20px;
-                max-width: 600px;
-                margin: 0 auto;
-            }
-            
-            .split-view {
-                flex-direction: row;
-            }
-            
-            .earnings-card, .progress-card {
-                flex: 1;
-                padding: 20px;
-            }
-            
-            .action-buttons {
-                grid-template-columns: repeat(4, 1fr);
-            }
+        .close-btn {
+            margin-top: 20px;
+            padding: 8px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-ad"></i>
-                </div>
-                <div class="logo-text">
-                    <h1>Ads Income Hridoy</h1>
-                    <p>Earn money easily</p>
-                </div>
-            </div>
-            <div class="user-avatar">U</div>
-        </header>
+    <div class="app-container">
+        <div class="app-header">
+            <h1>Ads Income Hridoy</h1>
+            <p>Earn money easily</p>
+        </div>
         
-        <!-- Split View -->
-        <div class="split-view">
-            <!-- Earnings Card -->
-            <div class="earnings-card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <i class="fas fa-wallet"></i>
-                        <span>Your Earnings</span>
-                    </div>
+        <div class="earnings-section">
+            <h2>Your Earnings</h2>
+            
+            <div class="balance-card">
+                <div class="amount" id="balance">৳0</div>
+                <div class="label">Total balance available</div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="value" id="ads-watched">0</div>
+                    <div class="label">Ads Watched</div>
                 </div>
-                
-                <div class="balance-amount" id="earned-money">৳0</div>
-                <div class="balance-subtext">Total balance available</div>
-                
-                <div class="rate-info">
-                    <div class="rate-item">
-                        <div class="rate-value" id="earned-points">0</div>
-                        <div class="rate-label">Ads Watched</div>
-                    </div>
-                    <div class="rate-item">
-                        <div class="rate-value">10:1</div>
-                        <div class="rate-label">Rate</div>
-                    </div>
-                    <div class="rate-item">
-                        <div class="rate-value" id="next-payment">10</div>
-                        <div class="rate-label">Next Payment</div>
-                    </div>
+                <div class="stat-item">
+                    <div class="value">10:1</div>
+                    <div class="label">Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value" id="next-payment">0</div>
+                    <div class="label">Next Payment</div>
                 </div>
             </div>
             
-            <!-- Progress Card -->
-            <div class="progress-card">
-                <div class="progress-header">
-                    <div class="card-title">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Today's Progress</span>
-                    </div>
-                    <div class="progress-stats">
-                        <div class="stat-value" id="today-ads">0</div>
-                        <div class="stat-label">Today's Ads</div>
-                    </div>
+            <div class="progress-section">
+                <h3>Today's Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
                 </div>
-                
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-fill"></div>
-                    </div>
-                    <div class="progress-text">
-                        <span id="current-ads">0/10 ads</span>
-                        <span id="ads-progress">0%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Ad Status -->
-        <div class="ad-status" id="ad-status">
-            <i class="fas fa-check-circle"></i>
-            <span>Ready to watch ads</span>
-        </div>
-        
-        <!-- Action Buttons -->
-        <div class="action-buttons">
-            <button class="btn btn-primary" onclick="watchAd()" id="watch-ad-btn">
-                <i class="fas fa-play"></i> Watch
-            </button>
-            <button class="btn btn-success" onclick="startAutoAds()" id="auto-ad-btn">
-                <i class="fas fa-sync-alt"></i> Auto
-            </button>
-            <button class="btn btn-danger" onclick="stopAutoAds()" id="stop-auto-btn" disabled>
-                <i class="fas fa-stop"></i> Stop
-            </button>
-            <button class="btn btn-warning" onclick="claimDailyBonus()" id="daily-bonus-btn">
-                <i class="fas fa-gift"></i> Daily
-            </button>
-        </div>
-        
-        <!-- Additional Action Buttons -->
-        <div class="action-buttons">
-            <button class="btn btn-outline" onclick="showWithdrawForm()">
-                <i class="fas fa-money-bill-wave"></i> Withdraw
-            </button>
-            <button class="btn btn-outline" onclick="showReferralInfo()">
-                <i class="fas fa-users"></i> Referral
-            </button>
-        </div>
-        
-        <!-- Withdraw Section -->
-        <div class="withdraw-section" id="withdraw-section">
-            <div class="withdraw-header">
-                <i class="fas fa-money-bill-transfer"></i>
-                <h3>Withdraw Earnings</h3>
+                <div class="progress-text" id="progress-text">0/10 ads</div>
             </div>
             
-            <div class="form-group">
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="watchAd()">
+                    Watch Ads
+                </button>
+                <button class="btn btn-secondary" onclick="startAutoAds()" id="auto-start-btn">
+                    Auto Watch
+                </button>
+            </div>
+            
+            <button class="btn btn-accent" onclick="stopAutoAds()" id="auto-stop-btn" style="display: none;">
+                Stop Auto Ads
+            </button>
+        </div>
+        
+        <div class="withdraw-section">
+            <h3>Withdraw Earnings</h3>
+            
+            <div class="input-group">
                 <label for="withdraw-amount">Amount (৳)</label>
-                <input type="number" id="withdraw-amount" class="form-control" placeholder="Enter amount" min="10" step="1">
+                <input type="number" id="withdraw-amount" placeholder="Minimum ৳10">
             </div>
             
-            <div class="form-group">
+            <div class="input-group">
                 <label for="payment-method">Payment Method</label>
-                <select id="payment-method" class="form-control">
-                    <option value="" disabled selected>Select payment method</option>
+                <select id="payment-method">
                     <option value="bkash">Bkash</option>
                     <option value="nagad">Nagad</option>
                     <option value="rocket">Rocket</option>
                 </select>
             </div>
             
-            <div class="form-group">
+            <div class="input-group">
                 <label for="withdraw-phone">Phone Number</label>
-                <input type="text" id="withdraw-phone" class="form-control" placeholder="01XXXXXXXXX" pattern="01[3-9]{1}[0-9]{8}">
+                <input type="text" id="withdraw-phone" placeholder="01XXXXXXXXX">
             </div>
             
-            <button class="withdraw-btn" onclick="withdrawPoints()">
-                <i class="fas fa-paper-plane"></i> Request Withdrawal
+            <button class="btn btn-primary" onclick="withdrawPoints()">
+                Withdraw Now
             </button>
             
-            <div class="withdraw-status" id="withdraw-status"></div>
+            <div class="status-message" id="withdraw-status"></div>
+        </div>
+        
+        <div class="refer-section">
+            <button class="refer-btn" onclick="showComingSoon()">Refer & Earn</button>
         </div>
     </div>
     
-    <div class="footer">
-        <p>Join our <a href="https://t.me/adsincomehridoy" target="_blank"><i class="fab fa-telegram"></i> Telegram channel</a> for updates</p>
+    <div class="coming-soon" id="coming-soon">
+        <div class="coming-soon-content">
+            <h2>Coming Soon!</h2>
+            <p>The Refer & Earn feature will be available soon.</p>
+            <button class="close-btn" onclick="hideComingSoon()">Close</button>
+        </div>
     </div>
 
+    <!-- Ad SDK Script -->
+    <script src='//libtl.com/sdk.js' data-zone='9030947' data-sdk='show_9030947'></script>
+
     <script>
-        // Constants
-        const ADS_PER_TAKA = 10; // 10 ads = 1 BDT
-        const MIN_WITHDRAW_TAKA = 10; // Minimum withdrawal amount
-        const DAILY_BONUS_TAKA = 1; // Daily bonus amount
-        const ADMIN_USER_ID = "7987524748"; // Updated with your Telegram chat ID
-        const BOT_TOKEN = "7474129750:AAHDOrtYnulZqB5V3CH2XaHR_02t_PVwi7M"; // Your bot token
-        const MONETAG_ZONE_ID = '9030947'; // Your Monetag zone ID
+        // Configuration
+        const MIN_WITHDRAW = 10; // Minimum withdrawal 10 Taka
+        const ADS_PER_TK = 10; // 10 ads = 1 Taka
+        const ADMIN_USER_ID = "7011834885";
+        const BOT_TOKEN = "7754422060:AAFfw-otGd-OywnJRwmtyOfdk9qVs0oJp7Y";
         
-        // Variables
-        let totalAdsWatched = 0;
-        let todayAdsWatched = 0;
-        let lastAdDate = null;
-        let lastBonusDate = null;
+        // State
+        let balance = 0;
+        let adsWatched = 0;
+        let adsWatchedToday = 0;
+        let isAutoAdsRunning = false;
         let autoAdInterval;
-        let isAutoMode = false;
-        let isAdLoading = false;
-
-        // Initialize the app
-        function initApp() {
-            loadUserData();
-            checkDayChange();
-            updateUI();
-            checkAdReady();
-            checkDailyBonus();
-        }
-
-        // Check if Monetag ad is ready
-        function checkAdReady() {
-            if (typeof window.show_9030947 !== 'function') {
-                document.getElementById('ad-status').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading ad system...';
-                setTimeout(checkAdReady, 1000);
-            } else {
-                document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> Ready to watch ads';
-            }
-        }
-
-        // Load user data from localStorage
-        function loadUserData() {
-            if (localStorage.getItem('totalAdsWatched')) {
-                totalAdsWatched = parseInt(localStorage.getItem('totalAdsWatched'));
-                todayAdsWatched = parseInt(localStorage.getItem('todayAdsWatched') || 0);
-                lastAdDate = localStorage.getItem('lastAdDate');
-                lastBonusDate = localStorage.getItem('lastBonusDate');
-            }
-        }
-
-        // Save user data to localStorage
-        function saveUserData() {
-            localStorage.setItem('totalAdsWatched', totalAdsWatched);
-            localStorage.setItem('todayAdsWatched', todayAdsWatched);
-            localStorage.setItem('lastAdDate', lastAdDate);
-            localStorage.setItem('lastBonusDate', lastBonusDate);
-        }
-
-        // Check if day changed to reset daily counter
-        function checkDayChange() {
-            const today = new Date().toDateString();
-            if (lastAdDate !== today) {
-                todayAdsWatched = 0;
-                lastAdDate = today;
-                saveUserData();
-            }
-        }
-
-        // Check if daily bonus is available
-        function checkDailyBonus() {
-            const today = new Date().toDateString();
-            const dailyBonusBtn = document.getElementById('daily-bonus-btn');
-            
-            if (lastBonusDate === today) {
-                dailyBonusBtn.disabled = true;
-                dailyBonusBtn.innerHTML = '<i class="fas fa-check-circle"></i> Claimed';
-            } else {
-                dailyBonusBtn.disabled = false;
-                dailyBonusBtn.innerHTML = '<i class="fas fa-gift"></i> Daily';
-            }
-        }
-
-        // Update all UI elements
-        function updateUI() {
-            // Calculate values
-            const earnedTaka = Math.floor(totalAdsWatched / ADS_PER_TAKA);
-            const adsTowardsNextTaka = totalAdsWatched % ADS_PER_TAKA;
-            const progressPercent = (adsTowardsNextTaka / ADS_PER_TAKA) * 100;
-            const adsNeededForNextTaka = ADS_PER_TAKA - adsTowardsNextTaka;
-            
-            // Update earnings card
-            document.getElementById('earned-money').textContent = `৳${earnedTaka}`;
-            document.getElementById('earned-points').textContent = totalAdsWatched;
-            document.getElementById('next-payment').textContent = adsNeededForNextTaka;
-            
-            // Update progress card
-            document.getElementById('today-ads').textContent = todayAdsWatched;
-            document.getElementById('ads-progress').textContent = `${Math.round(progressPercent)}%`;
-            document.getElementById('progress-fill').style.width = `${progressPercent}%`;
-            document.getElementById('current-ads').textContent = `${adsTowardsNextTaka}/10 ads`;
-            
-            // Check if earned 1 Taka
-            if (totalAdsWatched > 0 && totalAdsWatched % ADS_PER_TAKA === 0) {
-                showNotification(`You earned ৳1! Watched ${ADS_PER_TAKA} ads.`);
-            }
-        }
-
-        // Show notification
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.innerHTML = `
-                <div style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); 
-                background: linear-gradient(135deg, var(--primary), var(--primary-light)); 
-                color: white; padding: 12px 20px; border-radius: 10px; 
-                box-shadow: 0 8px 25px rgba(67, 97, 238, 0.3); z-index: 1000; 
-                animation: slideIn 0.5s forwards; display: flex; align-items: center; font-size: 14px;">
-                    <i class="fas fa-check-circle" style="margin-right: 8px;"></i> 
-                    <span>${message}</span>
-                </div>
-            `;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'fadeOut 0.5s forwards';
-                setTimeout(() => notification.remove(), 500);
-            }, 3000);
-        }
-
-        // Function to watch an ad
-        function watchAd() {
-            if (isAdLoading) return;
-            
-            if (typeof window.show_9030947 !== 'function') {
-                document.getElementById('ad-status').innerHTML = '<i class="fas fa-exclamation-circle"></i> Ad system not ready. Please wait...';
-                return;
-            }
-
-            isAdLoading = true;
-            document.getElementById('watch-ad-btn').disabled = true;
-            document.getElementById('ad-status').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading ad...';
-            
-            try {
-                // Show the ad
-                window.show_9030947().then(() => {
-                    // Ad watched successfully
-                    const today = new Date().toDateString();
-                    
-                    // Update counters
-                    totalAdsWatched++;
-                    todayAdsWatched++;
-                    lastAdDate = today;
-                    
-                    saveUserData();
-                    updateUI();
-                    document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> Ad watched successfully!';
-                    
-                    // If in auto mode, continue after delay
-                    if (isAutoMode) {
-                        setTimeout(() => {
-                            isAdLoading = false;
-                            document.getElementById('watch-ad-btn').disabled = false;
-                            watchAd();
-                        }, 15000); // 15 seconds delay between auto ads
-                    } else {
-                        isAdLoading = false;
-                        document.getElementById('watch-ad-btn').disabled = false;
-                    }
-                }).catch(error => {
-                    console.error('Error showing ad:', error);
-                    document.getElementById('ad-status').innerHTML = '<i class="fas fa-times-circle"></i> Failed to show ad. Please try again.';
-                    isAdLoading = false;
-                    document.getElementById('watch-ad-btn').disabled = false;
-                    
-                    if (isAutoMode) {
-                        setTimeout(watchAd, 15000); // Retry after 15 seconds
-                    }
-                });
-            } catch (error) {
-                console.error('Error in ad system:', error);
-                document.getElementById('ad-status').innerHTML = '<i class="fas fa-times-circle"></i> Ad system error. Please refresh.';
-                isAdLoading = false;
-                document.getElementById('watch-ad-btn').disabled = false;
-            }
-        }
-
-        // Start auto ads mode
-        function startAutoAds() {
-            isAutoMode = true;
-            document.getElementById('auto-ad-btn').disabled = true;
-            document.getElementById('stop-auto-btn').disabled = false;
-            document.getElementById('watch-ad-btn').disabled = true;
-            document.getElementById('ad-status').innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Auto ads mode activated';
-            
-            watchAd(); // Start the first ad
-        }
-
-        // Stop auto ads mode
-        function stopAutoAds() {
-            isAutoMode = false;
-            document.getElementById('auto-ad-btn').disabled = false;
-            document.getElementById('stop-auto-btn').disabled = true;
-            document.getElementById('watch-ad-btn').disabled = false;
-            document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> Auto ads mode stopped';
-        }
-
-        // Claim daily bonus
-        function claimDailyBonus() {
-            const today = new Date().toDateString();
-            
-            if (lastBonusDate === today) {
-                showNotification('You already claimed your daily bonus today!');
-                return;
-            }
-            
-            // Add bonus (1 Taka = 10 ads)
-            totalAdsWatched += DAILY_BONUS_TAKA * ADS_PER_TAKA;
-            lastBonusDate = today;
-            saveUserData();
-            updateUI();
-            checkDailyBonus();
-            
-            showNotification(`Daily bonus claimed! You got ৳${DAILY_BONUS_TAKA} added to your balance.`);
-            
-            // Update button state
-            document.getElementById('daily-bonus-btn').disabled = true;
-            document.getElementById('daily-bonus-btn').innerHTML = '<i class="fas fa-check-circle"></i> Claimed';
-        }
-
-        // Show withdraw form
-        function showWithdrawForm() {
-            const earnedTaka = Math.floor(totalAdsWatched / ADS_PER_TAKA);
-            
-            if (earnedTaka < MIN_WITHDRAW_TAKA) {
-                document.getElementById('withdraw-status').textContent = 
-                    `Minimum withdrawal is ৳${MIN_WITHDRAW_TAKA}. You have ৳${earnedTaka}.`;
-                document.getElementById('withdraw-status').className = 'withdraw-status withdraw-error';
-                document.getElementById('withdraw-status').style.display = 'block';
-                document.getElementById('withdraw-section').style.display = 'block';
-                return;
-            }
-            
-            document.getElementById('withdraw-amount').value = '';
-            document.getElementById('withdraw-amount').max = earnedTaka;
-            document.getElementById('withdraw-amount').placeholder = `Max: ৳${earnedTaka}`;
-            document.getElementById('withdraw-phone').value = '';
-            document.getElementById('payment-method').selectedIndex = 0;
-            document.getElementById('withdraw-status').style.display = 'none';
-            document.getElementById('withdraw-section').style.display = 'block';
-        }
-
-        // Show referral info
-        function showReferralInfo() {
-            showNotification('Referral system coming soon!');
-        }
-
-        // Withdraw system configuration
-        const MIN_WITHDRAW_POINTS = 5;
         
-        // Function to handle withdrawal request
+        // DOM Elements
+        const balanceEl = document.getElementById('balance');
+        const adsWatchedEl = document.getElementById('ads-watched');
+        const nextPaymentEl = document.getElementById('next-payment');
+        const progressFill = document.getElementById('progress-fill');
+        const progressText = document.getElementById('progress-text');
+        const autoStartBtn = document.getElementById('auto-start-btn');
+        const autoStopBtn = document.getElementById('auto-stop-btn');
+        
+        // Functions
+        function watchAd() {
+            // Show the ad
+            show_9030947();
+            
+            // Simulate ad completion
+            setTimeout(() => {
+                adsWatched++;
+                adsWatchedToday++;
+                
+                // Add 1 Taka for every 10 ads
+                if (adsWatched % ADS_PER_TK === 0) {
+                    balance += 1;
+                }
+                
+                updateUI();
+                
+                // Show success message when balance increases
+                if (adsWatched % ADS_PER_TK === 0) {
+                    showStatus(`Congratulations! You earned ৳1 from 10 ads`, "success");
+                }
+            }, 1000);
+        }
+        
+        function startAutoAds() {
+            if (isAutoAdsRunning) return;
+            
+            isAutoAdsRunning = true;
+            autoStartBtn.style.display = 'none';
+            autoStopBtn.style.display = 'block';
+            
+            // Run first ad immediately
+            watchAd();
+            
+            // Then run every 30 seconds
+            autoAdInterval = setInterval(watchAd, 30000);
+        }
+        
+        function stopAutoAds() {
+            isAutoAdsRunning = false;
+            clearInterval(autoAdInterval);
+            autoStartBtn.style.display = 'block';
+            autoStopBtn.style.display = 'none';
+            
+            showStatus("Auto ads stopped successfully", "success");
+        }
+        
         function withdrawPoints() {
             const amount = parseFloat(document.getElementById('withdraw-amount').value);
-            const paymentMethod = document.getElementById('payment-method').value;
-            const phoneNumber = document.getElementById('withdraw-phone').value;
-
-            const statusEl = document.getElementById('withdraw-status');
-
-            if (amount < MIN_WITHDRAW_TAKA) {
-                statusEl.textContent = `Minimum withdrawal amount is ৳${MIN_WITHDRAW_TAKA}.`;
-                statusEl.className = 'withdraw-status withdraw-error';
-                statusEl.style.display = 'block';
+            const method = document.getElementById('payment-method').value;
+            const phone = document.getElementById('withdraw-phone').value;
+            
+            if (!amount || isNaN(amount)) {
+                showStatus("Please enter a valid amount", "error");
                 return;
             }
             
-            const earnedTaka = Math.floor(totalAdsWatched / ADS_PER_TAKA);
-            if (amount > earnedTaka) {
-                statusEl.textContent = `Insufficient balance. You have ৳${earnedTaka}.`;
-                statusEl.className = 'withdraw-status withdraw-error';
-                statusEl.style.display = 'block';
+            if (amount < MIN_WITHDRAW) {
+                showStatus(`Minimum withdrawal is ৳${MIN_WITHDRAW}`, "error");
                 return;
             }
-
-            if (!paymentMethod) {
-                statusEl.textContent = 'Please select payment method.';
-                statusEl.className = 'withdraw-status withdraw-error';
-                statusEl.style.display = 'block';
-                return;
-            }
-
-            if (!phoneNumber || !/^01[3-9][0-9]{8}$/.test(phoneNumber)) {
-                statusEl.textContent = 'Enter valid Bangladeshi phone number.';
-                statusEl.className = 'withdraw-status withdraw-error';
-                statusEl.style.display = 'block';
-                return;
-            }
-
-            // Calculate ads to deduct (1 Taka = 10 ads)
-            const adsToDeduct = amount * ADS_PER_TAKA;
             
-            // Deduct ads
-            totalAdsWatched -= adsToDeduct;
-            if (totalAdsWatched < 0) totalAdsWatched = 0;
+            if (amount > balance) {
+                showStatus(`You only have ৳${balance.toFixed(2)}`, "error");
+                return;
+            }
             
-            // Save and update UI
-            saveUserData();
+            if (!phone || !/^01\d{9}$/.test(phone)) {
+                showStatus("Please enter a valid phone number", "error");
+                return;
+            }
+            
+            // Process withdrawal
+            balance -= amount;
             updateUI();
-
-            // Format message
-            const message = `🔔 *Withdrawal Request*\n👤 User: Anonymous\n💰 Amount: ${amount} BDT\n💳 Method: ${paymentMethod}\n📞 Phone: ${phoneNumber}\n\n📊 Total Ads: ${totalAdsWatched}\n💵 Balance: ৳${Math.floor(totalAdsWatched / ADS_PER_TAKA)}`;
-
+            
             // Send to Telegram
-            sendWithdrawRequestToAdmin(message);
-
-            // Clear form and show success
+            const message = `💸 *New Withdrawal Request* 💸\n\n` +
+                           `💰 *Amount:* ৳${amount}\n` +
+                           `📱 *Method:* ${method}\n` +
+                           `📞 *Phone:* ${phone}\n\n` +
+                           `🏦 *Balance:* ৳${balance.toFixed(2)}`;
+            
+            sendTelegramMessage(message);
+            
+            showStatus(`Withdrawal request for ৳${amount} sent!`, "success");
+            
+            // Clear form
             document.getElementById('withdraw-amount').value = '';
             document.getElementById('withdraw-phone').value = '';
-            statusEl.textContent = 'Withdrawal request sent successfully!';
-            statusEl.className = 'withdraw-status withdraw-success';
-            statusEl.style.display = 'block';
+        }
+        
+        function updateUI() {
+            balanceEl.textContent = `৳${balance.toFixed(2)}`;
+            adsWatchedEl.textContent = adsWatched;
+            nextPaymentEl.textContent = ADS_PER_TK - (adsWatched % ADS_PER_TK);
             
-            // Hide form after 5 seconds
+            // Update progress
+            const todayProgress = adsWatchedToday % ADS_PER_TK;
+            progressFill.style.width = `${(todayProgress / ADS_PER_TK) * 100}%`;
+            progressText.textContent = `${todayProgress}/${ADS_PER_TK} ads`;
+        }
+        
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('withdraw-status');
+            statusEl.textContent = message;
+            statusEl.className = `status-message ${type}`;
+            
             setTimeout(() => {
-                document.getElementById('withdraw-section').style.display = 'none';
+                statusEl.textContent = '';
+                statusEl.className = 'status-message';
             }, 5000);
         }
-
-        // Function to send message to Telegram Bot Admin
-        function sendWithdrawRequestToAdmin(message) {
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_USER_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
-
-            fetch(url)
-                .then(res => res.json())
-                .then(data => {
-                    if (!data.ok) {
-                        console.error("Telegram Error:", data.description);
-                    }
-                })
-                .catch(error => console.error("Telegram Fetch Error:", error));
+        
+        function sendTelegramMessage(message) {
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_USER_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`)
+                .catch(err => console.error('Error:', err));
         }
-
-        // Initialize the app when page loads
-        window.onload = initApp;
+        
+        function showComingSoon() {
+            document.getElementById('coming-soon').style.display = 'flex';
+        }
+        
+        function hideComingSoon() {
+            document.getElementById('coming-soon').style.display = 'none';
+        }
+        
+        // Initialize
+        updateUI();
     </script>
 </body>
 </html>
