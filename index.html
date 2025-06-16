@@ -1,8 +1,15 @@
 <!doctype html>
 <html>
 <head>
-    <title>Ad Reward System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto MoneTag Ads</title>
+    <!-- Monetag SDK -->
+    <script src='//libtl.com/sdk.js' data-zone='9030947' data-sdk='show_9030947'></script>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             margin: 0;
             padding: 0;
@@ -12,7 +19,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            padding: 20px;
         }
         .container {
             text-align: center;
@@ -20,31 +28,117 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            width: 300px;
+            width: 100%;
+            max-width: 400px;
         }
         .container h1 {
-            font-size: 20px;
-            color: green;
+            font-size: 22px;
+            color: #4CAF50;
             margin-bottom: 10px;
         }
-        .stats, .buttons, .withdraw-section {
-            margin: 10px 0;
+        .developer {
+            font-size: 12px;
+            background-color: #4CAF50;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-        .buttons button, .withdraw-section button {
-            width: 90%;
-            margin: 5px 0;
-            padding: 10px;
-            font-size: 14px;
+        .developer:hover {
+            background-color: #45a049;
+        }
+        .stats {
+            margin: 15px 0;
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .stats p {
+            margin: 8px 0;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .stats span {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .progress-container {
+            margin: 20px 0;
+        }
+        .progress-circle {
+            width: 100px;
+            height: 100px;
+            border: 6px solid #333;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            position: relative;
+        }
+        .progress-circle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 6px solid #4CAF50;
+            border-radius: 50%;
+            clip: rect(0, 50px, 100px, 0);
+            transform: rotate(0deg);
+        }
+        .progress-circle span {
+            font-size: 20px;
+            font-weight: bold;
+            z-index: 1;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .buttons button {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
             border: none;
             border-radius: 5px;
             color: white;
-            background: green;
+            background: #4CAF50;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
-        .buttons button:hover, .withdraw-section button:hover {
-            background: darkorange;
+        .buttons button:hover {
+            background: #45a049;
         }
-        .withdraw-section input, .withdraw-section select {
+        .buttons button:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+        #stop-auto-btn {
+            background: #f44336;
+        }
+        #stop-auto-btn:hover {
+            background: #d32f2f;
+        }
+        .withdraw-section {
+            margin-top: 20px;
+            display: none;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .withdraw-section h3 {
+            color: #FF9800;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .withdraw-section input, 
+        .withdraw-section select {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
@@ -52,117 +146,537 @@
             border: 2px solid #555;
             background-color: #333;
             color: #fff;
+            font-size: 14px;
         }
-        .withdraw-section input:focus, .withdraw-section select:focus {
-            border-color: green;
+        .withdraw-section input:focus, 
+        .withdraw-section select:focus {
+            border-color: #4CAF50;
             outline: none;
         }
+        .withdraw-section button {
+            background-color: #4CAF50;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            margin-top: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .withdraw-section button:hover {
+            background-color: #45a049;
+        }
         #withdraw-status {
-            color: red;
+            color: #FF9800;
             font-size: 14px;
             margin-top: 10px;
+            text-align: center;
+        }
+        .user-info {
+            margin: 15px 0;
+            background: #2a2a2a;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        .user-info p {
+            font-size: 15px;
+            margin: 5px 0;
+        }
+        .info-text {
+            font-size: 13px;
+            color: #aaa;
+            margin-top: 15px;
+            line-height: 1.4;
+        }
+        .rate-info {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .ad-status {
+            margin: 15px 0;
+            padding: 10px;
+            background: #2a2a2a;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .referral-section {
+            margin: 15px 0;
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .referral-section h3 {
+            color: #FF9800;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .referral-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .referral-link-container {
+            display: flex;
+            margin-top: 10px;
+        }
+        #referral-link {
+            flex-grow: 1;
+            padding: 8px;
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 5px 0 0 5px;
+            color: #fff;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #copy-referral {
+            padding: 8px 12px;
+            background: #4CAF50;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            color: white;
+            cursor: pointer;
+        }
+        #copy-referral:hover {
+            background: #45a049;
+        }
+        @media (max-width: 400px) {
+            .container {
+                padding: 15px;
+            }
+            .progress-circle {
+                width: 80px;
+                height: 80px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Ad Reward System</h1>
+        <h1>ADS Income Hridoy</h1>
+        <div class="developer" onclick="window.location.href='https://t.me/adsincomehridoy'">Official channel Join</div>
+        
+        <!-- Display User Info -->
+        <div class="user-info">
+            <p>Welcome, <span id="user-name">User</span></p>
+            <p>User ID: <span id="user-id">12345</span></p>
+        </div>
+
         <div class="stats">
             <p>Watched Ads: <span id="watched-ads">0</span></p>
             <p>Earned Points: <span id="earned-points">0.00</span></p>
+            <p>Your Income: <span id="earned-money">0.00</span> Taka</p>
         </div>
+        
+        <!-- Referral Section -->
+        <div class="referral-section">
+            <h3>Refer & Earn</h3>
+            <div class="referral-stats">
+                <div>Referrals: <span id="referral-count">0</span></div>
+                <div>Earned: <span id="referral-earnings">0.00</span> Taka</div>
+            </div>
+            <p>Share your referral link and earn 2 Taka for each successful referral!</p>
+            <div class="referral-link-container">
+                <input type="text" id="referral-link" readonly value="Loading...">
+                <button id="copy-referral" onclick="copyReferralLink()">Copy</button>
+            </div>
+        </div>
+        
+        <div class="rate-info">
+            <p>10 Ads = 1 Taka</p>
+            <p>Minimum Withdraw: 10 Taka</p>
+            <p>Referral Bonus: 2 Taka per user</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-circle">
+                <span id="ads-progress">0%</span>
+            </div>
+        </div>
+        
+        <!-- Ad Status -->
+        <div class="ad-status" id="ad-status">
+            Ready to watch ads
+        </div>
+        
         <div class="buttons">
-            <button onclick="watchAd()">Watch Ad</button>
-            <button onclick="startAutoAds()">Start Auto Ads</button>
-            <button onclick="stopAutoAds()">Stop Auto Ads</button>
+            <button id="watch-ad-btn" onclick="watchAd()">Watch Ad (0.10 Taka)</button>
+            <button id="auto-ad-btn" onclick="startAutoAds()">Auto Show Ads</button>
+            <button id="stop-auto-btn" onclick="stopAutoAds()" disabled>Stop Auto Ads</button>
+            <button onclick="showWithdrawForm()">Withdraw Money</button>
         </div>
-        <div class="withdraw-section">
+
+        <p class="info-text">
+            Earn money by watching ads. For every 10 ads you watch, you earn 1 Taka. 
+            Minimum withdrawal amount is 10 Taka. Refer friends to earn 2 Taka per referral.
+        </p>
+
+        <!-- Withdraw Section -->
+        <div class="withdraw-section" id="withdraw-section">
             <h3>Withdrawal Request</h3>
-            <input type="number" id="withdraw-amount" placeholder="Enter Points to Withdraw" />
+            <input type="number" id="withdraw-amount" placeholder="Enter Amount (Taka)" min="10" step="1" />
             <select id="payment-method">
+                <option value="" disabled selected>Select Payment Method</option>
                 <option value="bkash">Bkash</option>
                 <option value="nagad">Nagad</option>
-                <option value="manual">Manual</option>
+                <option value="rocket">Rocket</option>
             </select>
-            <input type="text" id="withdraw-phone" placeholder="Enter Phone Number" />
-            <button onclick="withdrawPoints()">Withdraw</button>
+            <input type="text" id="withdraw-phone" placeholder="Enter Phone Number (01XXXXXXXXX)" pattern="01[3-9]{1}[0-9]{8}" />
+            <button onclick="withdrawPoints()">Submit Withdrawal</button>
             <p id="withdraw-status"></p>
         </div>
     </div>
 
-    <!-- Only your provided script is included -->
-    <script src='//libtl.com/sdk.js' data-zone='9030947' data-sdk='show_9030947'></script>
-
     <script>
-        // Configuration
-        const MIN_WITHDRAW_POINTS = 5;
-        const ADMIN_USER_ID = "7011834885"; // Replace with your Telegram Admin Chat ID
-        const BOT_TOKEN = "7754422060:AAFfw-otGd-OywnJRwmtyOfdk9qVs0oJp7Y"; // Replace with your Telegram Bot Token
+        // Constants
+        const ADS_PER_TAKA = 10;
+        const MIN_WITHDRAW_TAKA = 10;
+        const POINTS_PER_AD = 0.10; // 0.10 Taka per ad
+        const REFERRAL_BONUS = 2.00; // 2 Taka per referral
+        const ADMIN_USER_ID = 7851054198; // Your Telegram ID
+        const BOT_TOKEN = "7474129750:AAHDOrtYnulZqB5V3CH2XaHR_02t_PVwi7M"; // Your bot token
+        const MONETAG_ZONE_ID = '9030947'; // Your Monetag zone ID
+        
+        // Variables
         let watchedAdsCount = 0;
         let earnedPoints = 0.00;
+        let referralCount = 0;
+        let referralEarnings = 0.00;
+        let userId = generateUserId();
         let autoAdInterval;
+        let isAutoMode = false;
+        let isAdLoading = false;
 
-        // Function to simulate watching an ad
-        function watchAd() {
-            watchedAdsCount++;
-            earnedPoints += 0.50; // Add 0.50 points per ad
+        // Initialize the app
+        function initApp() {
+            // Check for referral in URL
+            checkReferral();
+            
+            // Set user info
+            document.getElementById('user-id').textContent = userId;
+            
+            // Load user data
+            loadUserData();
+            updateUI();
+            checkAdReady();
+            
+            // Generate referral link
+            generateReferralLink();
+        }
+
+        // Generate a random user ID if not exists
+        function generateUserId() {
+            if (localStorage.getItem('userId')) {
+                return localStorage.getItem('userId');
+            }
+            
+            const newId = Math.floor(100000 + Math.random() * 900000);
+            localStorage.setItem('userId', newId.toString());
+            return newId.toString();
+        }
+
+        // Check if there's a referral in URL
+        function checkReferral() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const referrerId = urlParams.get('ref');
+            
+            if (referrerId && referrerId !== userId) {
+                // Check if this is first visit and not already referred
+                if (!localStorage.getItem('referredBy')) {
+                    localStorage.setItem('referredBy', referrerId);
+                    alert('You joined using a referral link! The referrer will get 2 Taka bonus.');
+                    
+                    // In a real app, you would send this to your backend
+                    // For now, we'll just store it locally
+                    setTimeout(() => {
+                        // This would be handled by your backend in a real app
+                        console.log(`User ${referrerId} should get referral bonus`);
+                    }, 1000);
+                }
+            }
+        }
+
+        // Generate referral link
+        function generateReferralLink() {
+            const currentUrl = window.location.href.split('?')[0];
+            const referralLink = `${currentUrl}?ref=${userId}`;
+            document.getElementById('referral-link').value = referralLink;
+        }
+
+        // Copy referral link to clipboard
+        function copyReferralLink() {
+            const referralLink = document.getElementById('referral-link');
+            referralLink.select();
+            document.execCommand('copy');
+            
+            // Show copied message
+            const copyBtn = document.getElementById('copy-referral');
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = 'Copied!';
+            
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+            }, 2000);
+        }
+
+        // Check if Monetag ad is ready
+        function checkAdReady() {
+            if (typeof window.show_9030947 !== 'function') {
+                document.getElementById('ad-status').textContent = 'Loading ad system...';
+                setTimeout(checkAdReady, 1000);
+            } else {
+                document.getElementById('ad-status').textContent = 'Ready to watch ads';
+            }
+        }
+
+        // Load user data from localStorage
+        function loadUserData() {
+            if (localStorage.getItem('watchedAdsCount')) {
+                watchedAdsCount = parseInt(localStorage.getItem('watchedAdsCount'));
+                earnedPoints = parseFloat(localStorage.getItem('earnedPoints'));
+            }
+            
+            if (localStorage.getItem('referralCount')) {
+                referralCount = parseInt(localStorage.getItem('referralCount'));
+            }
+            
+            if (localStorage.getItem('referralEarnings')) {
+                referralEarnings = parseFloat(localStorage.getItem('referralEarnings'));
+            }
+        }
+
+        // Save user data to localStorage
+        function saveUserData() {
+            localStorage.setItem('watchedAdsCount', watchedAdsCount);
+            localStorage.setItem('earnedPoints', earnedPoints.toFixed(2));
+            localStorage.setItem('referralCount', referralCount);
+            localStorage.setItem('referralEarnings', referralEarnings.toFixed(2));
+        }
+
+        // Update all UI elements
+        function updateUI() {
             document.getElementById('watched-ads').textContent = watchedAdsCount;
             document.getElementById('earned-points').textContent = earnedPoints.toFixed(2);
-            show_9030947(); // Show ad using your provided script
+            document.getElementById('earned-money').textContent = (earnedPoints / ADS_PER_TAKA).toFixed(2);
+            document.getElementById('referral-count').textContent = referralCount;
+            document.getElementById('referral-earnings').textContent = referralEarnings.toFixed(2);
+            updateProgressCircle();
         }
 
-        // Function to start auto showing ads
+        // Function to watch an ad and earn points
+        function watchAd() {
+            if (isAdLoading) return;
+            
+            if (typeof window.show_9030947 !== 'function') {
+                document.getElementById('ad-status').textContent = 'Ad system not ready. Please wait...';
+                return;
+            }
+
+            isAdLoading = true;
+            document.getElementById('watch-ad-btn').disabled = true;
+            document.getElementById('ad-status').textContent = 'Loading ad...';
+            
+            try {
+                // Show the ad
+                window.show_9030947().then(() => {
+                    // Ad watched successfully
+                    watchedAdsCount++;
+                    earnedPoints += POINTS_PER_AD;
+                    
+                    saveUserData();
+                    updateUI();
+                    document.getElementById('ad-status').textContent = 'Ad watched successfully!';
+                    
+                    // Check if earned enough for 1 Taka
+                    if (watchedAdsCount % ADS_PER_TAKA === 0) {
+                        alert(`Congratulations! You've earned 1 Taka by watching ${ADS_PER_TAKA} ads.`);
+                    }
+                    
+                    // If in auto mode, continue after delay
+                    if (isAutoMode) {
+                        setTimeout(() => {
+                            isAdLoading = false;
+                            document.getElementById('watch-ad-btn').disabled = false;
+                            watchAd();
+                        }, 10000); // 10 seconds delay between auto ads
+                    } else {
+                        isAdLoading = false;
+                        document.getElementById('watch-ad-btn').disabled = false;
+                    }
+                }).catch(error => {
+                    console.error('Error showing ad:', error);
+                    document.getElementById('ad-status').textContent = 'Failed to show ad. Please try again.';
+                    isAdLoading = false;
+                    document.getElementById('watch-ad-btn').disabled = false;
+                    
+                    if (isAutoMode) {
+                        setTimeout(watchAd, 10000); // Retry after 10 seconds
+                    }
+                });
+            } catch (error) {
+                console.error('Error in ad system:', error);
+                document.getElementById('ad-status').textContent = 'Ad system error. Please refresh.';
+                isAdLoading = false;
+                document.getElementById('watch-ad-btn').disabled = false;
+            }
+        }
+
+        // Update progress circle based on watched ads
+        function updateProgressCircle() {
+            const progress = (watchedAdsCount % ADS_PER_TAKA) / ADS_PER_TAKA * 100;
+            const progressCircle = document.querySelector('.progress-circle');
+            
+            progressCircle.style.background = `
+                conic-gradient(#4CAF50 ${progress}%, #333 ${progress}%)
+            `;
+            
+            document.getElementById('ads-progress').textContent = `${Math.round(progress)}%`;
+        }
+
+        // Start auto ads mode
         function startAutoAds() {
-            autoAdInterval = setInterval(watchAd, 5000); // Show ads every 5 seconds
+            isAutoMode = true;
+            document.getElementById('auto-ad-btn').disabled = true;
+            document.getElementById('stop-auto-btn').disabled = false;
+            document.getElementById('watch-ad-btn').disabled = true;
+            document.getElementById('ad-status').textContent = 'Auto ads mode activated';
+            
+            watchAd(); // Start the first ad
         }
 
-        // Function to stop auto showing ads
+        // Stop auto ads mode
         function stopAutoAds() {
-            clearInterval(autoAdInterval);
+            isAutoMode = false;
+            document.getElementById('auto-ad-btn').disabled = false;
+            document.getElementById('stop-auto-btn').disabled = true;
+            document.getElementById('watch-ad-btn').disabled = false;
+            document.getElementById('ad-status').textContent = 'Auto ads mode stopped';
         }
 
-        // Function to handle withdrawal request
+        // Show withdraw form
+        function showWithdrawForm() {
+            const earnedTaka = (earnedPoints / ADS_PER_TAKA) + referralEarnings;
+            
+            if (earnedTaka < MIN_WITHDRAW_TAKA) {
+                document.getElementById('withdraw-status').textContent = 
+                    `Minimum withdrawal amount is ${MIN_WITHDRAW_TAKA} Taka. You have ${earnedTaka.toFixed(2)} Taka.`;
+                document.getElementById('withdraw-section').style.display = 'block';
+                return;
+            }
+            
+            document.getElementById('withdraw-amount').value = '';
+            document.getElementById('withdraw-amount').max = earnedTaka.toFixed(2);
+            document.getElementById('withdraw-amount').placeholder = `Max: ${earnedTaka.toFixed(2)} Taka`;
+            document.getElementById('withdraw-phone').value = '';
+            document.getElementById('payment-method').selectedIndex = 0;
+            document.getElementById('withdraw-status').textContent = '';
+            document.getElementById('withdraw-section').style.display = 'block';
+        }
+
+        // Handle withdrawal request
         function withdrawPoints() {
             const amount = parseFloat(document.getElementById('withdraw-amount').value);
             const paymentMethod = document.getElementById('payment-method').value;
             const phoneNumber = document.getElementById('withdraw-phone').value;
-
-            if (amount < MIN_WITHDRAW_POINTS) {
-                document.getElementById('withdraw-status').textContent = `Minimum withdrawal amount is ${MIN_WITHDRAW_POINTS} points.`;
+            const earnedTaka = (earnedPoints / ADS_PER_TAKA) + referralEarnings;
+            
+            // Validate inputs
+            if (!amount || isNaN(amount)) {
+                document.getElementById('withdraw-status').textContent = 'Please enter a valid amount.';
                 return;
             }
-            if (amount > earnedPoints) {
-                document.getElementById('withdraw-status').textContent = `Insufficient balance. You have ${earnedPoints.toFixed(2)} points.`;
+            
+            if (amount < MIN_WITHDRAW_TAKA) {
+                document.getElementById('withdraw-status').textContent = 
+                    `Minimum withdrawal amount is ${MIN_WITHDRAW_TAKA} Taka.`;
                 return;
             }
-
-            // Deduct points after successful withdrawal
-            earnedPoints -= amount;
-            document.getElementById('earned-points').textContent = earnedPoints.toFixed(2);
-
-            // Send withdrawal request to admin
-            const message = `🔔 *Withdrawal Request*\n👤 User: Anonymous\n💰 Amount: ${amount} points\n💳 Payment Method: ${paymentMethod}\n📞 Phone Number: ${phoneNumber}`;
+            
+            if (amount > earnedTaka) {
+                document.getElementById('withdraw-status').textContent = 
+                    `Insufficient balance. You have ${earnedTaka.toFixed(2)} Taka.`;
+                return;
+            }
+            
+            if (!paymentMethod) {
+                document.getElementById('withdraw-status').textContent = 'Please select a payment method.';
+                return;
+            }
+            
+            if (!phoneNumber || !/^01[3-9][0-9]{8}$/.test(phoneNumber)) {
+                document.getElementById('withdraw-status').textContent = 'Please enter a valid Bangladeshi phone number.';
+                return;
+            }
+            
+            // Calculate points to deduct (1 Taka = 10 ads = 1 point)
+            // First deduct from referral earnings, then from ad earnings
+            let remainingAmount = amount;
+            let pointsToDeduct = 0;
+            
+            if (referralEarnings > 0) {
+                const referralDeduction = Math.min(referralEarnings, remainingAmount);
+                referralEarnings -= referralDeduction;
+                remainingAmount -= referralDeduction;
+            }
+            
+            if (remainingAmount > 0) {
+                pointsToDeduct = remainingAmount * ADS_PER_TAKA;
+                earnedPoints -= pointsToDeduct;
+                if (earnedPoints < 0) earnedPoints = 0;
+            }
+            
+            // Save and update UI
+            saveUserData();
+            updateUI();
+            
+            // Prepare withdrawal message
+            const message = `📌 New Withdrawal Request 📌\n\n` +
+                             `👤 User: ${document.getElementById('user-name').textContent}\n` +
+                             `🆔 ID: ${document.getElementById('user-id').textContent}\n` +
+                             `💰 Amount: ${amount} Taka\n` +
+                             `📱 Payment Method: ${paymentMethod.toUpperCase()}\n` +
+                             `📞 Phone: ${phoneNumber}\n\n` +
+                             `📊 Watched Ads: ${watchedAdsCount}\n` +
+                             `👥 Referrals: ${referralCount}\n` +
+                             `💵 Total Earned: ${earnedTaka.toFixed(2)} Taka`;
+            
+            // Send to admin
             sendWithdrawRequestToAdmin(message);
-
-            // Clear form and show success message
-            document.getElementById('withdraw-amount').value = '';
-            document.getElementById('withdraw-phone').value = '';
-            document.getElementById('withdraw-status').textContent = 'Withdrawal request sent successfully!';
+            
+            // Show success message
+            document.getElementById('withdraw-status').textContent = 
+                'Withdrawal request submitted successfully! Processing may take 24-48 hours.';
+            document.getElementById('withdraw-status').style.color = '#4CAF50';
+            
+            // Reset form after 3 seconds
+            setTimeout(() => {
+                document.getElementById('withdraw-section').style.display = 'none';
+                document.getElementById('withdraw-status').style.color = '#FF9800';
+            }, 3000);
         }
 
-        // Function to send message to Telegram Admin
+        // Send withdrawal request to admin via Telegram bot
         function sendWithdrawRequestToAdmin(message) {
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_USER_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`)
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_USER_ID}&text=${encodeURIComponent(message)}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.ok) {
-                        console.log('Withdrawal request sent to admin.');
+                        console.log('Withdrawal request sent to admin');
                     } else {
-                        console.error('Error:', data.description);
+                        console.error('Failed to send withdrawal request');
                     }
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => console.error('Error sending message:', error));
         }
+
+        // Initialize the app when page loads
+        window.onload = initApp;
     </script>
 </body>
 </html>
