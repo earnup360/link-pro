@@ -1,564 +1,168 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ads Income Hridoy</title>
+    <title>Ad Reward System</title>
     <style>
-        :root {
-            --primary: #6C5CE7;
-            --secondary: #A29BFE;
-            --accent: #FD79A8;
-            --dark: #2D3436;
-            --light: #FFFFFF;
-            --success: #00B894;
-        }
-        
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-        
-        body {
-            background-color: #F5F6FA;
-            color: var(--dark);
-            min-height: 100vh;
+            background-color: #121212;
+            color: #fff;
+            font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-        
-        .app-container {
-            width: 100%;
-            max-width: 420px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .app-header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            padding: 20px;
-            text-align: center;
-            color: white;
-        }
-        
-        .app-header h1 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .app-header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        .earnings-section {
-            padding: 20px;
-            text-align: center;
-            background: white;
-        }
-        
-        .earnings-section h2 {
-            font-size: 18px;
-            color: var(--dark);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .balance-card {
-            background: linear-gradient(to right, #00B894, #55EFC4);
-            color: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.2);
-        }
-        
-        .balance-card .amount {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .balance-card .label {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .stat-item {
-            background: white;
-            border-radius: 12px;
-            padding: 12px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-            text-align: center;
-        }
-        
-        .stat-item .value {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 3px;
-        }
-        
-        .stat-item .label {
-            font-size: 12px;
-            color: #636E72;
-        }
-        
-        .progress-section {
-            background: white;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .progress-section h3 {
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: var(--dark);
-            font-weight: 600;
-        }
-        
-        .progress-bar {
-            height: 10px;
-            background: #DFE6E9;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 10px;
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-        
-        .progress-text {
-            font-size: 14px;
-            color: #636E72;
-            text-align: right;
-        }
-        
-        .action-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .btn {
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 8px;
+            align-items: center;
+            height: 100vh;
         }
-        
-        .btn-primary {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
-        }
-        
-        .btn-secondary {
-            background: white;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .btn-accent {
-            background: linear-gradient(to right, #FD79A8, #FF7675);
-            color: white;
-            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
-        }
-        
-        .withdraw-section {
-            padding: 20px;
-            background: white;
-            border-radius: 20px;
-            margin-top: 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .withdraw-section h3 {
-            font-size: 16px;
-            margin-bottom: 15px;
-            color: var(--dark);
-            font-weight: 600;
-        }
-        
-        .input-group {
-            margin-bottom: 15px;
-        }
-        
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #636E72;
-            font-weight: 500;
-        }
-        
-        .input-group input,
-        .input-group select {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid #DFE6E9;
-            background: white;
-            color: var(--dark);
-            font-size: 16px;
-        }
-        
-        .refer-section {
+        .container {
             text-align: center;
-            margin-top: 20px;
+            background: #1f1f1f;
             padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            width: 300px;
         }
-        
-        .refer-btn {
-            background: linear-gradient(to right, #0984E3, #74B9FF);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-weight: 600;
-            display: inline-block;
-            box-shadow: 0 5px 15px rgba(9, 132, 227, 0.3);
-            border: none;
-            cursor: pointer;
+        .container h1 {
+            font-size: 20px;
+            color: green;
+            margin-bottom: 10px;
         }
-        
-        .status-message {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
+        .stats, .buttons, .withdraw-section {
+            margin: 10px 0;
+        }
+        .buttons button, .withdraw-section button {
+            width: 90%;
+            margin: 5px 0;
             padding: 10px;
-            border-radius: 8px;
-        }
-        
-        .success {
-            background: rgba(0, 184, 148, 0.1);
-            color: #00B894;
-        }
-        
-        .error {
-            background: rgba(214, 48, 49, 0.1);
-            color: #D63031;
-        }
-        
-        .coming-soon {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            display: none;
-        }
-        
-        .coming-soon-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 80%;
-        }
-        
-        .coming-soon-content h2 {
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-        
-        .close-btn {
-            margin-top: 20px;
-            padding: 8px 20px;
-            background: var(--primary);
-            color: white;
+            font-size: 14px;
             border: none;
-            border-radius: 50px;
+            border-radius: 5px;
+            color: white;
+            background: green;
             cursor: pointer;
+        }
+        .buttons button:hover, .withdraw-section button:hover {
+            background: darkorange;
+        }
+        .withdraw-section input, .withdraw-section select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 2px solid #555;
+            background-color: #333;
+            color: #fff;
+        }
+        .withdraw-section input:focus, .withdraw-section select:focus {
+            border-color: green;
+            outline: none;
+        }
+        #withdraw-status {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <div class="app-header">
-            <h1>Ads Income Hridoy</h1>
-            <p>Earn money easily</p>
+    <div class="container">
+        <h1>Ad Reward System</h1>
+        <div class="stats">
+            <p>Watched Ads: <span id="watched-ads">0</span></p>
+            <p>Earned Points: <span id="earned-points">0.00</span></p>
         </div>
-        
-        <div class="earnings-section">
-            <h2>Your Earnings</h2>
-            
-            <div class="balance-card">
-                <div class="amount" id="balance">৳0</div>
-                <div class="label">Total balance available</div>
-            </div>
-            
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="value" id="ads-watched">0</div>
-                    <div class="label">Ads Watched</div>
-                </div>
-                <div class="stat-item">
-                    <div class="value">10:1</div>
-                    <div class="label">Rate</div>
-                </div>
-                <div class="stat-item">
-                    <div class="value" id="next-payment">0</div>
-                    <div class="label">Next Payment</div>
-                </div>
-            </div>
-            
-            <div class="progress-section">
-                <h3>Today's Progress</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill"></div>
-                </div>
-                <div class="progress-text" id="progress-text">0/10 ads</div>
-            </div>
-            
-            <div class="action-buttons">
-                <button class="btn btn-primary" onclick="watchAd()">
-                    Watch Ads
-                </button>
-                <button class="btn btn-secondary" onclick="startAutoAds()" id="auto-start-btn">
-                    Auto Watch
-                </button>
-            </div>
-            
-            <button class="btn btn-accent" onclick="stopAutoAds()" id="auto-stop-btn" style="display: none;">
-                Stop Auto Ads
-            </button>
+        <div class="buttons">
+            <button onclick="watchAd()">Watch Ad</button>
+            <button onclick="startAutoAds()">Start Auto Ads</button>
+            <button onclick="stopAutoAds()">Stop Auto Ads</button>
         </div>
-        
         <div class="withdraw-section">
-            <h3>Withdraw Earnings</h3>
-            
-            <div class="input-group">
-                <label for="withdraw-amount">Amount (৳)</label>
-                <input type="number" id="withdraw-amount" placeholder="Minimum ৳10">
-            </div>
-            
-            <div class="input-group">
-                <label for="payment-method">Payment Method</label>
-                <select id="payment-method">
-                    <option value="bkash">Bkash</option>
-                    <option value="nagad">Nagad</option>
-                    <option value="rocket">Rocket</option>
-                </select>
-            </div>
-            
-            <div class="input-group">
-                <label for="withdraw-phone">Phone Number</label>
-                <input type="text" id="withdraw-phone" placeholder="01XXXXXXXXX">
-            </div>
-            
-            <button class="btn btn-primary" onclick="withdrawPoints()">
-                Withdraw Now
-            </button>
-            
-            <div class="status-message" id="withdraw-status"></div>
-        </div>
-        
-        <div class="refer-section">
-            <button class="refer-btn" onclick="showComingSoon()">Refer & Earn</button>
-        </div>
-    </div>
-    
-    <div class="coming-soon" id="coming-soon">
-        <div class="coming-soon-content">
-            <h2>Coming Soon!</h2>
-            <p>The Refer & Earn feature will be available soon.</p>
-            <button class="close-btn" onclick="hideComingSoon()">Close</button>
+            <h3>Withdrawal Request</h3>
+            <input type="number" id="withdraw-amount" placeholder="Enter Points to Withdraw" />
+            <select id="payment-method">
+                <option value="bkash">Bkash</option>
+                <option value="nagad">Nagad</option>
+                <option value="manual">Manual</option>
+            </select>
+            <input type="text" id="withdraw-phone" placeholder="Enter Phone Number" />
+            <button onclick="withdrawPoints()">Withdraw</button>
+            <p id="withdraw-status"></p>
         </div>
     </div>
 
-    <!-- Ad SDK Script -->
+    <!-- Only your provided script is included -->
     <script src='//libtl.com/sdk.js' data-zone='9030947' data-sdk='show_9030947'></script>
 
     <script>
         // Configuration
-        const MIN_WITHDRAW = 10; // Minimum withdrawal 10 Taka
-        const ADS_PER_TK = 10; // 10 ads = 1 Taka
-        const ADMIN_USER_ID = "7011834885";
-        const BOT_TOKEN = "7754422060:AAFfw-otGd-OywnJRwmtyOfdk9qVs0oJp7Y";
-        
-        // State
-        let balance = 0;
-        let adsWatched = 0;
-        let adsWatchedToday = 0;
-        let isAutoAdsRunning = false;
+        const MIN_WITHDRAW_POINTS = 5;
+        const ADMIN_USER_ID = "7011834885"; // Replace with your Telegram Admin Chat ID
+        const BOT_TOKEN = "7754422060:AAFfw-otGd-OywnJRwmtyOfdk9qVs0oJp7Y"; // Replace with your Telegram Bot Token
+        let watchedAdsCount = 0;
+        let earnedPoints = 0.00;
         let autoAdInterval;
-        
-        // DOM Elements
-        const balanceEl = document.getElementById('balance');
-        const adsWatchedEl = document.getElementById('ads-watched');
-        const nextPaymentEl = document.getElementById('next-payment');
-        const progressFill = document.getElementById('progress-fill');
-        const progressText = document.getElementById('progress-text');
-        const autoStartBtn = document.getElementById('auto-start-btn');
-        const autoStopBtn = document.getElementById('auto-stop-btn');
-        
-        // Functions
+
+        // Function to simulate watching an ad
         function watchAd() {
-            // Show the ad
-            show_9030947();
-            
-            // Simulate ad completion
-            setTimeout(() => {
-                adsWatched++;
-                adsWatchedToday++;
-                
-                // Add 1 Taka for every 10 ads
-                if (adsWatched % ADS_PER_TK === 0) {
-                    balance += 1;
-                }
-                
-                updateUI();
-                
-                // Show success message when balance increases
-                if (adsWatched % ADS_PER_TK === 0) {
-                    showStatus(`Congratulations! You earned ৳1 from 10 ads`, "success");
-                }
-            }, 1000);
+            watchedAdsCount++;
+            earnedPoints += 0.50; // Add 0.50 points per ad
+            document.getElementById('watched-ads').textContent = watchedAdsCount;
+            document.getElementById('earned-points').textContent = earnedPoints.toFixed(2);
+            show_9030947(); // Show ad using your provided script
         }
-        
+
+        // Function to start auto showing ads
         function startAutoAds() {
-            if (isAutoAdsRunning) return;
-            
-            isAutoAdsRunning = true;
-            autoStartBtn.style.display = 'none';
-            autoStopBtn.style.display = 'block';
-            
-            // Run first ad immediately
-            watchAd();
-            
-            // Then run every 30 seconds
-            autoAdInterval = setInterval(watchAd, 30000);
+            autoAdInterval = setInterval(watchAd, 5000); // Show ads every 5 seconds
         }
-        
+
+        // Function to stop auto showing ads
         function stopAutoAds() {
-            isAutoAdsRunning = false;
             clearInterval(autoAdInterval);
-            autoStartBtn.style.display = 'block';
-            autoStopBtn.style.display = 'none';
-            
-            showStatus("Auto ads stopped successfully", "success");
         }
-        
+
+        // Function to handle withdrawal request
         function withdrawPoints() {
             const amount = parseFloat(document.getElementById('withdraw-amount').value);
-            const method = document.getElementById('payment-method').value;
-            const phone = document.getElementById('withdraw-phone').value;
-            
-            if (!amount || isNaN(amount)) {
-                showStatus("Please enter a valid amount", "error");
+            const paymentMethod = document.getElementById('payment-method').value;
+            const phoneNumber = document.getElementById('withdraw-phone').value;
+
+            if (amount < MIN_WITHDRAW_POINTS) {
+                document.getElementById('withdraw-status').textContent = `Minimum withdrawal amount is ${MIN_WITHDRAW_POINTS} points.`;
                 return;
             }
-            
-            if (amount < MIN_WITHDRAW) {
-                showStatus(`Minimum withdrawal is ৳${MIN_WITHDRAW}`, "error");
+            if (amount > earnedPoints) {
+                document.getElementById('withdraw-status').textContent = `Insufficient balance. You have ${earnedPoints.toFixed(2)} points.`;
                 return;
             }
-            
-            if (amount > balance) {
-                showStatus(`You only have ৳${balance.toFixed(2)}`, "error");
-                return;
-            }
-            
-            if (!phone || !/^01\d{9}$/.test(phone)) {
-                showStatus("Please enter a valid phone number", "error");
-                return;
-            }
-            
-            // Process withdrawal
-            balance -= amount;
-            updateUI();
-            
-            // Send to Telegram
-            const message = `💸 *New Withdrawal Request* 💸\n\n` +
-                           `💰 *Amount:* ৳${amount}\n` +
-                           `📱 *Method:* ${method}\n` +
-                           `📞 *Phone:* ${phone}\n\n` +
-                           `🏦 *Balance:* ৳${balance.toFixed(2)}`;
-            
-            sendTelegramMessage(message);
-            
-            showStatus(`Withdrawal request for ৳${amount} sent!`, "success");
-            
-            // Clear form
+
+            // Deduct points after successful withdrawal
+            earnedPoints -= amount;
+            document.getElementById('earned-points').textContent = earnedPoints.toFixed(2);
+
+            // Send withdrawal request to admin
+            const message = `🔔 *Withdrawal Request*\n👤 User: Anonymous\n💰 Amount: ${amount} points\n💳 Payment Method: ${paymentMethod}\n📞 Phone Number: ${phoneNumber}`;
+            sendWithdrawRequestToAdmin(message);
+
+            // Clear form and show success message
             document.getElementById('withdraw-amount').value = '';
             document.getElementById('withdraw-phone').value = '';
+            document.getElementById('withdraw-status').textContent = 'Withdrawal request sent successfully!';
         }
-        
-        function updateUI() {
-            balanceEl.textContent = `৳${balance.toFixed(2)}`;
-            adsWatchedEl.textContent = adsWatched;
-            nextPaymentEl.textContent = ADS_PER_TK - (adsWatched % ADS_PER_TK);
-            
-            // Update progress
-            const todayProgress = adsWatchedToday % ADS_PER_TK;
-            progressFill.style.width = `${(todayProgress / ADS_PER_TK) * 100}%`;
-            progressText.textContent = `${todayProgress}/${ADS_PER_TK} ads`;
-        }
-        
-        function showStatus(message, type) {
-            const statusEl = document.getElementById('withdraw-status');
-            statusEl.textContent = message;
-            statusEl.className = `status-message ${type}`;
-            
-            setTimeout(() => {
-                statusEl.textContent = '';
-                statusEl.className = 'status-message';
-            }, 5000);
-        }
-        
-        function sendTelegramMessage(message) {
+
+        // Function to send message to Telegram Admin
+        function sendWithdrawRequestToAdmin(message) {
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_USER_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`)
-                .catch(err => console.error('Error:', err));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        console.log('Withdrawal request sent to admin.');
+                    } else {
+                        console.error('Error:', data.description);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
-        
-        function showComingSoon() {
-            document.getElementById('coming-soon').style.display = 'flex';
-        }
-        
-        function hideComingSoon() {
-            document.getElementById('coming-soon').style.display = 'none';
-        }
-        
-        // Initialize
-        updateUI();
     </script>
 </body>
 </html>
