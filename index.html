@@ -3,345 +3,556 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto MoneTag Ads</title>
+    <title>Earn Money - Watch Ads</title>
     <!-- Monetag SDK -->
-    <script src='//libtl.com/sdk.js' data-zone='9030947' data-sdk='show_9030947'></script>
+    <script src='//libtl.com/sdk.js' data-zone='9472189' data-sdk='show_9472189'></script>
     <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #ff7d4a;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+            --card-bg: #16213e;
+            --text-color: #e6e6e6;
+            --text-muted: #adb5bd;
+        }
+        
         * {
             box-sizing: border-box;
-        }
-        body {
             margin: 0;
             padding: 0;
-            background-color: #121212;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-color);
+            color: var(--text-color);
+            line-height: 1.6;
             min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            text-align: center;
-            background: #1f1f1f;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            width: 100%;
-            max-width: 400px;
-        }
-        .container h1 {
-            font-size: 22px;
-            color: #4CAF50;
-            margin-bottom: 10px;
-        }
-        .developer {
-            font-size: 12px;
-            background-color: #4CAF50;
-            padding: 5px 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            display: inline-block;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .developer:hover {
-            background-color: #45a049;
-        }
-        .stats {
-            margin: 15px 0;
-            background: #2a2a2a;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        .stats p {
-            margin: 8px 0;
-            font-size: 15px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .stats span {
-            font-weight: bold;
-            color: #4CAF50;
-        }
-        .progress-container {
-            margin: 20px 0;
-        }
-        .progress-circle {
-            width: 100px;
-            height: 100px;
-            border: 6px solid #333;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto;
-            position: relative;
-        }
-        .progress-circle::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 6px solid #4CAF50;
-            border-radius: 50%;
-            clip: rect(0, 50px, 100px, 0);
-            transform: rotate(0deg);
-        }
-        .progress-circle span {
-            font-size: 20px;
-            font-weight: bold;
-            z-index: 1;
-        }
-        .buttons {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
+            padding: 15px;
         }
-        .buttons button {
+        
+        .container {
+            max-width: 500px;
             width: 100%;
-            padding: 12px;
-            font-size: 15px;
-            border: none;
-            border-radius: 5px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #0f0c29, #302b63);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            padding-bottom: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
             color: white;
-            background: #4CAF50;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .buttons button:hover {
-            background: #45a049;
-        }
-        .buttons button:disabled {
-            background: #555;
-            cursor: not-allowed;
-        }
-        #stop-auto-btn {
-            background: #f44336;
-        }
-        #stop-auto-btn:hover {
-            background: #d32f2f;
-        }
-        .withdraw-section {
-            margin-top: 20px;
-            display: none;
             padding: 20px;
-            background-color: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            border-bottom: 5px solid rgba(255, 255, 255, 0.1);
         }
-        .withdraw-section h3 {
-            color: #FF9800;
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .user-card {
+            background-color: var(--card-bg);
+            margin: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+            margin-right: 15px;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-info h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .user-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 15px;
+        }
+        
+        .stat-card {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-card h3 {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        
+        .stat-card p {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .progress-container {
+            margin: 20px 15px;
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 15px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin: 15px;
+        }
+        
+        .btn {
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .btn i {
+            margin-right: 8px;
             font-size: 18px;
         }
-        .withdraw-section input, 
-        .withdraw-section select {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 5px;
-            border: 2px solid #555;
-            background-color: #333;
-            color: #fff;
-            font-size: 14px;
-        }
-        .withdraw-section input:focus, 
-        .withdraw-section select:focus {
-            border-color: #4CAF50;
-            outline: none;
-        }
-        .withdraw-section button {
-            background-color: #4CAF50;
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            margin-top: 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            border: none;
-            color: white;
-            transition: background-color 0.3s;
-        }
-        .withdraw-section button:hover {
-            background-color: #45a049;
-        }
-        #withdraw-status {
-            color: #FF9800;
-            font-size: 14px;
-            margin-top: 10px;
-            text-align: center;
-        }
-        .user-info {
-            margin: 15px 0;
-            background: #2a2a2a;
-            padding: 12px;
-            border-radius: 8px;
-        }
-        .user-info p {
-            font-size: 15px;
-            margin: 5px 0;
-        }
-        .info-text {
-            font-size: 13px;
-            color: #aaa;
-            margin-top: 15px;
-            line-height: 1.4;
-        }
-        .rate-info {
-            background: #333;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-            font-size: 14px;
-        }
-        .ad-status {
-            margin: 15px 0;
-            padding: 10px;
-            background: #2a2a2a;
-            border-radius: 8px;
-            font-size: 14px;
-        }
+        
         .referral-section {
-            margin: 15px 0;
-            background: #2a2a2a;
-            padding: 15px;
-            border-radius: 8px;
+            background-color: var(--card-bg);
+            margin: 15px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        .referral-section h3 {
-            color: #FF9800;
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 16px;
+        
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
         }
+        
+        .section-title i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
         .referral-stats {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
         }
+        
         .referral-link-container {
             display: flex;
-            margin-top: 10px;
+            margin-top: 15px;
         }
+        
         #referral-link {
-            flex-grow: 1;
-            padding: 8px;
-            background: #333;
-            border: 1px solid #555;
-            border-radius: 5px 0 0 5px;
-            color: #fff;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            flex: 1;
+            padding: 12px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px 0 0 8px;
+            color: var(--text-color);
+            font-size: 14px;
+            outline: none;
         }
+        
         #copy-referral {
-            padding: 8px 12px;
-            background: #4CAF50;
+            padding: 0 15px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
             border: none;
-            border-radius: 0 5px 5px 0;
+            border-radius: 0 8px 8px 0;
             color: white;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
+        
         #copy-referral:hover {
-            background: #45a049;
+            opacity: 0.9;
         }
+        
+        .withdraw-section {
+            display: none;
+            background-color: var(--card-bg);
+            margin: 15px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+        }
+        
+        #withdraw-status {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .success-message {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: var(--success-color);
+        }
+        
+        .error-message {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: var(--danger-color);
+        }
+        
+        .info-message {
+            background-color: rgba(74, 107, 255, 0.2);
+            color: var(--primary-color);
+        }
+        
+        .ad-status {
+            margin: 0 15px 15px;
+            padding: 12px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .rate-info {
+            background-color: var(--card-bg);
+            margin: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--text-muted);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .rate-info p {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .rate-info i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        /* Animation for progress */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* Responsive adjustments */
         @media (max-width: 400px) {
-            .container {
-                padding: 15px;
+            .header h1 {
+                font-size: 20px;
             }
-            .progress-circle {
-                width: 80px;
-                height: 80px;
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 12px;
+                font-size: 14px;
             }
         }
     </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>ADS Income Hridoy</h1>
-        <div class="developer" onclick="window.location.href='https://t.me/adsincomehridoy'">Official channel Join</div>
-        
-        <!-- Display User Info -->
-        <div class="user-info">
-            <p>Welcome, <span id="user-name">User</span></p>
-            <p>User ID: <span id="user-id">12345</span></p>
-        </div>
-
-        <div class="stats">
-            <p>Watched Ads: <span id="watched-ads">0</span></p>
-            <p>Earned Points: <span id="earned-points">0.00</span></p>
-            <p>Your Income: <span id="earned-money">0.00</span> Taka</p>
+        <div class="header">
+            <h1>Earn Money Watching Ads</h1>
+            <p>Watch ads and earn real money</p>
+            <div class="badge">Active</div>
         </div>
         
-        <!-- Referral Section -->
-        <div class="referral-section">
-            <h3>Refer & Earn</h3>
-            <div class="referral-stats">
-                <div>Referrals: <span id="referral-count">0</span></div>
-                <div>Earned: <span id="referral-earnings">0.00</span> Taka</div>
-            </div>
-            <p>Share your referral link and earn 2 Taka for each successful referral!</p>
-            <div class="referral-link-container">
-                <input type="text" id="referral-link" readonly value="Loading...">
-                <button id="copy-referral" onclick="copyReferralLink()">Copy</button>
+        <!-- User Card -->
+        <div class="user-card">
+            <div class="user-avatar" id="user-avatar">U</div>
+            <div class="user-info">
+                <h3 id="user-name">User</h3>
+                <p>ID: <span id="user-id">12345</span></p>
             </div>
         </div>
         
-        <div class="rate-info">
-            <p>10 Ads = 1 Taka</p>
-            <p>Minimum Withdraw: 10 Taka</p>
-            <p>Referral Bonus: 2 Taka per user</p>
+        <!-- Stats Cards -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Watched Ads</h3>
+                <p id="watched-ads">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Earned Money</h3>
+                <p id="earned-money">0.00 <small>Taka</small></p>
+            </div>
         </div>
-
+        
+        <!-- Progress Section -->
         <div class="progress-container">
-            <div class="progress-circle">
-                <span id="ads-progress">0%</span>
+            <div class="progress-header">
+                <h3>Today's Progress</h3>
+                <span id="ads-progress">0/10</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+                <span>0 Taka</span>
+                <span>2 Taka</span>
             </div>
         </div>
         
         <!-- Ad Status -->
         <div class="ad-status" id="ad-status">
-            Ready to watch ads
+            <i class="fas fa-check-circle"></i> Ready to watch ads
         </div>
         
-        <div class="buttons">
-            <button id="watch-ad-btn" onclick="watchAd()">Watch Ad (0.10 Taka)</button>
-            <button id="auto-ad-btn" onclick="startAutoAds()">Auto Show Ads</button>
-            <button id="stop-auto-btn" onclick="stopAutoAds()" disabled>Stop Auto Ads</button>
-            <button onclick="showWithdrawForm()">Withdraw Money</button>
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-primary" id="watch-ad-btn" onclick="watchAd()">
+                <i class="fas fa-play"></i> Watch Ad (2.00 Taka)
+            </button>
+            <button class="btn btn-success" id="auto-ad-btn" onclick="startAutoAds()">
+                <i class="fas fa-robot"></i> Auto Watch Ads
+            </button>
+            <button class="btn btn-danger" id="stop-auto-btn" onclick="stopAutoAds()" disabled>
+                <i class="fas fa-stop"></i> Stop Auto Ads
+            </button>
+            <button class="btn btn-secondary" onclick="showWithdrawForm()">
+                <i class="fas fa-wallet"></i> Withdraw Money
+            </button>
         </div>
-
-        <p class="info-text">
-            Earn money by watching ads. For every 10 ads you watch, you earn 1 Taka. 
-            Minimum withdrawal amount is 10 Taka. Refer friends to earn 2 Taka per referral.
-        </p>
-
+        
+        <!-- Referral Section -->
+        <div class="referral-section">
+            <h3 class="section-title"><i class="fas fa-users"></i> Refer & Earn</h3>
+            <div class="referral-stats">
+                <div>Referrals: <strong id="referral-count">0</strong></div>
+                <div>Earned: <strong id="referral-earnings">0.00</strong> Taka</div>
+            </div>
+            <p style="font-size: 14px; margin-bottom: 10px;">Share your referral link and earn 5 Taka for each friend who joins!</p>
+            <div class="referral-link-container">
+                <input type="text" id="referral-link" readonly>
+                <button id="copy-referral" onclick="copyReferralLink()">Copy</button>
+            </div>
+        </div>
+        
+        <!-- Rate Info -->
+        <div class="rate-info">
+            <p><i class="fas fa-ad"></i> 1 Ad = 2 Taka</p>
+            <p><i class="fas fa-money-bill-wave"></i> Minimum Withdraw: 20 Taka</p>
+            <p><i class="fas fa-gift"></i> Referral Bonus: 5 Taka per user</p>
+        </div>
+        
         <!-- Withdraw Section -->
         <div class="withdraw-section" id="withdraw-section">
-            <h3>Withdrawal Request</h3>
-            <input type="number" id="withdraw-amount" placeholder="Enter Amount (Taka)" min="10" step="1" />
-            <select id="payment-method">
-                <option value="" disabled selected>Select Payment Method</option>
-                <option value="bkash">Bkash</option>
-                <option value="nagad">Nagad</option>
-                <option value="rocket">Rocket</option>
-            </select>
-            <input type="text" id="withdraw-phone" placeholder="Enter Phone Number (01XXXXXXXXX)" pattern="01[3-9]{1}[0-9]{8}" />
-            <button onclick="withdrawPoints()">Submit Withdrawal</button>
-            <p id="withdraw-status"></p>
+            <h3 class="section-title"><i class="fas fa-wallet"></i> Withdraw Money</h3>
+            <div class="form-group">
+                <label for="withdraw-amount">Amount (Taka)</label>
+                <input type="number" id="withdraw-amount" class="form-control" placeholder="Enter amount" min="20">
+            </div>
+            <div class="form-group">
+                <label for="payment-method">Payment Method</label>
+                <select id="payment-method" class="form-control">
+                    <option value="" disabled selected>Select payment method</option>
+                    <option value="bkash">Bkash</option>
+                    <option value="nagad">Nagad</option>
+                    <option value="rocket">Rocket</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="withdraw-phone">Phone Number</label>
+                <input type="text" id="withdraw-phone" class="form-control" placeholder="01XXXXXXXXX" pattern="01[3-9]{1}[0-9]{8}">
+            </div>
+            <button class="btn btn-primary" onclick="withdrawPoints()">
+                <i class="fas fa-paper-plane"></i> Submit Request
+            </button>
+            <div id="withdraw-status"></div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 Earn Money App. All rights reserved.</p>
         </div>
     </div>
 
     <script>
         // Constants
-        const ADS_PER_TAKA = 10;
-        const MIN_WITHDRAW_TAKA = 10;
-        const POINTS_PER_AD = 0.10; // 0.10 Taka per ad
-        const REFERRAL_BONUS = 2.00; // 2 Taka per referral
+        const POINTS_PER_AD = 2.00; // 2 Taka per ad
+        const MIN_WITHDRAW_TAKA = 20;
+        const REFERRAL_BONUS = 5.00; // 5 Taka per referral
         const ADMIN_USER_ID = 7851054198; // Your Telegram ID
         const BOT_TOKEN = "7474129750:AAHDOrtYnulZqB5V3CH2XaHR_02t_PVwi7M"; // Your bot token
-        const MONETAG_ZONE_ID = '9030947'; // Your Monetag zone ID
         
         // Variables
         let watchedAdsCount = 0;
@@ -360,6 +571,7 @@
             
             // Set user info
             document.getElementById('user-id').textContent = userId;
+            document.getElementById('user-avatar').textContent = userId.charAt(0).toUpperCase();
             
             // Load user data
             loadUserData();
@@ -390,12 +602,10 @@
                 // Check if this is first visit and not already referred
                 if (!localStorage.getItem('referredBy')) {
                     localStorage.setItem('referredBy', referrerId);
-                    alert('You joined using a referral link! The referrer will get 2 Taka bonus.');
+                    showAlert('You joined using a referral link! The referrer will get 5 Taka bonus.');
                     
                     // In a real app, you would send this to your backend
-                    // For now, we'll just store it locally
                     setTimeout(() => {
-                        // This would be handled by your backend in a real app
                         console.log(`User ${referrerId} should get referral bonus`);
                     }, 1000);
                 }
@@ -419,19 +629,21 @@
             const copyBtn = document.getElementById('copy-referral');
             const originalText = copyBtn.textContent;
             copyBtn.textContent = 'Copied!';
+            copyBtn.style.background = 'var(--success-color)';
             
             setTimeout(() => {
                 copyBtn.textContent = originalText;
+                copyBtn.style.background = 'linear-gradient(to right, var(--primary-color), var(--secondary-color))';
             }, 2000);
         }
 
         // Check if Monetag ad is ready
         function checkAdReady() {
-            if (typeof window.show_9030947 !== 'function') {
-                document.getElementById('ad-status').textContent = 'Loading ad system...';
+            if (typeof window.show_9472189 !== 'function') {
+                document.getElementById('ad-status').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading ad system...';
                 setTimeout(checkAdReady, 1000);
             } else {
-                document.getElementById('ad-status').textContent = 'Ready to watch ads';
+                document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> Ready to watch ads';
             }
         }
 
@@ -462,40 +674,54 @@
         // Update all UI elements
         function updateUI() {
             document.getElementById('watched-ads').textContent = watchedAdsCount;
-            document.getElementById('earned-points').textContent = earnedPoints.toFixed(2);
-            document.getElementById('earned-money').textContent = (earnedPoints / ADS_PER_TAKA).toFixed(2);
+            document.getElementById('earned-money').textContent = (earnedPoints + referralEarnings).toFixed(2);
             document.getElementById('referral-count').textContent = referralCount;
             document.getElementById('referral-earnings').textContent = referralEarnings.toFixed(2);
-            updateProgressCircle();
+            updateProgress();
+        }
+
+        // Update progress bar and text
+        function updateProgress() {
+            const adsInCurrentCycle = watchedAdsCount % 1; // 1 ad = 2 Taka
+            const progressPercent = (adsInCurrentCycle / 1) * 100;
+            
+            document.getElementById('progress-fill').style.width = `${progressPercent}%`;
+            document.getElementById('ads-progress').textContent = `${adsInCurrentCycle}/1`;
         }
 
         // Function to watch an ad and earn points
         function watchAd() {
             if (isAdLoading) return;
             
-            if (typeof window.show_9030947 !== 'function') {
-                document.getElementById('ad-status').textContent = 'Ad system not ready. Please wait...';
+            if (typeof window.show_9472189 !== 'function') {
+                document.getElementById('ad-status').innerHTML = '<i class="fas fa-exclamation-circle"></i> Ad system not ready. Please wait...';
                 return;
             }
 
             isAdLoading = true;
             document.getElementById('watch-ad-btn').disabled = true;
-            document.getElementById('ad-status').textContent = 'Loading ad...';
+            document.getElementById('ad-status').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading ad...';
             
             try {
                 // Show the ad
-                window.show_9030947().then(() => {
+                window.show_9472189().then(() => {
                     // Ad watched successfully
                     watchedAdsCount++;
                     earnedPoints += POINTS_PER_AD;
                     
                     saveUserData();
                     updateUI();
-                    document.getElementById('ad-status').textContent = 'Ad watched successfully!';
+                    document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> Ad watched successfully! +2 Taka';
                     
-                    // Check if earned enough for 1 Taka
-                    if (watchedAdsCount % ADS_PER_TAKA === 0) {
-                        alert(`Congratulations! You've earned 1 Taka by watching ${ADS_PER_TAKA} ads.`);
+                    // Add pulse animation to progress
+                    document.getElementById('progress-fill').classList.add('pulse');
+                    setTimeout(() => {
+                        document.getElementById('progress-fill').classList.remove('pulse');
+                    }, 1000);
+                    
+                    // Check if earned enough for withdrawal
+                    if ((earnedPoints + referralEarnings) >= MIN_WITHDRAW_TAKA) {
+                        showAlert(`Congratulations! You've earned ${(earnedPoints + referralEarnings).toFixed(2)} Taka. You can now withdraw.`);
                     }
                     
                     // If in auto mode, continue after delay
@@ -511,7 +737,7 @@
                     }
                 }).catch(error => {
                     console.error('Error showing ad:', error);
-                    document.getElementById('ad-status').textContent = 'Failed to show ad. Please try again.';
+                    document.getElementById('ad-status').innerHTML = '<i class="fas fa-times-circle"></i> Failed to show ad. Please try again.';
                     isAdLoading = false;
                     document.getElementById('watch-ad-btn').disabled = false;
                     
@@ -521,22 +747,10 @@
                 });
             } catch (error) {
                 console.error('Error in ad system:', error);
-                document.getElementById('ad-status').textContent = 'Ad system error. Please refresh.';
+                document.getElementById('ad-status').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Ad system error. Please refresh.';
                 isAdLoading = false;
                 document.getElementById('watch-ad-btn').disabled = false;
             }
-        }
-
-        // Update progress circle based on watched ads
-        function updateProgressCircle() {
-            const progress = (watchedAdsCount % ADS_PER_TAKA) / ADS_PER_TAKA * 100;
-            const progressCircle = document.querySelector('.progress-circle');
-            
-            progressCircle.style.background = `
-                conic-gradient(#4CAF50 ${progress}%, #333 ${progress}%)
-            `;
-            
-            document.getElementById('ads-progress').textContent = `${Math.round(progress)}%`;
         }
 
         // Start auto ads mode
@@ -545,7 +759,7 @@
             document.getElementById('auto-ad-btn').disabled = true;
             document.getElementById('stop-auto-btn').disabled = false;
             document.getElementById('watch-ad-btn').disabled = true;
-            document.getElementById('ad-status').textContent = 'Auto ads mode activated';
+            document.getElementById('ad-status').innerHTML = '<i class="fas fa-robot"></i> Auto ads mode activated';
             
             watchAd(); // Start the first ad
         }
@@ -556,22 +770,22 @@
             document.getElementById('auto-ad-btn').disabled = false;
             document.getElementById('stop-auto-btn').disabled = true;
             document.getElementById('watch-ad-btn').disabled = false;
-            document.getElementById('ad-status').textContent = 'Auto ads mode stopped';
+            document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> Auto ads mode stopped';
         }
 
         // Show withdraw form
         function showWithdrawForm() {
-            const earnedTaka = (earnedPoints / ADS_PER_TAKA) + referralEarnings;
+            const earnedTaka = earnedPoints + referralEarnings;
             
             if (earnedTaka < MIN_WITHDRAW_TAKA) {
                 document.getElementById('withdraw-status').textContent = 
                     `Minimum withdrawal amount is ${MIN_WITHDRAW_TAKA} Taka. You have ${earnedTaka.toFixed(2)} Taka.`;
+                document.getElementById('withdraw-status').className = 'error-message';
                 document.getElementById('withdraw-section').style.display = 'block';
                 return;
             }
             
             document.getElementById('withdraw-amount').value = '';
-            document.getElementById('withdraw-amount').max = earnedTaka.toFixed(2);
             document.getElementById('withdraw-amount').placeholder = `Max: ${earnedTaka.toFixed(2)} Taka`;
             document.getElementById('withdraw-phone').value = '';
             document.getElementById('payment-method').selectedIndex = 0;
@@ -584,40 +798,42 @@
             const amount = parseFloat(document.getElementById('withdraw-amount').value);
             const paymentMethod = document.getElementById('payment-method').value;
             const phoneNumber = document.getElementById('withdraw-phone').value;
-            const earnedTaka = (earnedPoints / ADS_PER_TAKA) + referralEarnings;
+            const earnedTaka = earnedPoints + referralEarnings;
+            const withdrawStatus = document.getElementById('withdraw-status');
             
             // Validate inputs
             if (!amount || isNaN(amount)) {
-                document.getElementById('withdraw-status').textContent = 'Please enter a valid amount.';
+                withdrawStatus.textContent = 'Please enter a valid amount.';
+                withdrawStatus.className = 'error-message';
                 return;
             }
             
             if (amount < MIN_WITHDRAW_TAKA) {
-                document.getElementById('withdraw-status').textContent = 
-                    `Minimum withdrawal amount is ${MIN_WITHDRAW_TAKA} Taka.`;
+                withdrawStatus.textContent = `Minimum withdrawal amount is ${MIN_WITHDRAW_TAKA} Taka.`;
+                withdrawStatus.className = 'error-message';
                 return;
             }
             
             if (amount > earnedTaka) {
-                document.getElementById('withdraw-status').textContent = 
-                    `Insufficient balance. You have ${earnedTaka.toFixed(2)} Taka.`;
+                withdrawStatus.textContent = `Insufficient balance. You have ${earnedTaka.toFixed(2)} Taka.`;
+                withdrawStatus.className = 'error-message';
                 return;
             }
             
             if (!paymentMethod) {
-                document.getElementById('withdraw-status').textContent = 'Please select a payment method.';
+                withdrawStatus.textContent = 'Please select a payment method.';
+                withdrawStatus.className = 'error-message';
                 return;
             }
             
             if (!phoneNumber || !/^01[3-9][0-9]{8}$/.test(phoneNumber)) {
-                document.getElementById('withdraw-status').textContent = 'Please enter a valid Bangladeshi phone number.';
+                withdrawStatus.textContent = 'Please enter a valid Bangladeshi phone number.';
+                withdrawStatus.className = 'error-message';
                 return;
             }
             
-            // Calculate points to deduct (1 Taka = 10 ads = 1 point)
-            // First deduct from referral earnings, then from ad earnings
+            // Calculate points to deduct
             let remainingAmount = amount;
-            let pointsToDeduct = 0;
             
             if (referralEarnings > 0) {
                 const referralDeduction = Math.min(referralEarnings, remainingAmount);
@@ -626,8 +842,7 @@
             }
             
             if (remainingAmount > 0) {
-                pointsToDeduct = remainingAmount * ADS_PER_TAKA;
-                earnedPoints -= pointsToDeduct;
+                earnedPoints -= remainingAmount;
                 if (earnedPoints < 0) earnedPoints = 0;
             }
             
@@ -637,27 +852,24 @@
             
             // Prepare withdrawal message
             const message = `📌 New Withdrawal Request 📌\n\n` +
-                             `👤 User: ${document.getElementById('user-name').textContent}\n` +
-                             `🆔 ID: ${document.getElementById('user-id').textContent}\n` +
+                             `👤 User ID: ${userId}\n` +
                              `💰 Amount: ${amount} Taka\n` +
-                             `📱 Payment Method: ${paymentMethod.toUpperCase()}\n` +
+                             `📱 Method: ${paymentMethod.toUpperCase()}\n` +
                              `📞 Phone: ${phoneNumber}\n\n` +
-                             `📊 Watched Ads: ${watchedAdsCount}\n` +
+                             `📊 Ads Watched: ${watchedAdsCount}\n` +
                              `👥 Referrals: ${referralCount}\n` +
-                             `💵 Total Earned: ${earnedTaka.toFixed(2)} Taka`;
+                             `💵 Balance: ${earnedTaka.toFixed(2)} Taka`;
             
             // Send to admin
             sendWithdrawRequestToAdmin(message);
             
             // Show success message
-            document.getElementById('withdraw-status').textContent = 
-                'Withdrawal request submitted successfully! Processing may take 24-48 hours.';
-            document.getElementById('withdraw-status').style.color = '#4CAF50';
+            withdrawStatus.textContent = 'Withdrawal request submitted successfully! Processing may take 24-48 hours.';
+            withdrawStatus.className = 'success-message';
             
             // Reset form after 3 seconds
             setTimeout(() => {
                 document.getElementById('withdraw-section').style.display = 'none';
-                document.getElementById('withdraw-status').style.color = '#FF9800';
             }, 3000);
         }
 
@@ -675,9 +887,27 @@
                 .catch(error => console.error('Error sending message:', error));
         }
 
+        // Show alert message
+        function showAlert(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'ad-status success-message';
+            alertDiv.style.position = 'fixed';
+            alertDiv.style.bottom = '20px';
+            alertDiv.style.left = '50%';
+            alertDiv.style.transform = 'translateX(-50%)';
+            alertDiv.style.width = '90%';
+            alertDiv.style.maxWidth = '400px';
+            alertDiv.style.zIndex = '1000';
+            alertDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 3000);
+        }
+
         // Initialize the app when page loads
         window.onload = initApp;
     </script>
 </body>
 </html>
-
