@@ -529,8 +529,10 @@
         const POINTS_PER_AD = 2.00; // প্রতি বিজ্ঞাপনে ২ টাকা
         const MIN_WITHDRAW_TAKA = 20; // ন্যূনতম উত্তোলন ২০ টাকা
         const REFERRAL_BONUS = 5.00; // রেফারেল বোনাস ৫ টাকা
-        const ADMIN_USER_ID = "7011834885"; // আপনার টেলিগ্রাম আইডি (স্ট্রিং হিসেবে)
+        
+        // Telegram Bot Configuration - এখানে আপনার বটের তথ্য দিন
         const BOT_TOKEN = "7987524748:AAHmv52bPWjGpWLzvexVBGZ6P5vACjInNzE"; // আপনার বট টোকেন
+        const ADMIN_CHAT_ID = "7011834885"; // আপনার টেলিগ্রাম চ্যাট আইডি
         
         // Variables
         let watchedAdsCount = 0;
@@ -862,7 +864,7 @@
                              `👥 আমন্ত্রিত: ${referralCount}\n` +
                              `💵 মোট আয়: ${totalEarnings.toFixed(2)} টাকা`;
             
-            // Send to admin
+            // Send to admin via Telegram
             sendWithdrawRequestToAdmin(message);
             
             // Show success message
@@ -881,7 +883,7 @@
         // Send withdrawal request to admin via Telegram bot
         function sendWithdrawRequestToAdmin(message) {
             // Telegram API URL তৈরি করুন
-            const apiUrl = `https://api.telegram.org/bot${7987524748}/sendMessage?chat_id=${7011834885}&text=${encodeURIComponent(message)}`;
+            const apiUrl = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
             
             fetch(apiUrl)
                 .then(response => response.json())
