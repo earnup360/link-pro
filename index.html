@@ -35,6 +35,7 @@
             display: flex;
             flex-direction: column;
             padding: 15px;
+            padding-bottom: 70px; /* নেভিগেশন বারের জন্য স্থান */
         }
         
         .container {
@@ -403,10 +404,63 @@
             animation: coinAnimation 1s forwards;
         }
         
+        /* নেভিগেশন বার স্টাইল */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 10px;
+            width: 25%;
+        }
+        
+        .nav-item.active {
+            color: var(--primary-color);
+            background: rgba(74, 107, 255, 0.2);
+        }
+        
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .nav-item:hover {
+            color: var(--primary-color);
+        }
+        
+        /* পেজ সেকশন স্টাইল */
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
         @media (max-width: 400px) {
             .header h1 { font-size: 20px; }
             .stats-container { grid-template-columns: 1fr; }
             .btn { padding: 12px; font-size: 14px; }
+            .nav-item { font-size: 10px; padding: 5px; }
+            .nav-item i { font-size: 18px; }
         }
     </style>
 </head>
@@ -418,105 +472,202 @@
             <div class="badge">সক্রিয়</div>
         </div>
         
-        <div class="user-card">
-            <div class="user-avatar" id="user-avatar">U</div>
-            <div class="user-info">
-                <h3 id="user-name">ব্যবহারকারী</h3>
-                <p>আইডি: <span id="user-id">12345</span></p>
+        <!-- হোম পেজ -->
+        <div class="page-section active" id="home-page">
+            <div class="user-card">
+                <div class="user-avatar" id="user-avatar">U</div>
+                <div class="user-info">
+                    <h3 id="user-name">ব্যবহারকারী</h3>
+                    <p>আইডি: <span id="user-id">12345</span></p>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>দেখা বিজ্ঞাপন</h3>
+                    <p id="watched-ads">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>আয়কৃত টাকা</h3>
+                    <p id="earned-money">0.00 <small>টাকা</small></p>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-header">
+                    <h3>আজকের অগ্রগতি</h3>
+                    <span id="ads-progress">0/10</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-text">
+                    <span>0 টাকা</span>
+                    <span>20 টাকা</span>
+                </div>
+            </div>
+            
+            <div class="ad-status" id="ad-status">
+                <i class="fas fa-check-circle"></i> বিজ্ঞাপন দেখতে প্রস্তুত
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="watch-ad-btn" onclick="watchAd()">
+                    <i class="fas fa-play"></i> বিজ্ঞাপন দেখুন (২ টাকা)
+                </button>
+                <button class="btn btn-success" id="auto-ad-btn" onclick="startAutoAds()">
+                    <i class="fas fa-robot"></i> স্বয়ংক্রিয় বিজ্ঞাপন
+                </button>
+                <button class="btn btn-danger" id="stop-auto-btn" onclick="stopAutoAds()" disabled>
+                    <i class="fas fa-stop"></i> বন্ধ করুন
+                </button>
+                <button class="btn btn-secondary" onclick="showWithdrawForm()">
+                    <i class="fas fa-wallet"></i> টাকা উত্তোলন
+                </button>
+            </div>
+            
+            <div class="referral-section">
+                <h3 class="section-title"><i class="fas fa-users"></i> বন্ধুকে আমন্ত্রণ করুন</h3>
+                <div class="referral-stats">
+                    <div>আমন্ত্রিত: <strong id="referral-count">0</strong></div>
+                    <div>আয়: <strong id="referral-earnings">0.00</strong> টাকা</div>
+                </div>
+                <p style="font-size: 14px; margin-bottom: 10px;">আপনার রেফারেল লিঙ্ক শেয়ার করুন এবং প্রতিটি বন্ধুর জন্য ৫ টাকা বোনাস পান!</p>
+                <div class="referral-link-container">
+                    <input type="text" id="referral-link" readonly>
+                    <button id="copy-referral" onclick="copyReferralLink()">কপি</button>
+                </div>
+            </div>
+            
+            <div class="rate-info">
+                <p><i class="fas fa-ad"></i> প্রতি বিজ্ঞাপন = ২ টাকা</p>
+                <p><i class="fas fa-money-bill-wave"></i> ন্যূনতম উত্তোলন: ২০ টাকা</p>
+                <p><i class="fas fa-gift"></i> রেফারেল বোনাস: ৫ টাকা প্রতি ব্যবহারকারী</p>
             </div>
         </div>
         
-        <div class="stats-container">
-            <div class="stat-card">
-                <h3>দেখা বিজ্ঞাপন</h3>
-                <p id="watched-ads">0</p>
+        <!-- আর্ন পেজ -->
+        <div class="page-section" id="earn-page">
+            <h3 class="section-title"><i class="fas fa-coins"></i> টাকা আয় করার উপায়</h3>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="watch-ad-btn-earn" onclick="watchAd()">
+                    <i class="fas fa-play"></i> বিজ্ঞাপন দেখুন (২ টাকা)
+                </button>
+                <button class="btn btn-success" id="auto-ad-btn-earn" onclick="startAutoAds()">
+                    <i class="fas fa-robot"></i> স্বয়ংক্রিয় বিজ্ঞাপন
+                </button>
+                <button class="btn btn-danger" id="stop-auto-btn-earn" onclick="stopAutoAds()" disabled>
+                    <i class="fas fa-stop"></i> বন্ধ করুন
+                </button>
             </div>
-            <div class="stat-card">
-                <h3>আয়কৃত টাকা</h3>
-                <p id="earned-money">0.00 <small>টাকা</small></p>
+            
+            <div class="referral-section">
+                <h3 class="section-title"><i class="fas fa-users"></i> বন্ধুকে আমন্ত্রণ করুন</h3>
+                <div class="referral-stats">
+                    <div>আমন্ত্রিত: <strong id="referral-count-earn">0</strong></div>
+                    <div>আয়: <strong id="referral-earnings-earn">0.00</strong> টাকা</div>
+                </div>
+                <p style="font-size: 14px; margin-bottom: 10px;">আপনার রেফারেল লিঙ্ক শেয়ার করুন এবং প্রতিটি বন্ধুর জন্য ৫ টাকা বোনাস পান!</p>
+                <div class="referral-link-container">
+                    <input type="text" id="referral-link-earn" readonly>
+                    <button id="copy-referral-earn" onclick="copyReferralLink()">কপি</button>
+                </div>
             </div>
-        </div>
-        
-        <div class="progress-container">
-            <div class="progress-header">
-                <h3>আজকের অগ্রগতি</h3>
-                <span id="ads-progress">0/10</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill"></div>
-            </div>
-            <div class="progress-text">
-                <span>0 টাকা</span>
-                <span>20 টাকা</span>
-            </div>
-        </div>
-        
-        <div class="ad-status" id="ad-status">
-            <i class="fas fa-check-circle"></i> বিজ্ঞাপন দেখতে প্রস্তুত
-        </div>
-        
-        <div class="action-buttons">
-            <button class="btn btn-primary" id="watch-ad-btn" onclick="watchAd()">
-                <i class="fas fa-play"></i> বিজ্ঞাপন দেখুন (২ টাকা)
-            </button>
-            <button class="btn btn-success" id="auto-ad-btn" onclick="startAutoAds()">
-                <i class="fas fa-robot"></i> স্বয়ংক্রিয় বিজ্ঞাপন
-            </button>
-            <button class="btn btn-danger" id="stop-auto-btn" onclick="stopAutoAds()" disabled>
-                <i class="fas fa-stop"></i> বন্ধ করুন
-            </button>
-            <button class="btn btn-secondary" onclick="showWithdrawForm()">
-                <i class="fas fa-wallet"></i> টাকা উত্তোলন
-            </button>
-        </div>
-        
-        <div class="referral-section">
-            <h3 class="section-title"><i class="fas fa-users"></i> বন্ধুকে আমন্ত্রণ করুন</h3>
-            <div class="referral-stats">
-                <div>আমন্ত্রিত: <strong id="referral-count">0</strong></div>
-                <div>আয়: <strong id="referral-earnings">0.00</strong> টাকা</div>
-            </div>
-            <p style="font-size: 14px; margin-bottom: 10px;">আপনার রেফারেল লিঙ্ক শেয়ার করুন এবং প্রতিটি বন্ধুর জন্য ৫ টাকা বোনাস পান!</p>
-            <div class="referral-link-container">
-                <input type="text" id="referral-link" readonly>
-                <button id="copy-referral" onclick="copyReferralLink()">কপি</button>
+            
+            <div class="rate-info">
+                <p><i class="fas fa-ad"></i> প্রতি বিজ্ঞাপন = ২ টাকা</p>
+                <p><i class="fas fa-gift"></i> রেফারেল বোনাস: ৫ টাকা প্রতি ব্যবহারকারী</p>
             </div>
         </div>
         
-        <div class="rate-info">
-            <p><i class="fas fa-ad"></i> প্রতি বিজ্ঞাপন = ২ টাকা</p>
-            <p><i class="fas fa-money-bill-wave"></i> ন্যূনতম উত্তোলন: ২০ টাকা</p>
-            <p><i class="fas fa-gift"></i> রেফারেল বোনাস: ৫ টাকা প্রতি ব্যবহারকারী</p>
-        </div>
-        
-        <div class="withdraw-section" id="withdraw-section">
+        <!-- উত্তোলন পেজ -->
+        <div class="page-section" id="withdraw-page">
             <h3 class="section-title"><i class="fas fa-wallet"></i> টাকা উত্তোলন</h3>
-            <div class="form-group">
-                <label for="withdraw-amount">পরিমাণ (টাকা)</label>
-                <input type="number" id="withdraw-amount" class="form-control" placeholder="টাকার পরিমাণ লিখুন" min="20">
+            
+            <div class="stat-card">
+                <h3>মোট আয়</h3>
+                <p id="total-earned-withdraw">0.00 <small>টাকা</small></p>
             </div>
-            <div class="form-group">
-                <label for="payment-method">পেমেন্ট মাধ্যম</label>
-                <select id="payment-method" class="form-control">
-                    <option value="" disabled selected>পেমেন্ট মাধ্যম নির্বাচন করুন</option>
-                    <option value="bkash">bKash</option>
-                    <option value="nagad">Nagad</option>
-                    <option value="rocket">Rocket</option>
-                </select>
+            
+            <div class="withdraw-section" id="withdraw-section">
+                <div class="form-group">
+                    <label for="withdraw-amount">পরিমাণ (টাকা)</label>
+                    <input type="number" id="withdraw-amount" class="form-control" placeholder="টাকার পরিমাণ লিখুন" min="20">
+                </div>
+                <div class="form-group">
+                    <label for="payment-method">পেমেন্ট মাধ্যম</label>
+                    <select id="payment-method" class="form-control">
+                        <option value="" disabled selected>পেমেন্ট মাধ্যম নির্বাচন করুন</option>
+                        <option value="bkash">bKash</option>
+                        <option value="nagad">Nagad</option>
+                        <option value="rocket">Rocket</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="withdraw-phone">মোবাইল নম্বর</label>
+                    <input type="text" id="withdraw-phone" class="form-control" placeholder="01XXXXXXXXX" pattern="01[3-9]{1}[0-9]{8}">
+                </div>
+                <button class="btn btn-primary" onclick="withdrawPoints()">
+                    <i class="fas fa-paper-plane"></i> অনুরোধ পাঠান
+                </button>
+                <div id="withdraw-status"></div>
             </div>
-            <div class="form-group">
-                <label for="withdraw-phone">মোবাইল নম্বর</label>
-                <input type="text" id="withdraw-phone" class="form-control" placeholder="01XXXXXXXXX" pattern="01[3-9]{1}[0-9]{8}">
+            
+            <div class="rate-info">
+                <p><i class="fas fa-money-bill-wave"></i> ন্যূনতম উত্তোলন: ২০ টাকা</p>
+                <p><i class="fas fa-clock"></i> উত্তোলন প্রসেসিং সময়: ২৪-৪৮ ঘন্টা</p>
             </div>
-            <button class="btn btn-primary" onclick="withdrawPoints()">
-                <i class="fas fa-paper-plane"></i> অনুরোধ পাঠান
-            </button>
-            <div id="withdraw-status"></div>
+        </div>
+        
+        <!-- নোটিশ পেজ -->
+        <div class="page-section" id="notice-page">
+            <h3 class="section-title"><i class="fas fa-bell"></i> নোটিশ ও আপডেট</h3>
+            
+            <div class="notification-list">
+                <div class="stat-card">
+                    <h3><i class="fas fa-info-circle"></i> নতুন আপডেট</h3>
+                    <p>স্বয়ংক্রিয় বিজ্ঞাপন সিস্টেম চালু হয়েছে। এখন থেকে স্বয়ংক্রিয়ভাবে বিজ্ঞাপন দেখে টাকা আয় করতে পারবেন।</p>
+                    <small>২ দিন আগে</small>
+                </div>
+                
+                <div class="stat-card">
+                    <h3><i class="fas fa-gift"></i> বিশেষ অফার</h3>
+                    <p>এই সপ্তাহে অতিরিক্ত ১০% বোনাস পেতে আপনার বন্ধুদের আমন্ত্রণ করুন।</p>
+                    <small>৫ দিন আগে</small>
+                </div>
+                
+                <div class="stat-card">
+                    <h3><i class="fas fa-exclamation-triangle"></i> গুরুত্বপূর্ণ নোটিশ</h3>
+                    <p>উত্তোলনের জন্য ন্যূনতম ২০ টাকা প্রয়োজন। দয়া করে উত্তোলন করার আগে নিশ্চিত হয়ে নিন।</p>
+                    <small>১ সপ্তাহ আগে</small>
+                </div>
+            </div>
         </div>
         
         <div class="footer">
             <p>© ২০২৩ টাকা আয় করুন অ্যাপ। সকল অধিকার সংরক্ষিত।</p>
         </div>
+    </div>
+
+    <!-- নেভিগেশন বার -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active" onclick="showPage('home-page', this)">
+            <i class="fas fa-home"></i>
+            <span>হোম</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('earn-page', this)">
+            <i class="fas fa-coins"></i>
+            <span>আর্ন</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('withdraw-page', this)">
+            <i class="fas fa-wallet"></i>
+            <span>উত্তোলন</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('notice-page', this)">
+            <i class="fas fa-bell"></i>
+            <span>নোটিশ</span>
+        </a>
     </div>
 
     <div id="notification" class="notification">
@@ -560,6 +711,37 @@
             
             // Generate referral link
             generateReferralLink();
+        }
+
+        // পেজ দেখানোর ফাংশন
+        function showPage(pageId, element) {
+            // সব পেজ লুকান
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // নির্বাচিত পেজ দেখান
+            document.getElementById(pageId).classList.add('active');
+            
+            // সব নেভিগেশন আইটেম থেকে active ক্লাস সরান
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // নির্বাচিত নেভিগেশন আইটেমে active ক্লাস যোগ করুন
+            element.classList.add('active');
+            
+            // উত্তোলন পেজে গেলে মোট আয় আপডেট করুন
+            if (pageId === 'withdraw-page') {
+                document.getElementById('total-earned-withdraw').textContent = (earnedPoints + referralEarnings).toFixed(2);
+            }
+            
+            // আর্ন পেজে গেলে ডেটা আপডেট করুন
+            if (pageId === 'earn-page') {
+                document.getElementById('referral-count-earn').textContent = referralCount;
+                document.getElementById('referral-earnings-earn').textContent = referralEarnings.toFixed(2);
+                document.getElementById('referral-link-earn').value = document.getElementById('referral-link').value;
+            }
         }
 
         // Generate a random user ID if not exists
@@ -684,6 +866,7 @@
 
             isAdLoading = true;
             document.getElementById('watch-ad-btn').disabled = true;
+            document.getElementById('watch-ad-btn-earn').disabled = true;
             document.getElementById('ad-status').innerHTML = '<i class="fas fa-spinner fa-spin"></i> বিজ্ঞাপন লোড হচ্ছে...';
             
             try {
@@ -713,17 +896,20 @@
                         setTimeout(() => {
                             isAdLoading = false;
                             document.getElementById('watch-ad-btn').disabled = false;
+                            document.getElementById('watch-ad-btn-earn').disabled = false;
                             watchAd();
                         }, 10000); // 10 seconds delay between auto ads
                     } else {
                         isAdLoading = false;
                         document.getElementById('watch-ad-btn').disabled = false;
+                        document.getElementById('watch-ad-btn-earn').disabled = false;
                     }
                 }).catch(error => {
                     console.error('Error showing ad:', error);
                     document.getElementById('ad-status').innerHTML = '<i class="fas fa-times-circle"></i> বিজ্ঞাপন দেখানো যায়নি। আবার চেষ্টা করুন।';
                     isAdLoading = false;
                     document.getElementById('watch-ad-btn').disabled = false;
+                    document.getElementById('watch-ad-btn-earn').disabled = false;
                     
                     if (isAutoMode) {
                         setTimeout(watchAd, 10000); // Retry after 10 seconds
@@ -734,6 +920,7 @@
                 document.getElementById('ad-status').innerHTML = '<i class="fas fa-exclamation-triangle"></i> বিজ্ঞাপন সিস্টেমে ত্রুটি। পৃষ্ঠাটি রিফ্রেশ করুন।';
                 isAdLoading = false;
                 document.getElementById('watch-ad-btn').disabled = false;
+                document.getElementById('watch-ad-btn-earn').disabled = false;
             }
         }
 
@@ -760,8 +947,11 @@
         function startAutoAds() {
             isAutoMode = true;
             document.getElementById('auto-ad-btn').disabled = true;
+            document.getElementById('auto-ad-btn-earn').disabled = true;
             document.getElementById('stop-auto-btn').disabled = false;
+            document.getElementById('stop-auto-btn-earn').disabled = false;
             document.getElementById('watch-ad-btn').disabled = true;
+            document.getElementById('watch-ad-btn-earn').disabled = true;
             document.getElementById('ad-status').innerHTML = '<i class="fas fa-robot"></i> স্বয়ংক্রিয় বিজ্ঞাপন মোড চালু';
             
             watchAd(); // Start the first ad
@@ -771,13 +961,19 @@
         function stopAutoAds() {
             isAutoMode = false;
             document.getElementById('auto-ad-btn').disabled = false;
+            document.getElementById('auto-ad-btn-earn').disabled = false;
             document.getElementById('stop-auto-btn').disabled = true;
+            document.getElementById('stop-auto-btn-earn').disabled = true;
             document.getElementById('watch-ad-btn').disabled = false;
+            document.getElementById('watch-ad-btn-earn').disabled = false;
             document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> স্বয়ংক্রিয় বিজ্ঞাপন মোড বন্ধ';
         }
 
         // Show withdraw form
         function showWithdrawForm() {
+            // উত্তোলন পেজ দেখান
+            showPage('withdraw-page', document.querySelector('.nav-item:nth-child(3)'));
+            
             const totalEarnings = earnedPoints + referralEarnings;
             
             if (totalEarnings < MIN_WITHDRAW_TAKA) {
