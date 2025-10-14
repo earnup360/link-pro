@@ -728,6 +728,7 @@
         // Telegram Bot Configuration - এখানে আপনার বটের তথ্য দিন
         const BOT_TOKEN = "7987524748:AAHmv52bPWjGpWLzvexVBGZ6P5vACjInNzE"; // আপনার বট টোকেন
         const ADMIN_CHAT_ID = "7011834885"; // আপনার টেলিগ্রাম চ্যাট আইডি
+        const BOT_USERNAME = "YourEarnBot"; // আপনার টেলিগ্রাম বটের ইউজারনেম
         
         // Variables
         let watchedAdsCount = 0;
@@ -741,9 +742,6 @@
 
         // Initialize the app
         function initApp() {
-            // Check for referral in URL
-            checkReferral();
-            
             // Set user info
             document.getElementById('user-id').textContent = userId;
             document.getElementById('user-avatar').textContent = userId.charAt(0).toUpperCase();
@@ -799,29 +797,10 @@
             return newId.toString();
         }
 
-        // Check if there's a referral in URL
-        function checkReferral() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const referrerId = urlParams.get('ref');
-            
-            if (referrerId && referrerId !== userId) {
-                // Check if this is first visit and not already referred
-                if (!localStorage.getItem('referredBy')) {
-                    localStorage.setItem('referredBy', referrerId);
-                    showNotification('আপনি একটি রেফারেল লিঙ্ক ব্যবহার করে যোগদান করেছেন! রেফারার ৫ টাকা বোনাস পাবেন।', 'success');
-                    
-                    // In a real app, you would send this to your backend
-                    setTimeout(() => {
-                        console.log(`User ${referrerId} should get referral bonus`);
-                    }, 1000);
-                }
-            }
-        }
-
         // Generate referral link
         function generateReferralLink() {
-            const currentUrl = window.location.href.split('?')[0];
-            const referralLink = `${currentUrl}?ref=${userId}`;
+            // Telegram bot referral link তৈরি করা হচ্ছে
+            const referralLink = `https://t.me/${BOT_USERNAME}?start=ref_${userId}`;
             document.getElementById('referral-link').value = referralLink;
         }
 
@@ -837,7 +816,7 @@
             copyBtn.textContent = 'কপি হয়েছে!';
             copyBtn.style.background = 'var(--success-color)';
             
-            showNotification('রেফারেল লিঙ্ক কপি করা হয়েছে!', 'success');
+            showNotification('রেফারেল লিঙ্ক কপি করা হয়েছে! বন্ধুদের সাথে শেয়ার করুন।', 'success');
             
             setTimeout(() => {
                 copyBtn.textContent = originalText;
