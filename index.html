@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Solve Money - Earn Binance SHIB Tokens</title>
+    <title>টাকা আয় করুন - বিজ্ঞাপন দেখুন</title>
     <script src='//libtl.com/sdk.js' data-zone='9472189' data-sdk='show_9472189'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -35,7 +35,7 @@
             display: flex;
             flex-direction: column;
             padding: 15px;
-            padding-bottom: 70px;
+            padding-bottom: 70px; /* নেভিগেশন বারের জন্য স্থান */
         }
         
         .container {
@@ -65,23 +65,6 @@
             margin-bottom: 5px;
         }
         
-        .header-gif {
-            width: 100%;
-            max-width: 300px;
-            margin: 10px auto;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            height: 150px;
-        }
-        
-        .header-gif img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        
         .badge {
             display: inline-block;
             background-color: rgba(255, 255, 255, 0.2);
@@ -92,7 +75,7 @@
             margin-top: 10px;
         }
         
-        .user-card, .stat-card, .progress-container, .rate-info, .withdraw-section, .ad-status, .website-card, .task-card, .bonus-card {
+        .user-card, .stat-card, .progress-container, .referral-section, .rate-info, .withdraw-section, .ad-status {
             background-color: var(--card-bg);
             margin: 15px;
             padding: 15px;
@@ -103,7 +86,6 @@
         .user-card {
             display: flex;
             align-items: center;
-            justify-content: space-between;
         }
         
         .user-avatar {
@@ -261,6 +243,46 @@
             color: var(--secondary-color);
         }
         
+        .referral-stats {
+            display: flex;
+            justify-content: space-between;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .referral-link-container {
+            display: flex;
+            margin-top: 15px;
+        }
+        
+        #referral-link {
+            flex: 1;
+            padding: 12px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px 0 0 8px;
+            color: var(--text-color);
+            font-size: 14px;
+            outline: none;
+        }
+        
+        #copy-referral {
+            padding: 0 15px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 0 8px 8px 0;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #copy-referral:hover {
+            opacity: 0.9;
+        }
+        
         .withdraw-section { 
             display: none; 
         }
@@ -382,6 +404,7 @@
             animation: coinAnimation 1s forwards;
         }
         
+        /* নেভিগেশন বার স্টাইল */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -406,7 +429,7 @@
             transition: all 0.3s ease;
             padding: 5px 10px;
             border-radius: 10px;
-            width: 20%;
+            width: 25%;
         }
         
         .nav-item.active {
@@ -423,6 +446,7 @@
             color: var(--primary-color);
         }
         
+        /* পেজ সেকশন স্টাইল */
         .page-section {
             display: none;
         }
@@ -431,6 +455,7 @@
             display: block;
         }
         
+        /* বিজ্ঞাপন কন্টেইনার স্টাইল */
         .ad-container {
             margin: 15px;
             display: flex;
@@ -442,887 +467,24 @@
             overflow: hidden;
         }
         
-        .tap-game-container {
-            margin: 15px;
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            padding: 15px;
-            text-align: center;
-        }
-        
-        .tap-image-container {
-            position: relative;
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto 20px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .tap-image-container:hover {
-            transform: scale(1.02);
-        }
-        
-        .tap-image-container:active {
-            transform: scale(0.98);
-        }
-        
-        .tap-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 15px;
-        }
-        
-        .tap-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            border-radius: 15px;
-        }
-        
-        .tap-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .tap-stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .tap-stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-        
-        .tap-stat-label {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-        
-        .tap-instruction {
-            background: rgba(255, 193, 7, 0.2);
-            border-left: 4px solid var(--warning-color);
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        
-        .redirect-info {
-            background: rgba(74, 107, 255, 0.2);
-            border-left: 4px solid var(--primary-color);
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-        
-        .progress-tap {
-            margin: 15px 0;
-        }
-        
-        .progress-tap-bar {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 5px;
-        }
-        
-        .progress-tap-fill {
-            height: 100%;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            border-radius: 4px;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-        
-        .progress-tap-text {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-        
-        .website-card, .task-card, .bonus-card {
-            margin-bottom: 15px;
-        }
-        
-        .website-card h3, .task-card h3, .bonus-card h3 {
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: white;
-        }
-        
-        .website-card p, .task-card p, .bonus-card p {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-        
-        .website-card .reward, .task-card .reward, .bonus-card .reward {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            font-size: 14px;
-            color: var(--success-color);
-        }
-        
-        .website-card .reward i, .task-card .reward i, .bonus-card .reward i {
-            margin-right: 5px;
-        }
-        
-        .warning-box {
-            background-color: rgba(255, 193, 7, 0.2);
-            border-left: 4px solid var(--warning-color);
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-            font-size: 13px;
-        }
-        
-        .telegram-channel-list {
-            list-style-type: none;
-            margin: 15px 0;
-        }
-        
-        .telegram-channel-list li {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-        }
-        
-        .telegram-channel-list a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-        
-        .telegram-channel-list a:hover {
-            text-decoration: underline;
-        }
-        
-        .support-chat-btn {
-            position: fixed;
-            bottom: 80px;
-            right: 15px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            z-index: 999;
-            transition: all 0.3s ease;
-        }
-        
-        .support-chat-btn:hover {
-            transform: scale(1.1);
-        }
-        
-        .chat-popup {
-            position: fixed;
-            bottom: 150px;
-            right: 15px;
-            width: 350px;
-            height: 500px;
-            background: var(--card-bg);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            display: none;
-            flex-direction: column;
-            z-index: 1001;
-            overflow: hidden;
-        }
-        
-        .chat-popup.active {
-            display: flex;
-        }
-        
-        .chat-header {
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .chat-header h3 {
-            margin: 0;
-            font-size: 16px;
-        }
-        
-        .close-chat {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        
-        .chat-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .message {
-            max-width: 80%;
-            padding: 10px 15px;
-            border-radius: 15px;
-            position: relative;
-            word-wrap: break-word;
-        }
-        
-        .message.sent {
-            align-self: flex-end;
-            background: var(--primary-color);
-            color: white;
-            border-bottom-right-radius: 5px;
-        }
-        
-        .message.received {
-            align-self: flex-start;
-            background: rgba(255, 255, 255, 0.1);
-            border-bottom-left-radius: 5px;
-        }
-        
-        .message-sender {
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .message-time {
-            font-size: 10px;
-            opacity: 0.7;
-            text-align: right;
-            margin-top: 5px;
-        }
-        
-        .chat-input-container {
-            display: flex;
-            padding: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .chat-input {
-            flex: 1;
-            padding: 10px 15px;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            color: var(--text-color);
-            outline: none;
-        }
-        
-        .send-message {
-            background: var(--primary-color);
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-left: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .reaction-container {
-            display: flex;
-            margin-top: 5px;
-            gap: 5px;
-        }
-        
-        .reaction {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 15px;
-            padding: 3px 8px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .reaction:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .reaction.active {
-            background: var(--primary-color);
-        }
-        
-        .ad-limit-info {
-            background: rgba(255, 193, 7, 0.2);
-            border-left: 4px solid var(--warning-color);
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 15px;
-            font-size: 13px;
-            display: none;
-            text-align: center;
-        }
-        
-        .ad-limit-gif {
-            width: 100%;
-            max-width: 300px;
-            margin: 10px auto;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .withdraw-history {
-            margin: 15px;
-        }
-        
-        .withdraw-history-item {
-            background-color: var(--card-bg);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .withdraw-history-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .withdraw-amount {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-        
-        .withdraw-status {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        
-        .status-pending {
-            background-color: rgba(255, 193, 7, 0.2);
-            color: var(--warning-color);
-        }
-        
-        .status-paid {
-            background-color: rgba(40, 167, 69, 0.2);
-            color: var(--success-color);
-        }
-        
-        .withdraw-details {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
-        
-        .withdraw-timer {
-            font-size: 14px;
-            color: var(--warning-color);
-            font-weight: bold;
-        }
-        
-        .refresh-btn {
-            background: none;
-            border: none;
-            color: var(--primary-color);
-            cursor: pointer;
-            font-size: 18px;
-            margin-left: 10px;
-            transition: transform 0.3s ease;
-        }
-        
-        .refresh-btn:hover {
-            transform: rotate(180deg);
-        }
-        
-        .balance-container {
-            display: flex;
-            align-items: center;
-        }
-        
-        .date-display {
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            margin: 15px;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-        
-        .withdraw-notice {
-            background-color: rgba(255, 193, 7, 0.2);
-            border-left: 4px solid var(--warning-color);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px;
-            text-align: center;
-        }
-        
-        .withdraw-gif {
-            width: 100%;
-            max-width: 300px;
-            margin: 15px auto;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .admin-info-section {
-            margin: 15px;
-            background-color: var(--card-bg);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .admin-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            overflow: hidden;
-            border: 3px solid var(--primary-color);
-        }
-        
-        .admin-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .admin-links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .admin-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: var(--text-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .admin-link:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .admin-link i {
-            margin-right: 8px;
-        }
-        
-        .youtube-link {
-            background: linear-gradient(to right, #ff0000, #cc0000);
-            color: white;
-        }
-        
-        .telegram-link {
-            background: linear-gradient(to right, #0088cc, #006699);
-            color: white;
-        }
-        
-        .proof-link {
-            background: linear-gradient(to right, var(--success-color), #11998e);
-            color: white;
-        }
-        
-        @keyframes slide {
-            0% { opacity: 0; transform: translateX(-100%); }
-            10% { opacity: 1; transform: translateX(0); }
-            40% { opacity: 1; transform: translateX(0); }
-            50% { opacity: 0; transform: translateX(100%); }
-            100% { opacity: 0; transform: translateX(100%); }
-        }
-        
-        .sliding-banner {
-            position: relative;
-            width: 100%;
-            height: 150px;
-            overflow: hidden;
-        }
-        
-        .sliding-banner img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-            animation: slide 10s infinite;
-        }
-        
-        .sliding-banner img:nth-child(2) {
-            animation-delay: 5s;
-        }
-        
-        /* Sound Control Styles */
-        .sound-control {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            background: rgba(22, 33, 62, 0.9);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .sound-control:hover {
-            transform: scale(1.1);
-        }
-        
-        .sound-control.muted {
-            background: rgba(220, 53, 69, 0.8);
-        }
-        
-        /* Website Visit Feature Styles */
-        .website-visit-container {
-            background-color: var(--card-bg);
-            margin: 15px;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        
-        .visit-timer {
-            font-size: 48px;
-            font-weight: bold;
-            margin: 20px 0;
-            color: var(--primary-color);
-        }
-        
-        .visit-progress {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-        
-        .visit-progress-fill {
-            height: 100%;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            border-radius: 4px;
-            width: 0%;
-            transition: width 1s linear;
-        }
-        
-        .visit-status {
-            font-size: 16px;
-            margin-bottom: 15px;
-            color: var(--text-muted);
-        }
-        
-        .visit-website-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .visit-website-item {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 12px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        
-        .visit-website-item.completed {
-            background: rgba(40, 167, 69, 0.2);
-            color: var(--success-color);
-        }
-        
-        .visit-website-item.active {
-            background: rgba(74, 107, 255, 0.2);
-            color: var(--primary-color);
-        }
-        
-        .visit-cooldown-timer {
-            background: rgba(255, 193, 7, 0.2);
-            border-left: 4px solid var(--warning-color);
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 15px;
-            font-size: 14px;
-            text-align: center;
-        }
-        
-        /* Game Styles */
-        .game-container {
-            margin: 15px;
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            padding: 15px;
-            text-align: center;
-        }
-        
-        .game-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .game-stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .game-stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-        
-        .game-stat-label {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-        
-        .game-instruction {
-            background: rgba(255, 193, 7, 0.2);
-            border-left: 4px solid var(--warning-color);
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        
-        .game-center-box {
-            width: 100%;
-            max-width: 400px;
-            aspect-ratio: 9/16;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0,0,0,0.6);
-            border-radius: 20px;
-            padding: 20px;
-            margin: 0 auto;
-        }
-        
-        .game-btn {
-            font-size: 1.5em;
-            padding: 15px 25px;
-            background: transparent;
-            border: 3px solid white;
-            border-radius: 12px;
-            color: white;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-        
-        .game-btn:hover {
-            background: white;
-            color: black;
-        }
-        
-        .game-small-text {
-            margin-top: 20px;
-            color: white;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        
-        #game-introVideo, #game-game, #game-jihadiBtn, #game-gameoverScreen, #game-gameUI {
-            display: none;
-        }
-        
-        #game-introVideo img, #game-game {
-            border: 5px solid white;
-            border-radius: 20px;
-            max-width: 100%;
-        }
-        
-        .game-canvas {
-            display: block;
-            border: 5px solid white;
-            border-radius: 20px;
-            background: url('https://i.postimg.cc/Y244f6Pj/Untitled-design-1.png') repeat-x center / cover;
-            max-width: 100%;
-            height: auto;
-        }
-        
-        #game-gameoverScreen {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: white;
-            font-size: 1.2em;
-        }
-        
-        #game-resetBtn {
-            margin-top: 10px;
-        }
-        
-        #game-gameUI {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            pointer-events: none;
-            z-index: 10;
-        }
-        
-        .game-ui-text {
-            text-align: center;
-            color: white;
-            font-size: 1em;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 5px 10px;
-            border-radius: 10px;
-            margin: 10px;
-        }
-        
         @media (max-width: 400px) {
             .header h1 { font-size: 20px; }
             .stats-container { grid-template-columns: 1fr; }
             .btn { padding: 12px; font-size: 14px; }
             .nav-item { font-size: 10px; padding: 5px; }
             .nav-item i { font-size: 18px; }
-            .chat-popup { width: 300px; right: 10px; }
-            .tap-stats { grid-template-columns: 1fr; }
-            .sound-control { top: 10px; left: 10px; width: 40px; height: 40px; }
-            .visit-website-list { grid-template-columns: 1fr; }
-            .game-stats { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- Sound Control Button -->
-    <div class="sound-control" id="sound-control" onclick="toggleSound()">
-        <i class="fas fa-volume-up"></i>
-    </div>
-    
     <div class="container">
         <div class="header">
-            <h1>Task Solve Money - Earn SHIB Tokens</h1>
-            <p>Watch ads and play games to earn Binance SHIB tokens</p>
-            <div class="header-gif">
-                <div class="sliding-banner">
-                    <img src="https://media0.giphy.com/media/v1.Y2lkPTZjMDliOTUyOGIwczFzcDVvam9oYjQ0em5pODluZzc2Z3VkN2dsZGZzcGU7bjZmbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oFzmqENRBkRTRfLcA/giphy.gif" alt="GIF">
-                    <img src="https://media2.giphy.com/media/v1.Y2lkPTZjMDliOTUyOXVkOG80YWh0ejNhcHpqemIyb290dTduejRxeTA1MGp3ODk2ZjhqNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/sTb0uNOyWohZTvQQLc/giphy.gif" alt="GIF">
-                </div>
-            </div>
-            <div class="badge">Active</div>
+            <h1>টাকা আয় করুন - বিজ্ঞাপন দেখুন</h1>
+            <p>বিজ্ঞাপন দেখে আসল টাকা আয় করুন</p>
+            <div class="badge">সক্রিয়</div>
         </div>
         
-        <!-- Date display -->
-        <div class="date-display">
-            <i class="fas fa-calendar-alt"></i> Today's Date: <span id="current-date"></span>
-        </div>
-        
-        <!-- Website Visit Feature -->
-        <div class="website-visit-container">
-            <h3 class="section-title"><i class="fas fa-globe"></i> Visit Websites & Earn SHIB</h3>
-            <p>Visit websites for 10 seconds each to earn SHIB tokens. You can do this once every 24 hours.</p>
-            
-            <div class="visit-status" id="visit-status">Ready to start</div>
-            <div class="visit-timer" id="visit-timer">10</div>
-            <div class="visit-progress">
-                <div class="visit-progress-fill" id="visit-progress-fill"></div>
-            </div>
-            
-            <div class="action-buttons">
-                <button class="btn btn-primary" id="start-visit-btn" onclick="startWebsiteVisit()">
-                    <i class="fas fa-play"></i> Start Website Visit
-                </button>
-                <button class="btn btn-success" id="go-to-website-btn" onclick="goToWebsite()" disabled>
-                    <i class="fas fa-external-link-alt"></i> Go to Website
-                </button>
-                <button class="btn btn-warning" id="claim-visit-btn" onclick="claimVisitReward()" disabled>
-                    <i class="fas fa-coins"></i> Claim 10 SHIB
-                </button>
-            </div>
-            
-            <div class="visit-website-list" id="visit-website-list">
-                <!-- Website list will be populated by JavaScript -->
-            </div>
-            
-            <div class="visit-cooldown-timer" id="visit-cooldown-timer" style="display: none;">
-                <i class="fas fa-clock"></i> Next available in: <span id="cooldown-timer">24:00:00</span>
-            </div>
-        </div>
-        
-        <!-- Ad limit info -->
-        <div class="ad-limit-info" id="ad-limit-info">
-            <div class="ad-limit-gif">
-                <img src="https://cdn.dribbble.com/userupload/19657679/file/original-0c6e70ffeb364a783ed502abd4c48e12.gif" alt="Limit Reached" style="width:100%; height:auto; border-radius:10px;">
-            </div>
-            <p><i class="fas fa-exclamation-triangle"></i> You have watched 100 ads today. Wait for <span id="ad-limit-timer">24:00:00</span> to watch the next 100 ads.</p>
-        </div>
-        
-        <!-- First ad after header -->
+        <!-- হেডার এর নিচে প্রথম বিজ্ঞাপন -->
         <div class="ad-container">
             <center>
                 <script type="text/javascript">
@@ -1338,72 +500,61 @@
             </center>
         </div>
         
-        <!-- Home Page -->
+        <!-- হোম পেজ -->
         <div class="page-section active" id="home-page">
             <div class="user-card">
-                <div class="user-info-container">
-                    <div class="user-avatar" id="user-avatar">U</div>
-                    <div class="user-info">
-                        <h3 id="user-name">User</h3>
-                        <p>ID: <span id="user-id">12345</span></p>
-                    </div>
-                </div>
-                <div class="balance-container">
-                    <div class="user-info">
-                        <h3>Balance</h3>
-                        <p id="user-balance">0 <small>SHIB</small></p>
-                    </div>
-                    <button class="refresh-btn" onclick="refreshBalance()">
-                        <i class="fas fa-sync-alt"></i>
-                    </button>
+                <div class="user-avatar" id="user-avatar">U</div>
+                <div class="user-info">
+                    <h3 id="user-name">ব্যবহারকারী</h3>
+                    <p>আইডি: <span id="user-id">12345</span></p>
                 </div>
             </div>
             
             <div class="stats-container">
                 <div class="stat-card">
-                    <h3>Total Tokens</h3>
-                    <p id="user-tokens">0</p>
+                    <h3>দেখা বিজ্ঞাপন</h3>
+                    <p id="watched-ads">0</p>
                 </div>
                 <div class="stat-card">
-                    <h3>Earned Tokens</h3>
-                    <p id="earned-tokens">0 <small>SHIB</small></p>
+                    <h3>আয়কৃত টাকা</h3>
+                    <p id="earned-money">0.00 <small>টাকা</small></p>
                 </div>
             </div>
             
             <div class="progress-container">
                 <div class="progress-header">
-                    <h3>Withdrawal Progress</h3>
-                    <span id="withdraw-progress">0/10000 SHIB</span>
+                    <h3>আজকের অগ্রগতি</h3>
+                    <span id="ads-progress">0/10</span>
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progress-fill"></div>
                 </div>
                 <div class="progress-text">
-                    <span>0 SHIB</span>
-                    <span>10000 SHIB</span>
+                    <span>0 টাকা</span>
+                    <span>20 টাকা</span>
                 </div>
             </div>
             
             <div class="ad-status" id="ad-status">
-                <i class="fas fa-check-circle"></i> Ready to watch ads
+                <i class="fas fa-check-circle"></i> বিজ্ঞাপন দেখতে প্রস্তুত
             </div>
             
             <div class="action-buttons">
                 <button class="btn btn-primary" id="watch-ad-btn" onclick="watchAd()">
-                    <i class="fas fa-play"></i> Watch Ad
+                    <i class="fas fa-play"></i> বিজ্ঞাপন দেখুন (২ টাকা)
                 </button>
                 <button class="btn btn-success" id="auto-ad-btn" onclick="startAutoAds()">
-                    <i class="fas fa-robot"></i> Auto Ads
+                    <i class="fas fa-robot"></i> স্বয়ংক্রিয় বিজ্ঞাপন
                 </button>
                 <button class="btn btn-danger" id="stop-auto-btn" onclick="stopAutoAds()" disabled>
-                    <i class="fas fa-stop"></i> Stop
+                    <i class="fas fa-stop"></i> বন্ধ করুন
                 </button>
                 <button class="btn btn-secondary" onclick="showWithdrawForm()">
-                    <i class="fas fa-wallet"></i> Withdraw
+                    <i class="fas fa-wallet"></i> টাকা উত্তোলন
                 </button>
             </div>
             
-            <!-- Second ad in the middle -->
+            <!-- পৃষ্ঠার মাঝখানে দ্বিতীয় বিজ্ঞাপন -->
             <div class="ad-container">
                 <center>
                     <script type="text/javascript">
@@ -1419,352 +570,148 @@
                 </center>
             </div>
             
+            <div class="referral-section">
+                <h3 class="section-title"><i class="fas fa-users"></i> বন্ধুকে আমন্ত্রণ করুন</h3>
+                <div class="referral-stats">
+                    <div>আমন্ত্রিত: <strong id="referral-count">0</strong></div>
+                    <div>আয়: <strong id="referral-earnings">0.00</strong> টাকা</div>
+                </div>
+                <p style="font-size: 14px; margin-bottom: 10px;">আপনার রেফারেল লিঙ্ক শেয়ার করুন এবং প্রতিটি বন্ধুর জন্য ৫ টাকা বোনাস পান!</p>
+                <div class="referral-link-container">
+                    <input type="text" id="referral-link" readonly>
+                    <button id="copy-referral" onclick="copyReferralLink()">কপি</button>
+                </div>
+            </div>
+            
             <div class="rate-info">
-                <p><i class="fas fa-ad"></i> Per ad = 15 SHIB tokens</p>
-                <p><i class="fas fa-money-bill-wave"></i> Minimum withdrawal: 10000 SHIB</p>
-                <p><i class="fas fa-gamepad"></i> Per 1000 taps = 10 SHIB tokens</p>
-                <p><i class="fas fa-globe"></i> Per website visit = 10 SHIB tokens</p>
+                <p><i class="fas fa-ad"></i> প্রতি বিজ্ঞাপন = ২ টাকা</p>
+                <p><i class="fas fa-money-bill-wave"></i> ন্যূনতম উত্তোলন: ২০ টাকা</p>
+                <p><i class="fas fa-gift"></i> রেফারেল বোনাস: ৫ টাকা প্রতি ব্যবহারকারী</p>
             </div>
         </div>
         
-        <!-- Earn Page -->
+        <!-- আর্ন পেজ -->
         <div class="page-section" id="earn-page">
-            <h3 class="section-title"><i class="fas fa-coins"></i> Ways to Earn SHIB Tokens</h3>
+            <h3 class="section-title"><i class="fas fa-coins"></i> টাকা আয় করার উপায়</h3>
             
             <div class="action-buttons">
                 <button class="btn btn-primary" id="watch-ad-btn-earn" onclick="watchAd()">
-                    <i class="fas fa-play"></i> Watch Ad (15 SHIB)
+                    <i class="fas fa-play"></i> বিজ্ঞাপন দেখুন (২ টাকা)
                 </button>
                 <button class="btn btn-success" id="auto-ad-btn-earn" onclick="startAutoAds()">
-                    <i class="fas fa-robot"></i> Auto Ads
+                    <i class="fas fa-robot"></i> স্বয়ংক্রিয় বিজ্ঞাপন
                 </button>
                 <button class="btn btn-danger" id="stop-auto-btn-earn" onclick="stopAutoAds()" disabled>
-                    <i class="fas fa-stop"></i> Stop
+                    <i class="fas fa-stop"></i> বন্ধ করুন
                 </button>
             </div>
             
-            <div class="bonus-card">
-                <h3 class="section-title"><i class="fas fa-gift"></i> Daily Bonus</h3>
-                <p>Get 10 SHIB tokens every 3 days. After claiming the bonus, wait 3 days for the next bonus.</p>
-                <div class="reward">
-                    <i class="fas fa-coins"></i> Reward: 10 SHIB tokens
+            <div class="referral-section">
+                <h3 class="section-title"><i class="fas fa-users"></i> বন্ধুকে আমন্ত্রণ করুন</h3>
+                <div class="referral-stats">
+                    <div>আমন্ত্রিত: <strong id="referral-count-earn">0</strong></div>
+                    <div>আয়: <strong id="referral-earnings-earn">0.00</strong> টাকা</div>
                 </div>
-                <button class="btn btn-warning" id="daily-bonus-btn" onclick="claimDailyBonus()">
-                    <i class="fas fa-gift"></i> Claim Daily Bonus
-                </button>
-                <div id="bonus-timer-container" class="timer-container">
-                    <div class="timer" id="bonus-countdown">72:00:00</div>
-                    <div class="timer-message">Wait for next bonus</div>
+                <p style="font-size: 14px; margin-bottom: 10px;">আপনার রেফারেল লিঙ্ক শেয়ার করুন এবং প্রতিটি বন্ধুর জন্য ৫ টাকা বোনাস পান!</p>
+                <div class="referral-link-container">
+                    <input type="text" id="referral-link-earn" readonly>
+                    <button id="copy-referral-earn" onclick="copyReferralLink()">কপি</button>
                 </div>
             </div>
             
             <div class="rate-info">
-                <p><i class="fas fa-ad"></i> Per ad = 15 SHIB tokens</p>
-                <p><i class="fas fa-gamepad"></i> Per 1000 taps = 10 SHIB tokens</p>
-                <p><i class="fas fa-gift"></i> Daily Bonus = 10 SHIB (every 3 days)</p>
-                <p><i class="fas fa-globe"></i> Per website visit = 10 SHIB tokens</p>
+                <p><i class="fas fa-ad"></i> প্রতি বিজ্ঞাপন = ২ টাকা</p>
+                <p><i class="fas fa-gift"></i> রেফারেল বোনাস: ৫ টাকা প্রতি ব্যবহারকারী</p>
             </div>
         </div>
         
-        <!-- Games Page -->
-        <div class="page-section" id="games-page">
-            <h3 class="section-title"><i class="fas fa-gamepad"></i> Tap to Earn SHIB</h3>
-            
-            <div class="tap-game-container">
-                <div class="tap-stats">
-                    <div class="tap-stat-card">
-                        <div class="tap-stat-value" id="total-taps">0</div>
-                        <div class="tap-stat-label">Total Taps</div>
-                    </div>
-                    <div class="tap-stat-card">
-                        <div class="tap-stat-value" id="session-taps">0</div>
-                        <div class="tap-stat-label">Session Taps</div>
-                    </div>
-                    <div class="tap-stat-card">
-                        <div class="tap-stat-value" id="tap-earnings">0</div>
-                        <div class="tap-stat-label">SHIB Earned</div>
-                    </div>
-                    <div class="tap-stat-card">
-                        <div class="tap-stat-value" id="next-redirect">200</div>
-                        <div class="tap-stat-label">Next Redirect</div>
-                    </div>
-                </div>
-                
-                <div class="tap-instruction">
-                    <i class="fas fa-info-circle"></i> <strong>Game Rules:</strong> Tap on the image below. Earn 10 SHIB tokens for every 1000 taps. You will be redirected to a website at specific tap counts.
-                </div>
-                
-                <div class="tap-image-container" id="tap-area">
-                    <img src="https://cdn.dribbble.com/userupload/18939190/file/original-e7d75791497e24720983395d3e3d8b99.gif" alt="Tap to Earn" class="tap-image">
-                    <div class="tap-overlay">
-                        <div>Tap Here!</div>
-                    </div>
-                </div>
-                
-                <div class="progress-tap">
-                    <div class="progress-tap-bar">
-                        <div class="progress-tap-fill" id="tap-progress-fill"></div>
-                    </div>
-                    <div class="progress-tap-text">
-                        <span>0 Taps</span>
-                        <span>1000 Taps</span>
-                    </div>
-                </div>
-                
-                <div class="redirect-info" id="redirect-info">
-                    <i class="fas fa-external-link-alt"></i> Next redirect at: <span id="redirect-count">200</span> taps
-                </div>
-            </div>
-        </div>
-        
-        <!-- Game Page -->
-        <div class="page-section" id="game-page">
-            <h3 class="section-title"><i class="fas fa-gamepad"></i> Play Game & Earn SHIB</h3>
-            
-            <div class="game-container">
-                <div class="game-stats">
-                    <div class="game-stat-card">
-                        <div class="game-stat-value" id="game-time">0:00</div>
-                        <div class="game-stat-label">Time Played</div>
-                    </div>
-                    <div class="game-stat-card">
-                        <div class="game-stat-value" id="game-earnings">0</div>
-                        <div class="game-stat-label">SHIB Earned</div>
-                    </div>
-                </div>
-                
-                <div class="game-instruction">
-                    <i class="fas fa-info-circle"></i> <strong>Game Rules:</strong> Jump over obstacles by tapping/clicking. Earn 5 SHIB tokens every 30 seconds. If you fail, you'll be redirected to a website.
-                </div>
-                
-                <div class="game-center-box" id="game-intro">
-                    <button class="game-btn" id="game-startBtn"> TASK SOLVE MONEY </button>
-                    <div class="game-small-text"> PLAY GAME & EARN SHIB </div>
-                </div>
-
-                <div class="game-center-box" id="game-introVideo">
-                    <img src="https://i.postimg.cc/W4gDcTMt/Untitled-design.gif" id="game-introGif" />
-                    <button class="game-btn" id="game-jihadiBtn"> Restart Play</button>
-                </div>
-
-                <div class="game-center-box" id="game-game">
-                    <div id="game-gameUI">
-                        <div class="game-ui-text"> Time: <span id="game-timer">0:00</span> </div>
-                        <div class="game-ui-text"> SHIB: <span id="game-shib-count">0</span> </div>
-                    </div>
-                    <canvas class="game-canvas" id="game-gameCanvas" width="480" height="270"></canvas>
-                </div>
-
-                <div id="game-gameoverScreen">
-                    <div> Game Over! </div>
-                    <button class="game-btn" id="game-resetBtn">RESTART</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Withdraw Page -->
+        <!-- উত্তোলন পেজ -->
         <div class="page-section" id="withdraw-page">
-            <h3 class="section-title"><i class="fas fa-wallet"></i> Withdraw SHIB Tokens</h3>
-            
-            <!-- Withdrawal notice -->
-            <div class="withdraw-notice">
-                <h3><i class="fas fa-info-circle"></i> Withdrawal Rules</h3>
-                <p>Withdrawal is available only on the <strong>7th day of each week</strong> (Sunday). After submitting a withdrawal request, it will be processed within <strong>2 days</strong>.</p>
-                <div class="withdraw-gif">
-                    <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyMW52cXJxN29xb2lhcDU2YTd1bW1jdm9tcWcyM2xodHJia2gyZmFhbSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TUEvrVHhGnkAH3OtMc/giphy.gif" alt="Withdraw Notice" style="width:100%; height:auto; border-radius:10px;">
-                </div>
-                <p id="withdraw-availability"></p>
-            </div>
+            <h3 class="section-title"><i class="fas fa-wallet"></i> টাকা উত্তোলন</h3>
             
             <div class="stat-card">
-                <h3>Total Earned</h3>
-                <p id="total-earned-withdraw">0 <small>SHIB</small></p>
+                <h3>মোট আয়</h3>
+                <p id="total-earned-withdraw">0.00 <small>টাকা</small></p>
             </div>
             
             <div class="withdraw-section" id="withdraw-section">
                 <div class="form-group">
-                    <label for="withdraw-amount">Amount (SHIB)</label>
-                    <input type="number" id="withdraw-amount" class="form-control" placeholder="Enter amount" min="10000">
+                    <label for="withdraw-amount">পরিমাণ (টাকা)</label>
+                    <input type="number" id="withdraw-amount" class="form-control" placeholder="টাকার পরিমাণ লিখুন" min="20">
                 </div>
                 <div class="form-group">
-                    <label for="payment-method">Payment Method</label>
-                    <select id="payment-method" class="form-control" disabled>
-                        <option value="shib" selected>Binance SHIB Token (ERC-20)</option>
+                    <label for="payment-method">পেমেন্ট মাধ্যম</label>
+                    <select id="payment-method" class="form-control">
+                        <option value="" disabled selected>পেমেন্ট মাধ্যম নির্বাচন করুন</option>
+                        <option value="bkash">bKash</option>
+                        <option value="nagad">Nagad</option>
+                        <option value="rocket">Rocket</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="withdraw-address">Binance SHIB Address</label>
-                    <input type="text" id="withdraw-address" class="form-control" placeholder="Enter your Binance SHIB address">
+                    <label for="withdraw-phone">মোবাইল নম্বর</label>
+                    <input type="text" id="withdraw-phone" class="form-control" placeholder="01XXXXXXXXX" pattern="01[3-9]{1}[0-9]{8}">
                 </div>
-                <button class="btn btn-primary" id="withdraw-submit-btn" onclick="withdrawTokens()">
-                    <i class="fas fa-paper-plane"></i> Submit Request
+                <button class="btn btn-primary" onclick="withdrawPoints()">
+                    <i class="fas fa-paper-plane"></i> অনুরোধ পাঠান
                 </button>
                 <div id="withdraw-status"></div>
             </div>
             
-            <div class="withdraw-history" id="withdraw-history">
-                <h3 class="section-title"><i class="fas fa-history"></i> Withdrawal History</h3>
-                <div id="withdraw-history-list">
-                    <!-- Withdrawal history will be added here -->
-                </div>
-            </div>
-            
             <div class="rate-info">
-                <p><i class="fas fa-money-bill-wave"></i> Minimum withdrawal: 10000 SHIB</p>
-                <p><i class="fas fa-clock"></i> Withdrawal processing time: 2 days</p>
+                <p><i class="fas fa-money-bill-wave"></i> ন্যূনতম উত্তোলন: ২০ টাকা</p>
+                <p><i class="fas fa-clock"></i> উত্তোলন প্রসেসিং সময়: ২৪-৪৮ ঘন্টা</p>
             </div>
         </div>
         
-        <!-- Task Page -->
-        <div class="page-section" id="task-page">
-            <h3 class="section-title"><i class="fas fa-tasks"></i> Complete Tasks</h3>
-            
-            <div class="task-card">
-                <h3><i class="fab fa-telegram"></i> Join Telegram Channels</h3>
-                <p>Join the Telegram channels below. Our channel links are changed every 12 hours, so check regularly.</p>
-                
-                <div class="warning-box">
-                    <i class="fas fa-exclamation-triangle"></i> If you are not joined in Telegram channels, you will not receive payment.
-                </div>
-                
-                <ul class="telegram-channel-list">
-                    <li><a href="https://t.me/TASKSOIVEMONEY" target="_blank">TASKSOIVEMONEY</a></li>
-                    <li><a href="https://t.me/TradeXplorer" target="_blank">TradeXplorer</a></li>
-                    <li><a href="https://t.me/adsincomehridoy" target="_blank">Ads Income Hridoy</a></li>
-                    <li><a href="https://t.me/kakaPremium" target="_blank">Kaka Premium</a></li>
-                    <li><a href="https://t.me/uniquechacchu_2" target="_blank">Unique Chacchu</a></li>
-                    <li><a href="https://t.me/AiDadaji" target="_blank">AI Dadaji</a></li>
-                </ul>
-                
-                <p class="cooldown-timer">Link change: <span id="link-change-timer">12:00:00</span></p>
-            </div>
-        </div>
-        
-        <!-- Notice Page -->
+        <!-- নোটিশ পেজ -->
         <div class="page-section" id="notice-page">
-            <h3 class="section-title"><i class="fas fa-bell"></i> Notices & Updates</h3>
+            <h3 class="section-title"><i class="fas fa-bell"></i> নোটিশ ও আপডেট</h3>
             
             <div class="notification-list">
                 <div class="stat-card">
-                    <h3><i class="fas fa-info-circle"></i> New Update</h3>
-                    <p>Auto ad system has been launched. You can now earn SHIB tokens automatically by watching ads.</p>
-                    <small>2 days ago</small>
+                    <h3><i class="fas fa-info-circle"></i> নতুন আপডেট</h3>
+                    <p>স্বয়ংক্রিয় বিজ্ঞাপন সিস্টেম চালু হয়েছে। এখন থেকে স্বয়ংক্রিয়ভাবে বিজ্ঞাপন দেখে টাকা আয় করতে পারবেন।</p>
+                    <small>২ দিন আগে</small>
                 </div>
                 
                 <div class="stat-card">
-                    <h3><i class="fas fa-gamepad"></i> New Feature</h3>
-                    <p>Games system has been launched. You can now earn 10 SHIB tokens for every 1000 taps.</p>
-                    <small>Today</small>
+                    <h3><i class="fas fa-gift"></i> বিশেষ অফার</h3>
+                    <p>এই সপ্তাহে অতিরিক্ত ১০% বোনাস পেতে আপনার বন্ধুদের আমন্ত্রণ করুন।</p>
+                    <small>৫ দিন আগে</small>
                 </div>
                 
                 <div class="stat-card">
-                    <h3><i class="fas fa-exclamation-triangle"></i> Important Notice</h3>
-                    <p>Minimum withdrawal is 10000 SHIB tokens. Please make sure before withdrawing.</p>
-                    <small>1 week ago</small>
+                    <h3><i class="fas fa-exclamation-triangle"></i> গুরুত্বপূর্ণ নোটিশ</h3>
+                    <p>উত্তোলনের জন্য ন্যূনতম ২০ টাকা প্রয়োজন। দয়া করে উত্তোলন করার আগে নিশ্চিত হয়ে নিন।</p>
+                    <small>১ সপ্তাহ আগে</small>
                 </div>
-                
-                <div class="stat-card">
-                    <h3><i class="fas fa-link"></i> New Feature</h3>
-                    <p>Direct link click system has been launched. Earn extra SHIB tokens by clicking links.</p>
-                    <small>Today</small>
-                </div>
-                
-                <div class="stat-card">
-                    <h3><i class="fas fa-gift"></i> New Feature</h3>
-                    <p>Daily bonus system has been launched. Get 10 SHIB tokens every 3 days.</p>
-                    <small>Today</small>
-                </div>
-                
-                <div class="stat-card">
-                    <h3><i class="fas fa-globe"></i> New Feature</h3>
-                    <p>Website visit system has been launched. Earn 10 SHIB tokens for each website you visit for 10 seconds.</p>
-                    <small>Today</small>
-                </div>
-                
-                <div class="stat-card">
-                    <h3><i class="fas fa-gamepad"></i> New Feature</h3>
-                    <p>New game added! Play the jumping game and earn 5 SHIB tokens every 30 seconds.</p>
-                    <small>Today</small>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Admin Info Section -->
-        <div class="admin-info-section">
-            <h3 class="section-title"><i class="fas fa-info-circle"></i> Admin Information</h3>
-            
-            <div class="admin-image">
-                <img src="https://yt3.googleusercontent.com/5RjltH2V4mt3UVcFGbuEv9DyVH1JheO9-Kt3Kpr72s9bredppC7DTWQnSOHxxYhxXVzPSs1O=s160-c-k-c0x00ffffff-no-rj" alt="Admin">
-            </div>
-            
-            <p>Follow our official channels for updates and payment proofs.</p>
-            
-            <div class="admin-links">
-                <a href="http://www.youtube.com/@ProfitPathInfo" target="_blank" class="admin-link youtube-link">
-                    <i class="fab fa-youtube"></i> Subscribe to Our YouTube Channel
-                </a>
-                <a href="https://t.me/TASKSOIVEMONEY" target="_blank" class="admin-link telegram-link">
-                    <i class="fab fa-telegram"></i> Join Our Telegram Channel
-                </a>
-                <a href="https://t.me/TSMChatgroup" target="_blank" class="admin-link telegram-link">
-                    <i class="fab fa-telegram"></i> Join Our Telegram Group
-                </a>
-                <a href="https://t.me/TSMproof" target="_blank" class="admin-link proof-link">
-                    <i class="fas fa-check-circle"></i> Check Payment Proofs
-                </a>
             </div>
         </div>
         
         <div class="footer">
-            <p>© 2023 Task Solve Money App. All rights reserved.</p>
+            <p>© ২০২৩ টাকা আয় করুন অ্যাপ। সকল অধিকার সংরক্ষিত।</p>
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
+    <!-- নেভিগেশন বার -->
     <div class="bottom-nav">
         <a href="#" class="nav-item active" onclick="showPage('home-page', this)">
             <i class="fas fa-home"></i>
-            <span>Home</span>
+            <span>হোম</span>
         </a>
         <a href="#" class="nav-item" onclick="showPage('earn-page', this)">
             <i class="fas fa-coins"></i>
-            <span>Earn</span>
-        </a>
-        <a href="#" class="nav-item" onclick="showPage('games-page', this)">
-            <i class="fas fa-gamepad"></i>
-            <span>Tap Game</span>
-        </a>
-        <a href="#" class="nav-item" onclick="showPage('game-page', this)">
-            <i class="fas fa-dragon"></i>
-            <span>Jump Game</span>
+            <span>আর্ন</span>
         </a>
         <a href="#" class="nav-item" onclick="showPage('withdraw-page', this)">
             <i class="fas fa-wallet"></i>
-            <span>Withdraw</span>
+            <span>উত্তোলন</span>
         </a>
-    </div>
-
-    <!-- Support Chat Bot -->
-    <div class="support-chat-btn" onclick="toggleChat()">
-        <i class="fas fa-comments"></i>
-    </div>
-    
-    <div class="chat-popup" id="chat-popup">
-        <div class="chat-header">
-            <h3><i class="fas fa-headset"></i> Support Chat</h3>
-            <button class="close-chat" onclick="toggleChat()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="chat-messages" id="chat-messages">
-            <!-- Chat messages will be added here -->
-        </div>
-        <div class="chat-input-container">
-            <input type="text" class="chat-input" id="chat-input" placeholder="Type your message...">
-            <button class="send-message" onclick="sendMessage()">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
+        <a href="#" class="nav-item" onclick="showPage('notice-page', this)">
+            <i class="fas fa-bell"></i>
+            <span>নোটিশ</span>
+        </a>
     </div>
 
     <div id="notification" class="notification">
@@ -1772,839 +719,72 @@
         <span id="notification-text"></span>
     </div>
 
-    <!-- Audio Elements -->
-    <audio id="bgm" loop>
-        <source src="https://files.catbox.moe/4yselj.mp3" type="audio/mp3">
-    </audio>
-    <audio id="jumpSound">
-        <source src="https://files.catbox.moe/n1s302.mp3" type="audio/mp3">
-    </audio>
-    <audio id="failSound">
-        <source src="https://files.catbox.moe/yb4dqy.wav" type="audio/wav">
-    </audio>
-    <audio id="clickSound">
-        <source src="https://files.catbox.moe/jlmwed.mp3" type="audio/mp3">
-    </audio>
-
     <script>
         // Constants
-        const TOKENS_PER_AD = 15; // 15 SHIB tokens per ad
-        const TOKENS_PER_1000_TAPS = 10; // 10 SHIB tokens per 1000 taps
-        const MIN_WITHDRAW_TOKENS = 10000; // Minimum withdrawal 10000 SHIB (Updated from 5000)
-        const DAILY_BONUS_TOKENS = 10; // Daily bonus 10 SHIB tokens (changed from 1 Taka to 10 SHIB)
-        const BONUS_COOLDOWN = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
-        const AD_LIMIT = 100; // Ad watch limit (100 ads)
-        const AD_COOLDOWN = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-        const WITHDRAW_PROCESSING_TIME = 2 * 24 * 60 * 60 * 1000; // 2 days in milliseconds (changed from 5 days)
+        const POINTS_PER_AD = 2.00; // প্রতি বিজ্ঞাপনে ২ টাকা
+        const MIN_WITHDRAW_TAKA = 20; // ন্যূনতম উত্তোলন ২০ টাকা
+        const REFERRAL_BONUS = 5.00; // রেফারেল বোনাস ৫ টাকা
         
-        // Website Visit Feature Constants
-        const WEBSITES = [
-            "https://thenationus.blogspot.com/2025/10/in-memoriam-athletes-who-died-in-2025.html",
-            "https://thenationus.blogspot.com/2025/10/celebrity-couples-who-broke-up-in-2025.html",
-            "https://thenationus.blogspot.com/2025/10/celebs-whove-had-their-implants-or.html",
-            "https://thenationus.blogspot.com/2025/10/what-celebrities-look-like-without.html",
-            "https://thenationus.blogspot.com/",
-            "https://newnatokx.blogspot.com/",
-            "https://newnatokx.blogspot.com/2025/09/i-new-update-bengali-drama-2025.html",
-            "https://sadiyapost.blogspot.com/",
-            "https://sadiyapost.blogspot.com/2025/09/blog-post_17.html",
-            "https://sadiyapost.blogspot.com/2025/09/blog-post.html"
-        ];
-        const VISIT_TIME = 10; // 10 seconds per website
-        const TOKENS_PER_VISIT = 10; // 10 SHIB tokens per website
-        const VISIT_COOLDOWN = 24 * 60 * 60 * 1000; // 24 hours cooldown
-        
-        // Tap game constants
-        const REDIRECT_WEBSITES = [
-            "https://sadiyapost.blogspot.com/2025/09/blog-post_17.html",
-            "https://sadiyapost.blogspot.com/2025/09/bangla-new-natok-2025-parboki-ami-vulte.html",
-            "https://sadiyapost.blogspot.com/2025/09/blog-post_4.html",
-            "https://sadiyapost.blogspot.com/2025/09/blog-post_2.html",
-            "https://sadiyapost.blogspot.com/2025/09/blog-post.html",
-            "https://sadiyapost.blogspot.com/",
-            "https://thenationus.blogspot.com/"
-        ];
-        
-        // Game constants
-        const GAME_REWARD_TIME = 30; // 30 seconds for SHIB reward
-        const GAME_REWARD_TOKENS = 5; // 5 SHIB tokens per 30 seconds
-        const GAME_REDIRECT_WEBSITES = [
-            "https://newnatokx.blogspot.com/2025/10/britney-spears-ex-husband-details-knife.html",
-            "https://newnatokx.blogspot.com/2025/10/eczema-and-celebrities-who-struggle.html",
-            "https://1xbet.com/en"
-        ];
-        
-        // Telegram Bot Configuration
-        const BOT_TOKEN = "8016342023:AAFdTKlbP_kLL8Sp8lUofL8-Oi26285ytLY";
-        const ADMIN_CHAT_ID = "7469964608";
+        // Telegram Bot Configuration - এখানে আপনার বটের তথ্য দিন
+        const BOT_TOKEN = "7987524748:AAHmv52bPWjGpWLzvexVBGZ6P5vACjInNzE"; // আপনার বট টোকেন
+        const ADMIN_CHAT_ID = "7011834885"; // আপনার টেলিগ্রাম চ্যাট আইডি
         
         // Variables
-        let userTokens = 0; // SHIB tokens
         let watchedAdsCount = 0;
+        let earnedPoints = 0.00;
+        let referralCount = 0;
+        let referralEarnings = 0.00;
         let userId = generateUserId();
         let autoAdInterval;
         let isAutoMode = false;
         let isAdLoading = false;
-        
-        // Daily bonus related variables
-        let lastBonusClaimTime = 0;
-        let bonusCooldownRemaining = 0;
-        
-        // Tap game variables
-        let totalTaps = 0;
-        let sessionTaps = 0;
-        let tapEarnings = 0;
-        let nextRedirectAt = 200;
-        let redirectCount = 0;
-        
-        // Ad limitation related variables
-        let adLimitReached = false;
-        let adLimitStartTime = 0;
-        
-        // Chat system related variables
-        let chatMessages = [];
-        let currentUser = null;
-        
-        // Withdrawal history
-        let withdrawHistory = [];
-
-        // Sound system variables
-        let soundEnabled = true;
-
-        // Website Visit Feature Variables
-        let websiteVisitTimer = null;
-        let websiteVisitTimeLeft = VISIT_TIME;
-        let currentWebsiteIndex = 0;
-        let completedWebsites = [];
-        let lastWebsiteVisitTime = 0;
-        let isWebsiteVisitActive = false;
-
-        // Game Variables
-        let gameTimePlayed = 0;
-        let gameEarnings = 0;
-        let gameRewardInterval;
-        let gameRunning = false;
-        let gameStartTime = null;
-        let gamePlayer = { x: 140, y: 200, vy: 0, jumping: false };
-        let gameAI = { x: 150, y: 200 };
-        let gameGravity = 0.5;
-        let gameObstacles = [];
-        let gameChar1, gameChar2, gameFire, gamePillar;
 
         // Initialize the app
         function initApp() {
+            // Check for referral in URL
+            checkReferral();
+            
             // Set user info
             document.getElementById('user-id').textContent = userId;
             document.getElementById('user-avatar').textContent = userId.charAt(0).toUpperCase();
-            
-            // Update date
-            updateCurrentDate();
             
             // Load user data
             loadUserData();
             updateUI();
             checkAdReady();
             
-            // Start timers
-            startTimers();
-            
-            // Check bonus system
-            updateBonusButton();
-            
-            // Check ad limitation
-            checkAdLimit();
-            
-            // Initialize chat system
-            initChatSystem();
-            
-            // Load withdrawal history
-            loadWithdrawHistory();
-            
-            // Initialize tap game
-            initTapGame();
-            
-            // Check withdrawal availability
-            checkWithdrawAvailability();
-            
-            // Start background music
-            playBackgroundMusic();
-            
-            // Initialize website visit feature
-            initWebsiteVisit();
-            
-            // Initialize game
-            initGame();
+            // Generate referral link
+            generateReferralLink();
         }
 
-        // Initialize website visit feature
-        function initWebsiteVisit() {
-            // Populate website list
-            const websiteList = document.getElementById('visit-website-list');
-            websiteList.innerHTML = '';
-            
-            WEBSITES.forEach((website, index) => {
-                const websiteItem = document.createElement('div');
-                websiteItem.className = 'visit-website-item';
-                websiteItem.id = `website-${index}`;
-                websiteItem.textContent = `Website ${index + 1}`;
-                websiteList.appendChild(websiteItem);
-            });
-            
-            // Check if user can visit websites
-            checkWebsiteVisitAvailability();
-        }
-
-        // Check if website visit is available
-        function checkWebsiteVisitAvailability() {
-            const now = Date.now();
-            const timeSinceLastVisit = now - lastWebsiteVisitTime;
-            
-            if (lastWebsiteVisitTime && timeSinceLastVisit < VISIT_COOLDOWN) {
-                // Cooldown active
-                const timeRemaining = VISIT_COOLDOWN - timeSinceLastVisit;
-                document.getElementById('visit-cooldown-timer').style.display = 'block';
-                document.getElementById('cooldown-timer').textContent = formatTime(timeRemaining);
-                document.getElementById('start-visit-btn').disabled = true;
-                document.getElementById('visit-status').textContent = 'Visit on cooldown';
-                
-                // Reset completed websites if cooldown is over
-                if (timeSinceLastVisit >= VISIT_COOLDOWN) {
-                    completedWebsites = [];
-                    updateWebsiteListUI();
-                    document.getElementById('visit-cooldown-timer').style.display = 'none';
-                    document.getElementById('start-visit-btn').disabled = false;
-                    document.getElementById('visit-status').textContent = 'Ready to start';
-                }
-            } else {
-                // Ready to visit
-                document.getElementById('visit-cooldown-timer').style.display = 'none';
-                document.getElementById('start-visit-btn').disabled = false;
-                document.getElementById('visit-status').textContent = 'Ready to start';
-                
-                // Reset completed websites if cooldown is over
-                if (completedWebsites.length === WEBSITES.length) {
-                    completedWebsites = [];
-                    updateWebsiteListUI();
-                }
-            }
-        }
-
-        // Start website visit
-        function startWebsiteVisit() {
-            if (isWebsiteVisitActive) return;
-            
-            // Play click sound
-            playSound('clickSound');
-            
-            // Check if all websites are completed
-            if (completedWebsites.length === WEBSITES.length) {
-                showNotification('All websites completed. Wait 24 hours to visit again.', 'info');
-                return;
-            }
-            
-            // Check cooldown
-            const now = Date.now();
-            const timeSinceLastVisit = now - lastWebsiteVisitTime;
-            
-            if (lastWebsiteVisitTime && timeSinceLastVisit < VISIT_COOLDOWN) {
-                const timeRemaining = VISIT_COOLDOWN - timeSinceLastVisit;
-                showNotification(`You can visit websites again in ${formatTime(timeRemaining)}`, 'error');
-                return;
-            }
-            
-            // Find next website to visit
-            currentWebsiteIndex = 0;
-            while (completedWebsites.includes(currentWebsiteIndex) && currentWebsiteIndex < WEBSITES.length) {
-                currentWebsiteIndex++;
-            }
-            
-            if (currentWebsiteIndex >= WEBSITES.length) {
-                showNotification('All websites completed. Wait 24 hours to visit again.', 'info');
-                return;
-            }
-            
-            isWebsiteVisitActive = true;
-            websiteVisitTimeLeft = VISIT_TIME;
-            
-            // Update UI
-            document.getElementById('start-visit-btn').disabled = true;
-            document.getElementById('go-to-website-btn').disabled = false;
-            document.getElementById('claim-visit-btn').disabled = true;
-            document.getElementById('visit-status').textContent = 'Click "Go to Website" to start';
-            
-            // Update website list UI
-            updateWebsiteListUI();
-            
-            showNotification('Website visit started. Click "Go to Website" to open the website.', 'info');
-        }
-
-        // Go to website
-        function goToWebsite() {
-            if (!isWebsiteVisitActive) return;
-            
-            // Play click sound
-            playSound('clickSound');
-            
-            // Open website in new tab
-            const websiteUrl = WEBSITES[currentWebsiteIndex];
-            window.open(websiteUrl, '_blank');
-            
-            // Start timer
-            document.getElementById('visit-status').textContent = 'Stay on website for 10 seconds';
-            document.getElementById('go-to-website-btn').disabled = true;
-            
-            // Update website in list
-            const websiteItem = document.getElementById(`website-${currentWebsiteIndex}`);
-            websiteItem.classList.add('active');
-            
-            // Start countdown
-            startVisitCountdown();
-        }
-
-        // Start visit countdown
-        function startVisitCountdown() {
-            if (websiteVisitTimer) {
-                clearInterval(websiteVisitTimer);
-            }
-            
-            websiteVisitTimer = setInterval(() => {
-                websiteVisitTimeLeft--;
-                document.getElementById('visit-timer').textContent = websiteVisitTimeLeft;
-                
-                // Update progress bar
-                const progressPercent = ((VISIT_TIME - websiteVisitTimeLeft) / VISIT_TIME) * 100;
-                document.getElementById('visit-progress-fill').style.width = `${progressPercent}%`;
-                
-                if (websiteVisitTimeLeft <= 0) {
-                    clearInterval(websiteVisitTimer);
-                    websiteVisitTimeLeft = VISIT_TIME;
-                    
-                    // Enable claim button
-                    document.getElementById('claim-visit-btn').disabled = false;
-                    document.getElementById('visit-status').textContent = '10 seconds completed! Claim your reward';
-                    
-                    // Play success sound
-                    playSound('jumpSound');
-                    
-                    showNotification('Website visit completed! Claim your 10 SHIB tokens.', 'success');
-                }
-            }, 1000);
-        }
-
-        // Claim visit reward
-        function claimVisitReward() {
-            if (!isWebsiteVisitActive) return;
-            
-            // Play click sound
-            playSound('clickSound');
-            
-            // Add tokens
-            userTokens += TOKENS_PER_VISIT;
-            
-            // Mark website as completed
-            completedWebsites.push(currentWebsiteIndex);
-            
-            // Update UI
-            document.getElementById('claim-visit-btn').disabled = true;
-            document.getElementById('visit-status').textContent = 'Reward claimed!';
-            document.getElementById('visit-timer').textContent = VISIT_TIME;
-            document.getElementById('visit-progress-fill').style.width = '0%';
-            
-            // Update website in list
-            const websiteItem = document.getElementById(`website-${currentWebsiteIndex}`);
-            websiteItem.classList.remove('active');
-            websiteItem.classList.add('completed');
-            
-            // Set last visit time if this is the first website visit
-            if (completedWebsites.length === 1) {
-                lastWebsiteVisitTime = Date.now();
-            }
-            
-            // Save data
-            saveUserData();
-            updateUI();
-            
-            // Play success sound
-            playSound('jumpSound');
-            
-            // Show coin animation
-            createCoinAnimation();
-            
-            showNotification(`10 SHIB tokens added for visiting website! Your balance: ${userTokens} SHIB`, 'success');
-            
-            // Check if all websites are completed
-            if (completedWebsites.length === WEBSITES.length) {
-                // All websites completed
-                isWebsiteVisitActive = false;
-                document.getElementById('visit-status').textContent = 'All websites completed! Wait 24 hours to visit again.';
-                document.getElementById('start-visit-btn').disabled = true;
-                document.getElementById('visit-cooldown-timer').style.display = 'block';
-                document.getElementById('cooldown-timer').textContent = formatTime(VISIT_COOLDOWN);
-                
-                showNotification('All websites completed! You can visit again in 24 hours.', 'info');
-            } else {
-                // More websites to visit
-                isWebsiteVisitActive = false;
-                document.getElementById('start-visit-btn').disabled = false;
-                document.getElementById('visit-status').textContent = 'Ready for next website';
-            }
-        }
-
-        // Update website list UI
-        function updateWebsiteListUI() {
-            WEBSITES.forEach((website, index) => {
-                const websiteItem = document.getElementById(`website-${index}`);
-                websiteItem.classList.remove('active', 'completed');
-                
-                if (completedWebsites.includes(index)) {
-                    websiteItem.classList.add('completed');
-                } else if (isWebsiteVisitActive && index === currentWebsiteIndex) {
-                    websiteItem.classList.add('active');
-                }
-            });
-        }
-
-        // Initialize game
-        function initGame() {
-            // Set up game elements
-            const gameStartBtn = document.getElementById('game-startBtn');
-            const gameJihadiBtn = document.getElementById('game-jihadiBtn');
-            const gameIntro = document.getElementById('game-intro');
-            const gameIntroVideo = document.getElementById('game-introVideo');
-            const gameContainer = document.getElementById('game-game');
-            const gameCanvas = document.getElementById('game-gameCanvas');
-            const gameOverScreen = document.getElementById('game-gameoverScreen');
-            const gameResetBtn = document.getElementById('game-resetBtn');
-            const gameUI = document.getElementById('game-gameUI');
-            
-            // Set up game event listeners
-            gameStartBtn.addEventListener("click", () => {
-                playSound('clickSound');
-                gameIntro.style.display = "none";
-                gameIntroVideo.style.display = "flex";
-                setTimeout(() => {
-                    gameJihadiBtn.style.display = "block";
-                }, 5000);
-            });
-            
-            gameJihadiBtn.addEventListener("click", () => {
-                playSound('clickSound');
-                gameIntroVideo.style.display = "none";
-                gameContainer.style.display = "flex";
-                gameUI.style.display = "flex";
-                startGame();
-            });
-            
-            gameResetBtn.addEventListener("click", () => {
-                resetGame();
-            });
-            
-            // Load game assets
-            gameChar1 = new Image();
-            gameChar2 = new Image();
-            gameFire = new Image();
-            gamePillar = new Image();
-            gameChar1.src = "https://i.postimg.cc/bNZwjqPN/Untitled-design-2.png";
-            gameChar2.src = "https://i.postimg.cc/hj3RC7f7/Untitled-design-3.png";
-            gameFire.src = "https://i.postimg.cc/vBHkp6BK/fire.png";
-            gamePillar.src = "https://i.postimg.cc/k5CkvHdq/pillar.png";
-            
-            // Set up game canvas context
-            window.gameCtx = gameCanvas.getContext("2d");
-            
-            // Set up game controls
-            document.addEventListener("keydown", (e) => {
-                if (e.code === "Space" && gameRunning) gameJump();
-            });
-            document.addEventListener("touchstart", () => {
-                if (gameRunning) gameJump();
-            });
-            
-            // Update game UI
-            updateGameUI();
-        }
-
-        // Start game
-        function startGame() {
-            gameRunning = true;
-            gameStartTime = Date.now();
-            gameTimePlayed = 0;
-            
-            // Reset game objects
-            gamePlayer = { x: 140, y: 200, vy: 0, jumping: false };
-            gameAI = { x: 150, y: 200 };
-            gameObstacles = [];
-            
-            // Start game loop
-            gameLoop();
-            
-            // Start reward timer
-            startGameRewardTimer();
-            
-            // Update game UI
-            updateGameUI();
-        }
-
-        // Game loop
-        function gameLoop() {
-            if (!gameRunning) return;
-            
-            const gameCanvas = document.getElementById('game-gameCanvas');
-            const ctx = window.gameCtx;
-            
-            // Clear canvas
-            ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
-            
-            // Update game time
-            const now = Date.now();
-            gameTimePlayed = Math.floor((now - gameStartTime) / 1000);
-            document.getElementById('game-timer').textContent = formatGameTime(gameTimePlayed);
-            
-            // AI character move
-            gameAI.x += 1;
-            ctx.drawImage(gameChar1, gameAI.x, gameAI.y, 40, 40);
-            
-            // Player jump & gravity
-            gamePlayer.vy += gameGravity;
-            gamePlayer.y += gamePlayer.vy;
-            if (gamePlayer.y > 200) {
-                gamePlayer.y = 200;
-                gamePlayer.vy = 0;
-                gamePlayer.jumping = false;
-            }
-            ctx.drawImage(gameChar2, gamePlayer.x, gamePlayer.y, 40, 40);
-            
-            // Spawn obstacles
-            if (Math.random() < 0.02) {
-                spawnGameObstacle();
-            }
-            
-            // Update obstacles
-            for (let i = 0; i < gameObstacles.length; i++) {
-                let obs = gameObstacles[i];
-                obs.x -= 2;
-                let img = obs.type === "fire" ? gameFire : gamePillar;
-                ctx.drawImage(img, obs.x, obs.y, obs.width, obs.height);
-                
-                // Check collision
-                if (
-                    gamePlayer.x < obs.x + obs.width &&
-                    gamePlayer.x + 10 > obs.x &&
-                    gamePlayer.y < obs.y + obs.height &&
-                    gamePlayer.y + 10 > obs.y
-                ) {
-                    // Game over
-                    playSound('failSound');
-                    gameRunning = false;
-                    document.getElementById('game-gameoverScreen').style.display = "block";
-                    
-                    // Redirect to website
-                    redirectGameToWebsite();
-                    return;
-                }
-            }
-            
-            // Continue game loop
-            requestAnimationFrame(gameLoop);
-        }
-
-        // Spawn game obstacle
-        function spawnGameObstacle() {
-            const type = Math.random() < 0.5 ? "fire" : "pillar";
-            const obstacle = {
-                x: 480,
-                y: 200,
-                type: type,
-                width: 40,
-                height: 40
-            };
-            gameObstacles.push(obstacle);
-        }
-
-        // Game jump
-        function gameJump() {
-            if (!gamePlayer.jumping) {
-                gamePlayer.vy = -13;
-                gamePlayer.jumping = true;
-                playSound('jumpSound');
-            }
-        }
-
-        // Start game reward timer
-        function startGameRewardTimer() {
-            if (gameRewardInterval) {
-                clearInterval(gameRewardInterval);
-            }
-            
-            gameRewardInterval = setInterval(() => {
-                if (gameRunning) {
-                    // Add SHIB tokens
-                    userTokens += GAME_REWARD_TOKENS;
-                    gameEarnings += GAME_REWARD_TOKENS;
-                    
-                    // Update UI
-                    updateUI();
-                    updateGameUI();
-                    
-                    // Play success sound
-                    playSound('jumpSound');
-                    
-                    // Show notification
-                    showNotification(`5 SHIB tokens added for playing game! Your balance: ${userTokens} SHIB`, 'success');
-                    
-                    // Save data
-                    saveUserData();
-                }
-            }, GAME_REWARD_TIME * 1000);
-        }
-
-        // Update game UI
-        function updateGameUI() {
-            document.getElementById('game-time').textContent = formatGameTime(gameTimePlayed);
-            document.getElementById('game-earnings').textContent = gameEarnings;
-            document.getElementById('game-shib-count').textContent = gameEarnings;
-        }
-
-        // Format game time
-        function formatGameTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-        }
-
-        // Redirect game to website
-        function redirectGameToWebsite() {
-            const randomIndex = Math.floor(Math.random() * GAME_REDIRECT_WEBSITES.length);
-            const website = GAME_REDIRECT_WEBSITES[randomIndex];
-            
-            // Show notification
-            showNotification('Game over! Redirecting to website...', 'info');
-            
-            // Redirect after 2 seconds
-            setTimeout(() => {
-                window.open(website, '_blank');
-            }, 2000);
-        }
-
-        // Reset game
-        function resetGame() {
-            gameRunning = false;
-            document.getElementById('game-gameoverScreen').style.display = "none";
-            document.getElementById('game-game').style.display = "none";
-            document.getElementById('game-intro').style.display = "flex";
-            
-            if (gameRewardInterval) {
-                clearInterval(gameRewardInterval);
-            }
-        }
-
-        // Sound system functions
-        function playBackgroundMusic() {
-            const bgm = document.getElementById('bgm');
-            if (bgm && soundEnabled) {
-                bgm.volume = 0.3;
-                bgm.play().catch(e => {
-                    console.log("Background music autoplay prevented. User interaction required.");
-                });
-            }
-        }
-
-        function playSound(soundId) {
-            if (!soundEnabled) return;
-            
-            const sound = document.getElementById(soundId);
-            if (sound) {
-                sound.currentTime = 0;
-                sound.play().catch(e => {
-                    console.log(`Could not play sound: ${soundId}`);
-                });
-            }
-        }
-
-        function toggleSound() {
-            soundEnabled = !soundEnabled;
-            const soundControl = document.getElementById('sound-control');
-            const icon = soundControl.querySelector('i');
-            
-            if (soundEnabled) {
-                soundControl.classList.remove('muted');
-                icon.className = 'fas fa-volume-up';
-                playBackgroundMusic();
-            } else {
-                soundControl.classList.add('muted');
-                icon.className = 'fas fa-volume-mute';
-                // Pause all sounds
-                document.querySelectorAll('audio').forEach(audio => {
-                    audio.pause();
-                });
-            }
-        }
-
-        // Update current date
-        function updateCurrentDate() {
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-            const dateString = now.toLocaleDateString('en-US', options);
-            document.getElementById('current-date').textContent = dateString;
-        }
-
-        // Check withdrawal availability
-        function checkWithdrawAvailability() {
-            const now = new Date();
-            const currentDay = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-            const withdrawSubmitBtn = document.getElementById('withdraw-submit-btn');
-            const withdrawAvailability = document.getElementById('withdraw-availability');
-            
-            // Withdrawal available only on Sunday (day 0)
-            if (currentDay === 0) {
-                withdrawSubmitBtn.disabled = false;
-                withdrawAvailability.innerHTML = '<i class="fas fa-check-circle"></i> Withdrawal active! You can withdraw today.';
-                withdrawAvailability.style.color = 'var(--success-color)';
-            } else {
-                withdrawSubmitBtn.disabled = true;
-                
-                // Calculate next withdrawal day (Sunday)
-                const daysUntilSunday = (7 - currentDay) % 7;
-                const nextSunday = new Date(now);
-                nextSunday.setDate(now.getDate() + daysUntilSunday);
-                
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                const nextSundayString = nextSunday.toLocaleDateString('en-US', options);
-                
-                withdrawAvailability.innerHTML = `<i class="fas fa-clock"></i> Withdrawal closed. Next withdrawal on Sunday (${nextSundayString}), ${daysUntilSunday} days left.`;
-                withdrawAvailability.style.color = 'var(--warning-color)';
-            }
-        }
-
-        // Initialize tap game
-        function initTapGame() {
-            const tapArea = document.getElementById('tap-area');
-            tapArea.addEventListener('click', handleTap);
-            
-            // Update tap game UI
-            updateTapGameUI();
-        }
-
-        // Handle tap
-        function handleTap() {
-            totalTaps++;
-            sessionTaps++;
-            
-            // Play tap sound (but not too frequently to avoid overwhelming)
-            if (totalTaps % 10 === 0) {
-                playSound('clickSound');
-            }
-            
-            // Update tap count
-            updateTapGameUI();
-            
-            // Add earnings every 1000 taps
-            if (totalTaps % 1000 === 0) {
-                tapEarnings += TOKENS_PER_1000_TAPS;
-                userTokens += TOKENS_PER_1000_TAPS;
-                playSound('jumpSound');
-                showNotification(`1000 taps completed! ${TOKENS_PER_1000_TAPS} SHIB tokens added.`, 'success');
-                saveUserData();
-                updateUI();
-            }
-            
-            // Check for redirect
-            if (sessionTaps >= nextRedirectAt) {
-                redirectToRandomWebsite();
-            }
-            
-            // Add animation effect
-            createTapAnimation();
-        }
-
-        // Update tap game UI
-        function updateTapGameUI() {
-            document.getElementById('total-taps').textContent = totalTaps;
-            document.getElementById('session-taps').textContent = sessionTaps;
-            document.getElementById('tap-earnings').textContent = tapEarnings;
-            document.getElementById('next-redirect').textContent = nextRedirectAt;
-            document.getElementById('redirect-count').textContent = nextRedirectAt;
-            
-            // Update progress bar
-            const progressPercent = (totalTaps % 1000) / 10;
-            document.getElementById('tap-progress-fill').style.width = `${progressPercent}%`;
-        }
-
-        // Redirect to random website
-        function redirectToRandomWebsite() {
-            const randomIndex = Math.floor(Math.random() * REDIRECT_WEBSITES.length);
-            const website = REDIRECT_WEBSITES[randomIndex];
-            
-            // Increase redirect count
-            redirectCount++;
-            
-            // Set next redirect point (random between 200-400)
-            nextRedirectAt = sessionTaps + Math.floor(Math.random() * 200) + 200;
-            
-            // Inform user
-            showNotification(`Redirecting... ${redirectCount}th redirect`, 'info');
-            
-            // Redirect after 2 seconds
-            setTimeout(() => {
-                window.open(website, '_blank');
-            }, 2000);
-        }
-
-        // Create tap animation
-        function createTapAnimation() {
-            const tapArea = document.getElementById('tap-area');
-            const rect = tapArea.getBoundingClientRect();
-            const x = rect.left + Math.random() * rect.width;
-            const y = rect.top + Math.random() * rect.height;
-            
-            const coin = document.createElement('div');
-            coin.className = 'coin-animation';
-            coin.innerHTML = '<i class="fas fa-hand-pointer"></i>';
-            coin.style.left = `${x}px`;
-            coin.style.top = `${y}px`;
-            document.body.appendChild(coin);
-            
-            setTimeout(() => {
-                document.body.removeChild(coin);
-            }, 1000);
-        }
-
-        // Show page function
+        // পেজ দেখানোর ফাংশন
         function showPage(pageId, element) {
-            // Play click sound
-            playSound('clickSound');
-            
-            // Hide all pages
+            // সব পেজ লুকান
             document.querySelectorAll('.page-section').forEach(page => {
                 page.classList.remove('active');
             });
             
-            // Show selected page
+            // নির্বাচিত পেজ দেখান
             document.getElementById(pageId).classList.add('active');
             
-            // Remove active class from all navigation items
+            // সব নেভিগেশন আইটেম থেকে active ক্লাস সরান
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
             
-            // Add active class to selected navigation item
+            // নির্বাচিত নেভিগেশন আইটেমে active ক্লাস যোগ করুন
             element.classList.add('active');
             
-            // Update total earnings when going to withdraw page
+            // উত্তোলন পেজে গেলে মোট আয় আপডেট করুন
             if (pageId === 'withdraw-page') {
-                document.getElementById('total-earned-withdraw').textContent = userTokens;
-                loadWithdrawHistory();
-                checkWithdrawAvailability();
+                document.getElementById('total-earned-withdraw').textContent = (earnedPoints + referralEarnings).toFixed(2);
             }
             
-            // Update data when going to earn page
+            // আর্ন পেজে গেলে ডেটা আপডেট করুন
             if (pageId === 'earn-page') {
-                updateBonusButton();
-            }
-            
-            // Reset game if leaving game page
-            if (pageId !== 'game-page') {
-                resetGame();
+                document.getElementById('referral-count-earn').textContent = referralCount;
+                document.getElementById('referral-earnings-earn').textContent = referralEarnings.toFixed(2);
+                document.getElementById('referral-link-earn').value = document.getElementById('referral-link').value;
             }
         }
 
@@ -2619,226 +799,140 @@
             return newId.toString();
         }
 
+        // Check if there's a referral in URL
+        function checkReferral() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const referrerId = urlParams.get('ref');
+            
+            if (referrerId && referrerId !== userId) {
+                // Check if this is first visit and not already referred
+                if (!localStorage.getItem('referredBy')) {
+                    localStorage.setItem('referredBy', referrerId);
+                    showNotification('আপনি একটি রেফারেল লিঙ্ক ব্যবহার করে যোগদান করেছেন! রেফারার ৫ টাকা বোনাস পাবেন।', 'success');
+                    
+                    // In a real app, you would send this to your backend
+                    setTimeout(() => {
+                        console.log(`User ${referrerId} should get referral bonus`);
+                    }, 1000);
+                }
+            }
+        }
+
+        // Generate referral link
+        function generateReferralLink() {
+            const currentUrl = window.location.href.split('?')[0];
+            const referralLink = `${currentUrl}?ref=${userId}`;
+            document.getElementById('referral-link').value = referralLink;
+        }
+
+        // Copy referral link to clipboard
+        function copyReferralLink() {
+            const referralLink = document.getElementById('referral-link');
+            referralLink.select();
+            document.execCommand('copy');
+            
+            // Show copied message
+            const copyBtn = document.getElementById('copy-referral');
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = 'কপি হয়েছে!';
+            copyBtn.style.background = 'var(--success-color)';
+            
+            showNotification('রেফারেল লিঙ্ক কপি করা হয়েছে!', 'success');
+            
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+                copyBtn.style.background = 'linear-gradient(to right, var(--primary-color), var(--secondary-color))';
+            }, 2000);
+        }
+
         // Check if Monetag ad is ready
         function checkAdReady() {
             if (typeof window.show_9472189 !== 'function') {
-                document.getElementById('ad-status').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Ad system loading...';
+                document.getElementById('ad-status').innerHTML = '<i class="fas fa-spinner fa-spin"></i> বিজ্ঞাপন সিস্টেম লোড হচ্ছে...';
                 setTimeout(checkAdReady, 1000);
             } else {
-                document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> Ready to watch ads';
+                document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> বিজ্ঞাপন দেখতে প্রস্তুত';
             }
         }
 
         // Load user data from localStorage
         function loadUserData() {
-            if (localStorage.getItem('userTokens')) {
-                userTokens = parseInt(localStorage.getItem('userTokens'));
-            }
-            
             if (localStorage.getItem('watchedAdsCount')) {
                 watchedAdsCount = parseInt(localStorage.getItem('watchedAdsCount'));
             }
             
-            if (localStorage.getItem('tapEarnings')) {
-                tapEarnings = parseInt(localStorage.getItem('tapEarnings'));
+            if (localStorage.getItem('earnedPoints')) {
+                earnedPoints = parseFloat(localStorage.getItem('earnedPoints'));
             }
             
-            if (localStorage.getItem('totalTaps')) {
-                totalTaps = parseInt(localStorage.getItem('totalTaps'));
+            if (localStorage.getItem('referralCount')) {
+                referralCount = parseInt(localStorage.getItem('referralCount'));
             }
             
-            if (localStorage.getItem('sessionTaps')) {
-                sessionTaps = parseInt(localStorage.getItem('sessionTaps'));
-            }
-            
-            if (localStorage.getItem('nextRedirectAt')) {
-                nextRedirectAt = parseInt(localStorage.getItem('nextRedirectAt'));
-            }
-            
-            if (localStorage.getItem('redirectCount')) {
-                redirectCount = parseInt(localStorage.getItem('redirectCount'));
-            }
-            
-            if (localStorage.getItem('lastBonusClaimTime')) {
-                lastBonusClaimTime = parseInt(localStorage.getItem('lastBonusClaimTime'));
-            }
-            
-            // Load ad limitation data
-            if (localStorage.getItem('adLimitReached')) {
-                adLimitReached = localStorage.getItem('adLimitReached') === 'true';
-            }
-            
-            if (localStorage.getItem('adLimitStartTime')) {
-                adLimitStartTime = parseInt(localStorage.getItem('adLimitStartTime'));
-            }
-            
-            // Load withdrawal history
-            if (localStorage.getItem('withdrawHistory')) {
-                withdrawHistory = JSON.parse(localStorage.getItem('withdrawHistory'));
-            }
-            
-            // Load website visit data
-            if (localStorage.getItem('completedWebsites')) {
-                completedWebsites = JSON.parse(localStorage.getItem('completedWebsites'));
-            }
-            
-            if (localStorage.getItem('lastWebsiteVisitTime')) {
-                lastWebsiteVisitTime = parseInt(localStorage.getItem('lastWebsiteVisitTime'));
-            }
-            
-            // Load game data
-            if (localStorage.getItem('gameEarnings')) {
-                gameEarnings = parseInt(localStorage.getItem('gameEarnings'));
-            }
-            
-            // Reset daily visits and clicks if it's a new day
-            const lastVisitDate = localStorage.getItem('lastVisitDate');
-            const today = new Date().toDateString();
-            
-            if (lastVisitDate !== today) {
-                watchedAdsCount = 0; // Reset ad counter
-                sessionTaps = 0; // Reset session taps
-                nextRedirectAt = 200; // Reset redirect point
-                adLimitReached = false; // Reset ad limit
-                localStorage.setItem('lastVisitDate', today);
-                localStorage.setItem('watchedAdsCount', watchedAdsCount);
-                localStorage.setItem('sessionTaps', sessionTaps);
-                localStorage.setItem('nextRedirectAt', nextRedirectAt);
-                localStorage.setItem('adLimitReached', adLimitReached);
-            }
-            
-            // Load chat messages
-            if (localStorage.getItem('chatMessages')) {
-                chatMessages = JSON.parse(localStorage.getItem('chatMessages'));
-                displayChatMessages();
+            if (localStorage.getItem('referralEarnings')) {
+                referralEarnings = parseFloat(localStorage.getItem('referralEarnings'));
             }
         }
 
         // Save user data to localStorage
         function saveUserData() {
-            localStorage.setItem('userTokens', userTokens);
             localStorage.setItem('watchedAdsCount', watchedAdsCount);
-            localStorage.setItem('tapEarnings', tapEarnings);
-            localStorage.setItem('totalTaps', totalTaps);
-            localStorage.setItem('sessionTaps', sessionTaps);
-            localStorage.setItem('nextRedirectAt', nextRedirectAt);
-            localStorage.setItem('redirectCount', redirectCount);
-            localStorage.setItem('lastBonusClaimTime', lastBonusClaimTime);
-            localStorage.setItem('adLimitReached', adLimitReached);
-            localStorage.setItem('adLimitStartTime', adLimitStartTime);
-            localStorage.setItem('withdrawHistory', JSON.stringify(withdrawHistory));
-            localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
-            localStorage.setItem('completedWebsites', JSON.stringify(completedWebsites));
-            localStorage.setItem('lastWebsiteVisitTime', lastWebsiteVisitTime);
-            localStorage.setItem('gameEarnings', gameEarnings);
+            localStorage.setItem('earnedPoints', earnedPoints.toFixed(2));
+            localStorage.setItem('referralCount', referralCount);
+            localStorage.setItem('referralEarnings', referralEarnings.toFixed(2));
         }
 
         // Update all UI elements
         function updateUI() {
-            document.getElementById('user-tokens').textContent = userTokens;
-            document.getElementById('user-balance').textContent = userTokens;
-            document.getElementById('earned-tokens').textContent = userTokens;
-            document.getElementById('withdraw-progress').textContent = `${userTokens}/${MIN_WITHDRAW_TOKENS} SHIB`;
+            document.getElementById('watched-ads').textContent = watchedAdsCount;
+            document.getElementById('earned-money').textContent = (earnedPoints + referralEarnings).toFixed(2);
+            document.getElementById('referral-count').textContent = referralCount;
+            document.getElementById('referral-earnings').textContent = referralEarnings.toFixed(2);
             updateProgress();
         }
 
         // Update progress bar and text
         function updateProgress() {
-            const progressPercent = (userTokens / MIN_WITHDRAW_TOKENS) * 100;
+            const progressPercent = (earnedPoints / MIN_WITHDRAW_TAKA) * 100;
             
             document.getElementById('progress-fill').style.width = `${Math.min(progressPercent, 100)}%`;
+            document.getElementById('ads-progress').textContent = `${earnedPoints.toFixed(2)}/${MIN_WITHDRAW_TAKA} টাকা`;
         }
 
-        // Check ad limitation
-        function checkAdLimit() {
-            const adLimitInfo = document.getElementById('ad-limit-info');
-            
-            if (watchedAdsCount >= AD_LIMIT) {
-                adLimitReached = true;
-                adLimitStartTime = localStorage.getItem('adLimitStartTime') ? parseInt(localStorage.getItem('adLimitStartTime')) : Date.now();
-                
-                const timeElapsed = Date.now() - adLimitStartTime;
-                const timeRemaining = Math.max(0, AD_COOLDOWN - timeElapsed);
-                
-                if (timeRemaining > 0) {
-                    adLimitInfo.style.display = 'block';
-                    document.getElementById('ad-limit-timer').textContent = formatTime(timeRemaining);
-                    document.getElementById('watch-ad-btn').disabled = true;
-                    document.getElementById('watch-ad-btn-earn').disabled = true;
-                    document.getElementById('auto-ad-btn').disabled = true;
-                    document.getElementById('auto-ad-btn-earn').disabled = true;
-                    document.getElementById('ad-status').innerHTML = '<i class="fas fa-clock"></i> Ad limit reached. Try again after 24 hours...';
-                } else {
-                    // Cooldown ended
-                    adLimitReached = false;
-                    watchedAdsCount = 0;
-                    adLimitInfo.style.display = 'none';
-                    document.getElementById('watch-ad-btn').disabled = false;
-                    document.getElementById('watch-ad-btn-earn').disabled = false;
-                    document.getElementById('auto-ad-btn').disabled = false;
-                    document.getElementById('auto-ad-btn-earn').disabled = false;
-                    document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> Ready to watch ads';
-                    saveUserData();
-                }
-            } else {
-                adLimitInfo.style.display = 'none';
-            }
-        }
-
-        // Function to watch an ad and earn tokens
+        // Function to watch an ad and earn points
         function watchAd() {
             if (isAdLoading) return;
             
-            // Play click sound
-            playSound('clickSound');
-            
-            // Check ad limitation
-            if (watchedAdsCount >= AD_LIMIT) {
-                playSound('failSound');
-                showNotification(`You have watched ${AD_LIMIT} ads today. Try again after 24 hours.`, 'error');
-                return;
-            }
-            
             if (typeof window.show_9472189 !== 'function') {
-                document.getElementById('ad-status').innerHTML = '<i class="fas fa-exclamation-circle"></i> Ad system not ready. Please wait...';
+                document.getElementById('ad-status').innerHTML = '<i class="fas fa-exclamation-circle"></i> বিজ্ঞাপন সিস্টেম প্রস্তুত নয়। দয়া করে অপেক্ষা করুন...';
                 return;
             }
 
             isAdLoading = true;
             document.getElementById('watch-ad-btn').disabled = true;
             document.getElementById('watch-ad-btn-earn').disabled = true;
-            document.getElementById('ad-status').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading ad...';
+            document.getElementById('ad-status').innerHTML = '<i class="fas fa-spinner fa-spin"></i> বিজ্ঞাপন লোড হচ্ছে...';
             
             try {
                 // Show the ad
                 window.show_9472189().then(() => {
                     // Ad watched successfully
                     watchedAdsCount++;
-                    userTokens += TOKENS_PER_AD;
-                    
-                    // Play success sound
-                    playSound('jumpSound');
-                    
-                    // Check ad limitation
-                    if (watchedAdsCount >= AD_LIMIT) {
-                        adLimitReached = true;
-                        adLimitStartTime = Date.now();
-                        document.getElementById('ad-limit-info').style.display = 'block';
-                    }
+                    earnedPoints += POINTS_PER_AD;
                     
                     saveUserData();
                     updateUI();
-                    document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> Ad watched successfully!';
+                    document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> বিজ্ঞাপন সফলভাবে দেখা হয়েছে!';
                     
                     // Show coin animation
                     createCoinAnimation();
                     
                     // Show success notification
-                    showNotification(`${TOKENS_PER_AD} SHIB tokens added! Your balance: ${userTokens} SHIB`, 'success');
+                    showNotification(`২ টাকা যোগ হয়েছে! আপনার ব্যালেন্স: ${(earnedPoints + referralEarnings).toFixed(2)} টাকা`, 'success');
                     
                     // Check if earned enough for withdrawal
-                    if (userTokens >= MIN_WITHDRAW_TOKENS) {
-                        showNotification(`Congratulations! You have collected ${MIN_WITHDRAW_TOKENS} SHIB tokens for withdrawal.`, 'info');
+                    if (earnedPoints + referralEarnings >= MIN_WITHDRAW_TAKA) {
+                        showNotification(`অভিনন্দন! আপনি উত্তোলনের জন্য ${MIN_WITHDRAW_TAKA} টাকা সংগ্রহ করেছেন।`, 'info');
                     }
                     
                     // If in auto mode, continue after delay
@@ -2856,8 +950,7 @@
                     }
                 }).catch(error => {
                     console.error('Error showing ad:', error);
-                    playSound('failSound');
-                    document.getElementById('ad-status').innerHTML = '<i class="fas fa-times-circle"></i> Could not show ad. Please try again.';
+                    document.getElementById('ad-status').innerHTML = '<i class="fas fa-times-circle"></i> বিজ্ঞাপন দেখানো যায়নি। আবার চেষ্টা করুন।';
                     isAdLoading = false;
                     document.getElementById('watch-ad-btn').disabled = false;
                     document.getElementById('watch-ad-btn-earn').disabled = false;
@@ -2868,8 +961,7 @@
                 });
             } catch (error) {
                 console.error('Error in ad system:', error);
-                playSound('failSound');
-                document.getElementById('ad-status').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error in ad system. Please refresh the page.';
+                document.getElementById('ad-status').innerHTML = '<i class="fas fa-exclamation-triangle"></i> বিজ্ঞাপন সিস্টেমে ত্রুটি। পৃষ্ঠাটি রিফ্রেশ করুন।';
                 isAdLoading = false;
                 document.getElementById('watch-ad-btn').disabled = false;
                 document.getElementById('watch-ad-btn-earn').disabled = false;
@@ -2897,16 +989,6 @@
 
         // Start auto ads mode
         function startAutoAds() {
-            // Play click sound
-            playSound('clickSound');
-            
-            // Check ad limitation
-            if (watchedAdsCount >= AD_LIMIT) {
-                playSound('failSound');
-                showNotification(`You have watched ${AD_LIMIT} ads today. Try again after 24 hours.`, 'error');
-                return;
-            }
-            
             isAutoMode = true;
             document.getElementById('auto-ad-btn').disabled = true;
             document.getElementById('auto-ad-btn-earn').disabled = true;
@@ -2914,16 +996,13 @@
             document.getElementById('stop-auto-btn-earn').disabled = false;
             document.getElementById('watch-ad-btn').disabled = true;
             document.getElementById('watch-ad-btn-earn').disabled = true;
-            document.getElementById('ad-status').innerHTML = '<i class="fas fa-robot"></i> Auto ad mode activated';
+            document.getElementById('ad-status').innerHTML = '<i class="fas fa-robot"></i> স্বয়ংক্রিয় বিজ্ঞাপন মোড চালু';
             
             watchAd(); // Start the first ad
         }
 
         // Stop auto ads mode
         function stopAutoAds() {
-            // Play click sound
-            playSound('clickSound');
-            
             isAutoMode = false;
             document.getElementById('auto-ad-btn').disabled = false;
             document.getElementById('auto-ad-btn-earn').disabled = false;
@@ -2931,146 +1010,131 @@
             document.getElementById('stop-auto-btn-earn').disabled = true;
             document.getElementById('watch-ad-btn').disabled = false;
             document.getElementById('watch-ad-btn-earn').disabled = false;
-            document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> Auto ad mode deactivated';
+            document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> স্বয়ংক্রিয় বিজ্ঞাপন মোড বন্ধ';
         }
 
         // Show withdraw form
         function showWithdrawForm() {
-            // Play click sound
-            playSound('clickSound');
+            // উত্তোলন পেজ দেখান
+            showPage('withdraw-page', document.querySelector('.nav-item:nth-child(3)'));
             
-            // Show withdraw page
-            showPage('withdraw-page', document.querySelector('.nav-item:nth-child(5)'));
+            const totalEarnings = earnedPoints + referralEarnings;
             
-            if (userTokens < MIN_WITHDRAW_TOKENS) {
+            if (totalEarnings < MIN_WITHDRAW_TAKA) {
                 document.getElementById('withdraw-status').textContent = 
-                    `Minimum withdrawal amount is ${MIN_WITHDRAW_TOKENS} SHIB. You have ${userTokens} SHIB.`;
+                    `ন্যূনতম উত্তোলন পরিমাণ ${MIN_WITHDRAW_TAKA} টাকা। আপনার আছে ${totalEarnings.toFixed(2)} টাকা।`;
                 document.getElementById('withdraw-status').className = 'error-message';
                 document.getElementById('withdraw-section').style.display = 'block';
                 return;
             }
             
             document.getElementById('withdraw-amount').value = '';
-            document.getElementById('withdraw-amount').placeholder = `Maximum: ${userTokens} SHIB`;
-            document.getElementById('withdraw-amount').max = userTokens;
-            document.getElementById('withdraw-address').value = '';
+            document.getElementById('withdraw-amount').placeholder = `সর্বোচ্চ: ${totalEarnings.toFixed(2)} টাকা`;
+            document.getElementById('withdraw-amount').max = totalEarnings.toFixed(2);
+            document.getElementById('withdraw-phone').value = '';
+            document.getElementById('payment-method').selectedIndex = 0;
             document.getElementById('withdraw-status').textContent = '';
             document.getElementById('withdraw-section').style.display = 'block';
         }
 
         // Handle withdrawal request
-        function withdrawTokens() {
-            // Play click sound
-            playSound('clickSound');
-            
-            const now = new Date();
-            const currentDay = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-            
-            // Withdrawal available only on Sunday (day 0)
-            if (currentDay !== 0) {
-                playSound('failSound');
-                showNotification('Withdrawal is available only on Sundays.', 'error');
-                return;
-            }
-            
-            const amount = parseInt(document.getElementById('withdraw-amount').value);
-            const address = document.getElementById('withdraw-address').value;
+        function withdrawPoints() {
+            const amount = parseFloat(document.getElementById('withdraw-amount').value);
+            const paymentMethod = document.getElementById('payment-method').value;
+            const phoneNumber = document.getElementById('withdraw-phone').value;
+            const totalEarnings = earnedPoints + referralEarnings;
             const withdrawStatus = document.getElementById('withdraw-status');
             
             // Validate inputs
             if (!amount || isNaN(amount)) {
-                playSound('failSound');
-                withdrawStatus.textContent = 'Please enter a valid amount.';
+                withdrawStatus.textContent = 'দয়া করে একটি বৈধ পরিমাণ লিখুন।';
                 withdrawStatus.className = 'error-message';
                 return;
             }
             
-            if (amount < MIN_WITHDRAW_TOKENS) {
-                playSound('failSound');
-                withdrawStatus.textContent = `Minimum withdrawal amount is ${MIN_WITHDRAW_TOKENS} SHIB.`;
+            if (amount < MIN_WITHDRAW_TAKA) {
+                withdrawStatus.textContent = `ন্যূনতম উত্তোলন পরিমাণ ${MIN_WITHDRAW_TAKA} টাকা।`;
                 withdrawStatus.className = 'error-message';
                 return;
             }
             
-            if (amount > userTokens) {
-                playSound('failSound');
-                withdrawStatus.textContent = `Insufficient balance. You have ${userTokens} SHIB.`;
+            if (amount > totalEarnings) {
+                withdrawStatus.textContent = `পর্যাপ্ত ব্যালেন্স নেই। আপনার আছে ${totalEarnings.toFixed(2)} টাকা।`;
                 withdrawStatus.className = 'error-message';
                 return;
             }
             
-            if (!address) {
-                playSound('failSound');
-                withdrawStatus.textContent = 'Please enter your Binance SHIB address.';
+            if (!paymentMethod) {
+                withdrawStatus.textContent = 'দয়া করে একটি পেমেন্ট মাধ্যম নির্বাচন করুন।';
                 withdrawStatus.className = 'error-message';
                 return;
             }
             
-            // Deduct tokens
-            userTokens -= amount;
+            if (!phoneNumber || !/^01[3-9][0-9]{8}$/.test(phoneNumber)) {
+                withdrawStatus.textContent = 'দয়া করে একটি বৈধ বাংলাদেশী মোবাইল নম্বর লিখুন।';
+                withdrawStatus.className = 'error-message';
+                return;
+            }
+            
+            // Calculate points to deduct
+            let remainingAmount = amount;
+            
+            if (referralEarnings > 0) {
+                const referralDeduction = Math.min(referralEarnings, remainingAmount);
+                referralEarnings -= referralDeduction;
+                remainingAmount -= referralDeduction;
+            }
+            
+            if (remainingAmount > 0) {
+                earnedPoints -= remainingAmount;
+                if (earnedPoints < 0) earnedPoints = 0;
+            }
             
             // Save and update UI
             saveUserData();
             updateUI();
             
-            // Add to withdraw history
-            const withdrawRequest = {
-                id: Date.now(),
-                amount: amount,
-                address: address,
-                status: 'pending',
-                timestamp: Date.now(),
-                processingTime: WITHDRAW_PROCESSING_TIME
-            };
-            
-            withdrawHistory.unshift(withdrawRequest);
-            saveUserData();
-            
             // Prepare withdrawal message
-            const message = `📌 New Withdrawal Request 📌\n\n` +
-                             `👤 User ID: ${userId}\n` +
-                             `💰 Amount: ${amount} SHIB\n` +
-                             `📫 Address: ${address}\n\n` +
-                             `📊 Ads Watched: ${watchedAdsCount}\n` +
-                             `👆 Total Taps: ${totalTaps}\n` +
-                             `🎮 Game Earnings: ${gameEarnings} SHIB\n` +
-                             `💵 Total Earned: ${userTokens} SHIB`;
+            const message = `📌 নতুন উত্তোলন অনুরোধ 📌\n\n` +
+                             `👤 ব্যবহারকারী আইডি: ${userId}\n` +
+                             `💰 পরিমাণ: ${amount} টাকা\n` +
+                             `📱 মাধ্যম: ${paymentMethod.toUpperCase()}\n` +
+                             `📞 ফোন: ${phoneNumber}\n\n` +
+                             `📊 দেখা বিজ্ঞাপন: ${watchedAdsCount}\n` +
+                             `👥 আমন্ত্রিত: ${referralCount}\n` +
+                             `💵 মোট আয়: ${totalEarnings.toFixed(2)} টাকা`;
             
             // Send to admin via Telegram
             sendWithdrawRequestToAdmin(message);
             
-            // Play success sound
-            playSound('jumpSound');
-            
             // Show success message
-            withdrawStatus.textContent = 'Withdrawal request submitted successfully! Processing may take up to 2 days.';
+            withdrawStatus.textContent = 'উত্তোলন অনুরোধ সফলভাবে জমা দেওয়া হয়েছে! প্রসেসিং করতে ২৪-৪৮ ঘন্টা সময় লাগতে পারে।';
             withdrawStatus.className = 'success-message';
             
             // Show notification
-            showNotification('Your withdrawal request has been sent!', 'success');
+            showNotification('আপনার উত্তোলন অনুরোধ পাঠানো হয়েছে!', 'success');
             
             // Reset form after 3 seconds
             setTimeout(() => {
                 document.getElementById('withdraw-section').style.display = 'none';
-                loadWithdrawHistory();
             }, 3000);
         }
 
         // Send withdrawal request to admin via Telegram bot
         function sendWithdrawRequestToAdmin(message) {
-            // Create Telegram API URL
+            // Telegram API URL তৈরি করুন
             const apiUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_CHAT_ID}&text=${encodeURIComponent(message)}`;
             
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
                     if (data.ok) {
-                        console.log('Withdrawal request sent to admin');
+                        console.log('উত্তোলন অনুরোধ অ্যাডমিন에게 পাঠানো হয়েছে');
                     } else {
-                        console.error('Could not send withdrawal request:', data);
+                        console.error('উত্তোলন অনুরোধ পাঠানো যায়নি:', data);
                     }
                 })
-                .catch(error => console.error('Error sending message:', error));
+                .catch(error => console.error('মেসেজ পাঠাতে ত্রুটি:', error));
         }
 
         // Show notification
@@ -3085,332 +1149,6 @@
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
-        }
-
-        // Format time function
-        function formatTime(milliseconds) {
-            const days = Math.floor(milliseconds / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((milliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
-            
-            if (days > 0) {
-                return `${days} days ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            } else {
-                return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }
-        }
-
-        // Daily bonus claim function
-        function claimDailyBonus() {
-            // Play click sound
-            playSound('clickSound');
-            
-            const now = Date.now();
-            
-            // If cooldown time hasn't passed yet
-            if (lastBonusClaimTime > 0 && (now - lastBonusClaimTime) < BONUS_COOLDOWN) {
-                playSound('failSound');
-                showNotification('You have already claimed the bonus. Wait for the next bonus.', 'error');
-                return;
-            }
-            
-            // Give bonus
-            userTokens += DAILY_BONUS_TOKENS;
-            lastBonusClaimTime = now;
-            
-            saveUserData();
-            updateUI();
-            updateBonusButton();
-            
-            // Play success sound
-            playSound('jumpSound');
-            
-            // Show coin animation
-            createCoinAnimation();
-            
-            showNotification(`10 SHIB bonus added! Your balance: ${userTokens} SHIB`, 'success');
-            
-            // Notification if enough tokens for withdrawal
-            if (userTokens >= MIN_WITHDRAW_TOKENS) {
-                showNotification(`Congratulations! You have collected ${MIN_WITHDRAW_TOKENS} SHIB tokens for withdrawal.`, 'info');
-            }
-        }
-
-        // Update bonus button
-        function updateBonusButton() {
-            const bonusButton = document.getElementById('daily-bonus-btn');
-            const bonusTimerContainer = document.getElementById('bonus-timer-container');
-            const bonusCountdown = document.getElementById('bonus-countdown');
-            
-            const now = Date.now();
-            const timeSinceLastBonus = lastBonusClaimTime > 0 ? now - lastBonusClaimTime : BONUS_COOLDOWN;
-            const cooldownRemaining = Math.max(0, BONUS_COOLDOWN - timeSinceLastBonus);
-            
-            if (cooldownRemaining > 0) {
-                // Bonus claimed, cooldown in progress
-                bonusButton.disabled = true;
-                bonusButton.textContent = 'Bonus Claimed';
-                bonusTimerContainer.style.display = 'block';
-                bonusCountdown.textContent = formatTime(cooldownRemaining);
-            } else {
-                // Ready to claim bonus
-                bonusButton.disabled = false;
-                bonusButton.innerHTML = '<i class="fas fa-gift"></i> Claim Daily Bonus';
-                bonusTimerContainer.style.display = 'none';
-            }
-        }
-
-        // Initialize chat system
-        function initChatSystem() {
-            currentUser = {
-                id: userId,
-                name: `User ${userId}`
-            };
-            
-            // If no messages in chat, add a welcome message
-            if (chatMessages.length === 0) {
-                addMessage('Support', 'Welcome! How can I help you?', false);
-            }
-        }
-
-        // Toggle chat
-        function toggleChat() {
-            // Play click sound
-            playSound('clickSound');
-            
-            const chatPopup = document.getElementById('chat-popup');
-            chatPopup.classList.toggle('active');
-        }
-
-        // Send message
-        function sendMessage() {
-            // Play click sound
-            playSound('clickSound');
-            
-            const chatInput = document.getElementById('chat-input');
-            const message = chatInput.value.trim();
-            
-            if (message === '') return;
-            
-            // Add message
-            addMessage(currentUser.name, message, true);
-            
-            // Clear input field
-            chatInput.value = '';
-            
-            // Simulate auto reply (optional)
-            setTimeout(() => {
-                const replies = [
-                    'Thank you for your message. We will contact you soon.',
-                    'We are working to solve your problem.',
-                    'How can I help you?',
-                    'We have noted your complaint.'
-                ];
-                const randomReply = replies[Math.floor(Math.random() * replies.length)];
-                addMessage('Support', randomReply, false);
-            }, 2000);
-        }
-
-        // Add message
-        function addMessage(sender, text, isSent) {
-            const message = {
-                id: Date.now(),
-                sender: sender,
-                text: text,
-                time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-                isSent: isSent,
-                reactions: []
-            };
-            
-            chatMessages.push(message);
-            saveUserData();
-            displayChatMessages();
-        }
-
-        // Display chat messages
-        function displayChatMessages() {
-            const chatMessagesContainer = document.getElementById('chat-messages');
-            chatMessagesContainer.innerHTML = '';
-            
-            chatMessages.forEach(message => {
-                const messageElement = document.createElement('div');
-                messageElement.className = `message ${message.isSent ? 'sent' : 'received'}`;
-                
-                messageElement.innerHTML = `
-                    <div class="message-sender">${message.sender}</div>
-                    <div class="message-text">${message.text}</div>
-                    <div class="message-time">${message.time}</div>
-                    <div class="reaction-container">
-                        <button class="reaction" onclick="addReaction(${message.id}, '👍')">👍</button>
-                        <button class="reaction" onclick="addReaction(${message.id}, '❤️')">❤️</button>
-                        <button class="reaction" onclick="addReaction(${message.id}, '😂')">😂</button>
-                    </div>
-                `;
-                
-                chatMessagesContainer.appendChild(messageElement);
-            });
-            
-            // Scroll to bottom
-            chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
-        }
-
-        // Add reaction
-        function addReaction(messageId, reaction) {
-            // Play click sound
-            playSound('clickSound');
-            
-            const message = chatMessages.find(m => m.id === messageId);
-            if (message) {
-                const existingReactionIndex = message.reactions.findIndex(r => r.reaction === reaction && r.userId === currentUser.id);
-                
-                if (existingReactionIndex !== -1) {
-                    // Remove reaction
-                    message.reactions.splice(existingReactionIndex, 1);
-                } else {
-                    // Add reaction
-                    message.reactions.push({
-                        reaction: reaction,
-                        userId: currentUser.id
-                    });
-                }
-                
-                saveUserData();
-                displayChatMessages();
-            }
-        }
-
-        // Send message with Enter key
-        document.getElementById('chat-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-
-        // Start timers
-        function startTimers() {
-            // Update date
-            setInterval(() => {
-                updateCurrentDate();
-            }, 60000); // Update every minute
-            
-            // Link change timer
-            setInterval(() => {
-                updateLinkChangeTimer();
-            }, 1000);
-            
-            // Bonus timer
-            setInterval(() => {
-                updateBonusButton();
-            }, 1000);
-            
-            // Ad limitation timer
-            setInterval(() => {
-                checkAdLimit();
-            }, 1000);
-            
-            // Withdrawal history timer
-            setInterval(() => {
-                updateWithdrawHistoryTimers();
-            }, 1000);
-            
-            // Website visit cooldown timer
-            setInterval(() => {
-                checkWebsiteVisitAvailability();
-            }, 1000);
-        }
-
-        // Update link change timer
-        function updateLinkChangeTimer() {
-            const now = new Date();
-            const nextChange = new Date(now);
-            nextChange.setHours(now.getHours() + 12 - (now.getHours() % 12), 0, 0, 0);
-            
-            const timeRemaining = nextChange - now;
-            document.getElementById('link-change-timer').textContent = formatTime(timeRemaining);
-        }
-
-        // Load withdrawal history
-        function loadWithdrawHistory() {
-            const historyList = document.getElementById('withdraw-history-list');
-            historyList.innerHTML = '';
-            
-            if (withdrawHistory.length === 0) {
-                historyList.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No withdrawal history</p>';
-                return;
-            }
-            
-            withdrawHistory.forEach(withdraw => {
-                const historyItem = document.createElement('div');
-                historyItem.className = 'withdraw-history-item';
-                
-                const timeElapsed = Date.now() - withdraw.timestamp;
-                const timeRemaining = Math.max(0, withdraw.processingTime - timeElapsed);
-                const isPaid = timeRemaining <= 0;
-                
-                // Format date
-                const requestDate = new Date(withdraw.timestamp);
-                const dateString = requestDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-                
-                historyItem.innerHTML = `
-                    <div class="withdraw-history-header">
-                        <div class="withdraw-amount">${withdraw.amount} SHIB</div>
-                        <div class="withdraw-status ${isPaid ? 'status-paid' : 'status-pending'}">
-                            ${isPaid ? 'PAID' : 'PENDING'}
-                        </div>
-                    </div>
-                    <div class="withdraw-details">
-                        Address: ${withdraw.address}
-                    </div>
-                    <div class="withdraw-details">
-                        Date: ${dateString}
-                    </div>
-                    ${!isPaid ? `
-                        <div class="withdraw-timer">
-                            Time until payment: <span id="withdraw-timer-${withdraw.id}">${formatTime(timeRemaining)}</span>
-                        </div>
-                    ` : ''}
-                `;
-                
-                historyList.appendChild(historyItem);
-            });
-        }
-
-        // Update withdrawal history timers
-        function updateWithdrawHistoryTimers() {
-            const now = Date.now();
-            let needsUpdate = false;
-            
-            withdrawHistory.forEach(withdraw => {
-                const timeElapsed = now - withdraw.timestamp;
-                const timeRemaining = Math.max(0, withdraw.processingTime - timeElapsed);
-                const isPaid = timeRemaining <= 0;
-                
-                if (!isPaid && withdraw.status !== 'paid') {
-                    const timerElement = document.getElementById(`withdraw-timer-${withdraw.id}`);
-                    if (timerElement) {
-                        timerElement.textContent = formatTime(timeRemaining);
-                    }
-                    
-                    if (timeRemaining <= 0) {
-                        withdraw.status = 'paid';
-                        needsUpdate = true;
-                    }
-                }
-            });
-            
-            if (needsUpdate) {
-                saveUserData();
-                loadWithdrawHistory();
-            }
-        }
-
-        // Refresh balance
-        function refreshBalance() {
-            // Play click sound
-            playSound('clickSound');
-            
-            showNotification('Balance refreshed!', 'info');
         }
 
         // Initialize the app when page loads
